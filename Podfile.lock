@@ -1,0 +1,28 @@
+PODS:
+  - Hero (1.4.0)
+  - ReactiveSwift (3.0.0):
+    - Result (~> 3.2)
+  - Redux-ReactiveSwift (0.1.2):
+    - ReactiveSwift (= 3.0.0)
+  - Result (3.2.4)
+
+DEPENDENCIES:
+  - Hero
+  - Redux-ReactiveSwift
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Hero
+    - ReactiveSwift
+    - Redux-ReactiveSwift
+    - Result
+
+SPEC CHECKSUMS:
+  Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
+  ReactiveSwift: d9fe0db33c1aaabecb092e8de83cf52875c0de6f
+  Redux-ReactiveSwift: 9af9e3296d9d58b26589cde1bc718295bb394f22
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+
+PODFILE CHECKSUM: 9735b39427ac756b8ef5086744c542ffaf8312d3
+
+COCOAPODS: 1.5.3
