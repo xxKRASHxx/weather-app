@@ -1,28 +1,89 @@
 PODS:
+  - Alamofire (4.8.1)
+  - CollectionKit (2.3.0):
+    - CollectionKit/Core (= 2.3.0)
+  - CollectionKit/Core (2.3.0)
   - Hero (1.4.0)
-  - ReactiveSwift (3.0.0):
-    - Result (~> 3.2)
-  - Redux-ReactiveSwift (0.1.2):
-    - ReactiveSwift (= 3.0.0)
-  - Result (3.2.4)
+  - IDZSwiftCommonCrypto (0.10.0)
+  - Moya (12.0.1):
+    - Moya/Core (= 12.0.1)
+  - Moya/Core (12.0.1):
+    - Alamofire (~> 4.1)
+    - Result (~> 4.0)
+  - Moya/ReactiveSwift (12.0.1):
+    - Moya/Core
+    - ReactiveSwift (~> 4.0)
+  - OAuthSwift (1.2.2)
+  - ReactiveCocoa (8.0.2):
+    - ReactiveSwift (~> 4.0)
+  - ReactiveSwift (4.0.0):
+    - Result (~> 4.0)
+  - Redux-ReactiveSwift (0.2.0):
+    - ReactiveSwift (= 4.0.0)
+  - Result (4.1.0)
+  - SnapKit (4.0.1)
+  - Sourcery (0.15.0)
+  - Swinject (2.5.0)
+  - SwinjectAutoregistration (2.5.1):
+    - Swinject (~> 2.5)
 
 DEPENDENCIES:
+  - CollectionKit
   - Hero
-  - Redux-ReactiveSwift
+  - IDZSwiftCommonCrypto (~> 0.10)
+  - Moya
+  - Moya/ReactiveSwift
+  - OAuthSwift (~> 1.2.0)
+  - ReactiveCocoa (~> 8.0)
+  - ReactiveSwift
+  - "Redux-ReactiveSwift (from `git@github.com:xxKRASHxx/Redux-ReactiveSwift.git`, branch `swift-4.2`)"
+  - SnapKit (~> 4.0.0)
+  - Sourcery (~> 0.15)
+  - Swinject
+  - SwinjectAutoregistration
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - CollectionKit
     - Hero
+    - IDZSwiftCommonCrypto
+    - Moya
+    - OAuthSwift
+    - ReactiveCocoa
     - ReactiveSwift
-    - Redux-ReactiveSwift
     - Result
+    - SnapKit
+    - Sourcery
+    - Swinject
+    - SwinjectAutoregistration
+
+EXTERNAL SOURCES:
+  Redux-ReactiveSwift:
+    :branch: swift-4.2
+    :git: "git@github.com:xxKRASHxx/Redux-ReactiveSwift.git"
+
+CHECKOUT OPTIONS:
+  Redux-ReactiveSwift:
+    :commit: a19ed5ede84c4b99cddb55406d3e487582a95275
+    :git: "git@github.com:xxKRASHxx/Redux-ReactiveSwift.git"
 
 SPEC CHECKSUMS:
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  CollectionKit: 6910479bf865bfe49040e73322ce4b8fe8991231
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
-  ReactiveSwift: d9fe0db33c1aaabecb092e8de83cf52875c0de6f
-  Redux-ReactiveSwift: 9af9e3296d9d58b26589cde1bc718295bb394f22
-  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  IDZSwiftCommonCrypto: 4eef2c46e262dfbcbc1fd76365e066336680ad7d
+  Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  OAuthSwift: 27b34fe80b76b67cd8f45571e0be2432bc9f6de1
+  ReactiveCocoa: fbd26e9ba60e98417ee47433e59465a98ed9da0f
+  ReactiveSwift: a2bb9ace428a109e9c0209615645d9d286c8c433
+  Redux-ReactiveSwift: 26e847f0db90d826f83b77e5cfad0aeba9b44a0e
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  Sourcery: 5895672cae353cdbfa95f3f4aaeb75a664d76f6a
+  Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
+  SwinjectAutoregistration: f72bf894cbd2ee4a9153e00fa5208e93fb44d283
 
-PODFILE CHECKSUM: 9735b39427ac756b8ef5086744c542ffaf8312d3
+PODFILE CHECKSUM: 8f1bbb11b88bd67bd7e48ea0993c3b7c1f02c8ac
 
 COCOAPODS: 1.5.3
