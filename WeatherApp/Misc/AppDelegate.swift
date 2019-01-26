@@ -38,10 +38,6 @@ private extension AppDelegate {
     let _ = AppStore.shared
     let _ = LocationService.shared
     let _ = WeatherService.shared
-    
-    
-    WeatherService.shared.weatherAPI.search(city: "khar")
-      .start { (searchResult) in print(searchResult) }
   }
   
   func setupLogging() {

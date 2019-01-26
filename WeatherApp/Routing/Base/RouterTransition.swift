@@ -4,6 +4,8 @@ enum RouteType {
   case root
   case permissions
   case citiesList
+  case search
+  case dismiss
 }
 
 protocol Animator: UIViewControllerAnimatedTransitioning {

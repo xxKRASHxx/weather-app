@@ -4,6 +4,7 @@ import Swinject
 
 protocol WeatherAPIServiceProtocol {
   func weatherData(for location: Location) -> SignalProducer<Response.Forecast, AnyError>
+  func weatherData(for cityWoeid: Int) -> SignalProducer<Response.Forecast, AnyError>
   func search(city named: String) -> SignalProducer<[Response.SearchResult], AnyError>
 }
 

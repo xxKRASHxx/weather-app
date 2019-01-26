@@ -14,6 +14,7 @@ enum Response {
       let lat: Double
       let city: String
       let country: String
+      let woeid: Int
     }
     
     let current: Main; struct Main: Decodable {

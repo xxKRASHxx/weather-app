@@ -1,4 +1,4 @@
-struct SearchResult: Decodable {
+struct SearchResult: Codable, Equatable {
   let id: Int
   let location: Location
   let city: String

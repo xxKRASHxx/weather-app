@@ -5,7 +5,7 @@ import Result
 
 class Screen: UIViewController, ViewModelConnectable {
   
-  private(set) var _viewModel: BaseViewModel?
+  private(set) var _viewModel: BaseViewModelProtocol?
   
   convenience init() {
     self.init(nibName: nil, bundle: nil)
@@ -26,7 +26,7 @@ class Screen: UIViewController, ViewModelConnectable {
   }
   
   @discardableResult
-  func connectViewModel(_ viewModel: BaseViewModel?) -> Disposable {
+  func connectViewModel(_ viewModel: BaseViewModelProtocol?) -> Disposable {
     let disposableBag = CompositeDisposable()
     _viewModel = viewModel
     return disposableBag

@@ -18,7 +18,7 @@ class ScreenRouter {
     viewModelRouter.uiRouteSignal.observeValues(self.perform)
   }
   
-  private func perform(route: (route: RouteType, viewModel: BaseViewModel?)) {
+  private func perform(route: (route: RouteType, viewModel: BaseViewModelProtocol?)) {
     switch route.route {
     case .root:
       TypeDispatcher.value(window?.rootViewController)
@@ -41,6 +41,18 @@ class ScreenRouter {
           controller.connectViewModel(route.viewModel)
           navigation.setViewControllers([controller], animated: false)
       }
+    case .search:
+      TypeDispatcher.value(window?.rootViewController)
+        .dispatch { (navigation: UINavigationController) in
+          let controller = screenFactory.createSearchScreen()
+          controller.connectViewModel(route.viewModel)
+          navigation.present(UINavigationController(rootViewController: controller), animated: true)
+      }
+    case .dismiss:
+      TypeDispatcher.value(window?.rootViewController)
+        .dispatch { (navigation: UINavigationController) in
+          navigation.presentedViewController?.dismiss(animated: true, completion: nil)
+        }
     }
   }
 }

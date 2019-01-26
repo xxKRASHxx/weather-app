@@ -2,7 +2,8 @@ import UIKit
 
 protocol ViewModelFactoryProtocol {
   
-  func rootViewModel() -> RootScreenViewModel
-  func permissionsViewModel() -> PermissionsViewModel
-  func citiesListViewModel() -> CitiesListViewModel
+  func rootViewModel() -> RootScreenViewModelProtocol
+  func permissionsViewModel() -> PermissionsViewModelProtocol
+  func citiesListViewModel() -> CitiesListViewModelProtocol
+  func searchViewModel() -> SearchViewModelProtocol
 }

@@ -1,15 +1,19 @@
 class ViewModelFactory: ViewModelFactoryProtocol {
   
-  func rootViewModel() -> RootScreenViewModel {
+  func rootViewModel() -> RootScreenViewModelProtocol {
     return RootScreenViewModel()
   }
   
-  func permissionsViewModel() -> PermissionsViewModel {
+  func permissionsViewModel() -> PermissionsViewModelProtocol {
     return PermissionsViewModel()
   }
   
-  func citiesListViewModel() -> CitiesListViewModel {
+  func citiesListViewModel() -> CitiesListViewModelProtocol {
     return CitiesListViewModel()
+  }
+  
+  func searchViewModel() -> SearchViewModelProtocol {
+    return SearchViewModel()
   }
 }
 

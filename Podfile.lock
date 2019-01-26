@@ -4,7 +4,6 @@ PODS:
     - CollectionKit/Core (= 2.3.0)
   - CollectionKit/Core (2.3.0)
   - Hero (1.4.0)
-  - IDZSwiftCommonCrypto (0.10.0)
   - Moya (12.0.1):
     - Moya/Core (= 12.0.1)
   - Moya/Core (12.0.1):
@@ -26,11 +25,11 @@ PODS:
   - Swinject (2.5.0)
   - SwinjectAutoregistration (2.5.1):
     - Swinject (~> 2.5)
+  - TableKit (2.8.1)
 
 DEPENDENCIES:
   - CollectionKit
   - Hero
-  - IDZSwiftCommonCrypto (~> 0.10)
   - Moya
   - Moya/ReactiveSwift
   - OAuthSwift (~> 1.2.0)
@@ -41,13 +40,13 @@ DEPENDENCIES:
   - Sourcery (~> 0.15)
   - Swinject
   - SwinjectAutoregistration
+  - TableKit (~> 2.8)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - CollectionKit
     - Hero
-    - IDZSwiftCommonCrypto
     - Moya
     - OAuthSwift
     - ReactiveCocoa
@@ -57,6 +56,7 @@ SPEC REPOS:
     - Sourcery
     - Swinject
     - SwinjectAutoregistration
+    - TableKit
 
 EXTERNAL SOURCES:
   Redux-ReactiveSwift:
@@ -72,7 +72,6 @@ SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   CollectionKit: 6910479bf865bfe49040e73322ce4b8fe8991231
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
-  IDZSwiftCommonCrypto: 4eef2c46e262dfbcbc1fd76365e066336680ad7d
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   OAuthSwift: 27b34fe80b76b67cd8f45571e0be2432bc9f6de1
   ReactiveCocoa: fbd26e9ba60e98417ee47433e59465a98ed9da0f
@@ -83,7 +82,8 @@ SPEC CHECKSUMS:
   Sourcery: 5895672cae353cdbfa95f3f4aaeb75a664d76f6a
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
   SwinjectAutoregistration: f72bf894cbd2ee4a9153e00fa5208e93fb44d283
+  TableKit: 18a0049dea981c1106409bdeebc763ef74d36f02
 
-PODFILE CHECKSUM: 8f1bbb11b88bd67bd7e48ea0993c3b7c1f02c8ac
+PODFILE CHECKSUM: 8a2e42bba8b4d4e2c7cc0c3ea46011449fa3ca74
 
 COCOAPODS: 1.5.3
