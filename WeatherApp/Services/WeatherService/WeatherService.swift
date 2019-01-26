@@ -49,40 +49,45 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
   
   @discardableResult private func observeSelectedLocations() -> Disposable {
     
-    let unhandled: (([Int : WeatherRequestState]) -> [Int]) = { locations in locations
+    let unhandled: (([AppWeather.WoeID : WeatherRequestState]) -> [Int]) = { locations in locations
       .filter { (_, value) in value == .selected }
-      .map { (key, _) in key }
+      .compactMap { (key, _) in key.id }
     }
     
     return store.producer
-      .map(\AppState.weather.allLocations)
+      .map(\AppState.weather.locationsMap)
       .map(unhandled)
       .flatMap(.latest, SignalProducer<Int, NoError>.init)
       .flatMap(.latest, weatherAPI.weatherData)
       .map(Weather.fromDTO)
-      .startWithResult { result in
-        switch result {
-        case let .failure(_): break
-        case let .success(result):
-          self.store.consume(event:
-            DidUpdateLocationWeather(
-              woeid: result.location.woeid,
-              timeStamp: Date().timeIntervalSince1970,
-              result: .init(value: result) )
-          )
-        }
-    }
+      .flatMapError { _ in .never }
+      .map(fromWeatherResponse)
+      .startWithValues(store.consume)
+  }
+}
+
+private typealias Mapping = WeatherService
+private extension Mapping {
+  func fromWeatherResponse(_ model: Weather) -> AppEvent {
+    return DidUpdateWeather(
+      timeStamp: Date().timeIntervalSince1970,
+      id: .searched(value: model.location.woeid),
+      result: .init(value: model)
+    )
   }
 }
 
 private extension WeatherService {
   func fetchCurrentWeather(in location: Location) {
-    store.consume(event: BeginUpdateWeather() )
-    weatherAPI.weatherData(for: location).startWithResult { result in
-      self.store.consume(event: DidUpdateWeather(
-        timeStamp: Date().timeIntervalSince1970,
-        result: result.map(Weather.fromDTO)
-      ))
+    store.consume(event: BeginUpdateWeather(id: .current) )
+    weatherAPI.weatherData(for: location)
+      .map(Weather.fromDTO)
+      .startWithResult { result in
+        self.store.consume(event: DidUpdateWeather(
+          timeStamp: Date().timeIntervalSince1970,
+          id: .current,
+          result: result
+        ))
     }
   }
 }

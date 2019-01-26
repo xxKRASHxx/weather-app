@@ -2,9 +2,19 @@ import Redux_ReactiveSwift
 import Result
 
 struct AppWeather: Encodable, Equatable {
-  let currentLocation: WeatherRequestState
-  let selectedLocations: [Int]
-  let allLocations: [Int: WeatherRequestState]
+  
+  enum WoeID: AutoCodable, Equatable, Hashable {
+    case current
+    case searched(value: Int)
+    
+    var id: Int? {
+      guard case let .searched(id) = self else { return nil }
+      return id
+    }
+  }
+  
+  var locations: Set<WoeID>
+  let locationsMap: [WoeID: WeatherRequestState]
 }
 
 enum WeatherRequestState: AutoEncodable, Equatable {
@@ -16,44 +26,65 @@ enum WeatherRequestState: AutoEncodable, Equatable {
 
 extension AppWeather: Defaultable {
   static var defaultValue = AppWeather(
-    currentLocation: .selected,
-    selectedLocations: [],
-    allLocations: [:]
+    locations: [.current],
+    locationsMap: [:]
   )
 }
 
 extension AppWeather {
   static func reudce(_ state: AppWeather, _ event: AppEvent) -> AppWeather {
     switch event {
-    case is BeginUpdateWeather:
+    case let event as BeginUpdateWeather:
       return AppWeather(
-        currentLocation: .updating,
-        selectedLocations: state.selectedLocations,
-        allLocations: state.allLocations
+        locations: execute {
+          var locations = state.locations
+          locations.insert(event.id)
+          return locations
+        },
+        locationsMap: execute {
+          var locationsMap = state.locationsMap
+          locationsMap[event.id] = .updating
+          return locationsMap
+        }
       )
+      
     case let event as DidUpdateWeather:
       return AppWeather(
-        currentLocation: event.result.analysis(
-          ifSuccess: { .success(current: $0) },
-          ifFailure: { .error(value: $0) }),
-      selectedLocations: state.selectedLocations,
-      allLocations: state.allLocations)
+        locations: state.locations,
+        locationsMap: execute {
+          var locationsMap = state.locationsMap
+          locationsMap[event.id] = event.result.analysis(
+            ifSuccess: { .success(current: $0) },
+            ifFailure: { .error(value: $0) })
+          return locationsMap
+        }
+      )
     case let event as SelectLocation:
-      var locations = state.allLocations
-      locations[event.id] = .selected
       return AppWeather(
-        currentLocation: state.currentLocation,
-        selectedLocations: state.selectedLocations + [event.id],
-        allLocations: locations)
+        locations: execute {
+          var locations = state.locations
+          locations.insert(.searched(value: event.id))
+          return locations
+        },
+        locationsMap: execute {
+          var locationsMap = state.locationsMap
+          locationsMap[.searched(value: event.id)] = .selected
+          return locationsMap
+        }
+      )
     case let event as DeselectLocations:
-      var locations = state.allLocations
-      locations[event.id] = .none
-      var selectedLocations = state.selectedLocations
-      selectedLocations.removeAll { $0 == event.id }
       return AppWeather(
-        currentLocation: state.currentLocation,
-        selectedLocations: selectedLocations,
-        allLocations: locations)
+        locations: execute {
+          var locations = state.locations
+          locations.remove(.searched(value: event.id))
+          return locations
+        },
+        locationsMap: execute {
+          var locationsMap = state.locationsMap
+          locationsMap[.searched(value: event.id)] = .none
+          return locationsMap
+        }
+      )
     default: return state
     }
   }
