@@ -20,25 +20,11 @@ class RootScreen: Screen {
 }
 
 extension RootScreen: ScreenProtocol {
-  var viewHierarchy: ViewHierarchyProtocol? {
-    return nil
-  }
-  
-  var layout: LayoutProtocol? {
-    return nil
-  }
-  
-  var style: StyleProtocol? {
-    return nil
-  }
-  
-  var content: ContentProtocol? {
-    return nil
-  }
-  
-  var observing: ObservingProtocol? {
-    return Observing { self }
-  }
+  var viewHierarchy: ViewHierarchyProtocol? { return nil }
+  var layout: LayoutProtocol? { return nil }
+  var style: StyleProtocol? { return nil }
+  var content: ContentProtocol? { return nil }
+  var observing: ObservingProtocol? { return Observing { self } }
   
   class Observing: Mixin<RootScreen>, ObservingProtocol {
     func setupObserving() {

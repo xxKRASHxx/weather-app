@@ -26,7 +26,7 @@ extension CitiesListScreen: ScreenProtocol {
   var viewHierarchy: ViewHierarchyProtocol? { return nil }
   var layout: LayoutProtocol? { return nil }
   var style: StyleProtocol? { return Style { self } }
-  var content: ContentProtocol? { return nil }
+  var content: ContentProtocol? { return Content { self } }
   var observing: ObservingProtocol? { return Observing { self } }
   
   class Content: Mixin<CitiesListScreen>, ContentProtocol {
@@ -46,6 +46,8 @@ extension CitiesListScreen: ScreenProtocol {
           .map { weather in weather.map { [$0] } ?? [] }
           .map { array in ArrayDataSource<Weather>(data: array) }
           .flatMapError { _ in .empty }
+      
+      base.navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(base.viewModel.openSearch)
     }
   }
   

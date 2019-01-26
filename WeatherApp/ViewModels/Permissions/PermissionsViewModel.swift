@@ -2,7 +2,7 @@ import Foundation
 import ReactiveSwift
 import Result
 
-protocol PermissionsViewModelProtocol {
+protocol PermissionsViewModelProtocol: BaseViewModelProtocol {
   var skip: Action<(), (), NoError> { get }
   var allowLocationUsage: Action<(), (), NoError> { get }
 }

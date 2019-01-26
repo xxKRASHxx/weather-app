@@ -16,4 +16,8 @@ class ScreenFactory: ScreenFactoryProtocol {
   func createCitiesListScreen() -> CitiesListScreen {
     return CitiesListScreen()
   }
+  
+  func createSearchScreen() -> SearchScreen {
+    return SearchScreen()
+  }
 }

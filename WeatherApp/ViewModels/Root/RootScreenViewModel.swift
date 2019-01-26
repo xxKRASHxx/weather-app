@@ -1,7 +1,7 @@
 import ReactiveSwift
 import Result
 
-protocol RootScreenViewModelProtocol {
+protocol RootScreenViewModelProtocol: BaseViewModelProtocol {
   var log: SignalProducer<String?, NoError> { get }
 }
 
