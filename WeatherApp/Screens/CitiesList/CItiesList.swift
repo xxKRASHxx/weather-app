@@ -42,8 +42,7 @@ extension CitiesListScreen: ScreenProtocol {
   class Observing: Mixin<CitiesListScreen>, ObservingProtocol {
     func setupObserving() {
       base.collectionView.reactive.arrayDataSource(Weather.self, view: RoundedWrapperView<UILabel>.self)
-        <~ base.viewModel.current
-          .map { weather in weather.map { [$0] } ?? [] }
+        <~ base.viewModel.locations
           .map { array in ArrayDataSource<Weather>(data: array) }
           .flatMapError { _ in .empty }
       

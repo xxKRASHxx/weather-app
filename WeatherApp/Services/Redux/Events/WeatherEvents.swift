@@ -1,15 +1,12 @@
 import Foundation
 import Result
 
-struct BeginUpdateWeather: AppEvent {}
+struct BeginUpdateWeather: AppEvent {
+  let id: AppWeather.WoeID
+}
 
 struct DidUpdateWeather: AppEvent {
   let timeStamp: TimeInterval
-  let result: Result<Weather, AnyError>
-}
-
-struct DidUpdateLocationWeather: AppEvent {
-  let woeid: Int
-  let timeStamp: TimeInterval
+  let id: AppWeather.WoeID
   let result: Result<Weather, AnyError>
 }

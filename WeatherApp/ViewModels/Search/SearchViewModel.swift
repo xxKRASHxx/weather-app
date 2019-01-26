@@ -57,7 +57,10 @@ private extension ProdicerActions {
 private typealias Mapping = SearchViewModel
 private extension Mapping {
   func skipAlreadySelected(result: SearchResult) -> Bool {
-    return self.store.value.weather.selectedLocations.contains(result.id) == false
+    return store.value.weather.locations
+      .compactMap { $0.id }
+      .contains(result.id)
+      == false
   }
   
   func makeCellViewModel(from model: SearchResult) -> SearchResultViewModel {
