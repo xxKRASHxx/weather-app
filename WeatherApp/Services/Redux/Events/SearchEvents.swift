@@ -1,6 +1,8 @@
 import Foundation
 import Result
 
+struct CancelSearch: AppEvent {}
+
 struct BeginSearching: AppEvent {
   let text: String
 }

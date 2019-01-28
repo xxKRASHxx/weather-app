@@ -41,17 +41,10 @@ private extension ProdicerActions {
   }
   
   func backProducer() -> SignalProducer<(), NoError> {
+    store.consume(event: CancelSearch())
     router.perform(route: .dismiss)
     return .empty
   }
-  
-//  func selectProducer(id: Int) -> () -> SignalProducer<(), NoError> {
-//    return {
-//      self.router.perform(route: .dismiss)
-//      self.store.consume(event: SelectLocation(id: id))
-//      return .empty
-//    }
-//  }
 }
 
 private typealias Mapping = SearchViewModel

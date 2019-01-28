@@ -19,6 +19,7 @@ class ViewModelRouter: ViewModelRouterProtocol {
     case .permissions: viewModel = factory.permissionsViewModel()
     case .citiesList: viewModel = factory.citiesListViewModel()
     case .search: viewModel = factory.searchViewModel()
+    case let .forecast(woeid): viewModel = factory.createForecastViewModel(with: woeid)
     case .dismiss: viewModel = nil
     }
     uiRouteObserver.send(value: (route: route, viewModel: viewModel))

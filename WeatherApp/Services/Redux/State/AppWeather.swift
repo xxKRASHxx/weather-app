@@ -22,6 +22,11 @@ enum WeatherRequestState: AutoEncodable, Equatable {
   case updating
   case success(current: Weather)
   case error(value: AnyError)
+  
+  var weather: Weather? {
+    guard case let .success(weather) = self else { return nil }
+    return weather
+  }
 }
 
 extension AppWeather: Defaultable {

@@ -13,26 +13,40 @@ class SearchScreen: Screen {
   }
   
   override func loadView() {
-    view = UITableView(frame: .zero, style: .plain)
+    view = blurEffectView
   }
   
-  var tableView: UITableView {
-    return view as! UITableView
-  }
+  let tableView = UITableView(frame: .zero, style: .plain)
+  let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
   
   lazy var director = TableDirector(tableView: tableView)
 }
 
 extension SearchScreen: ScreenProtocol {
-  var viewHierarchy: ViewHierarchyProtocol? { return nil }
-  var layout: LayoutProtocol? { return nil }
-  var style: StyleProtocol? { return nil }
+  var viewHierarchy: ViewHierarchyProtocol? { return ViewHierarchy { self } }
+  var layout: LayoutProtocol? { return Layout { self } }
+  var style: StyleProtocol? { return Style { self } }
   var content: ContentProtocol? { return Content { self } }
   var observing: ObservingProtocol? { return Observing { self } }
   
+  class ViewHierarchy: Mixin<SearchScreen>, ViewHierarchyProtocol {
+    func setupViewHierarchy() {
+      base.blurEffectView.contentView.addSubview(base.tableView)
+    }
+  }
+  
+  class Layout: Mixin<SearchScreen>, LayoutProtocol {
+    func setupLayout() {
+      base.tableView.snp.makeConstraints { make in
+        make.edges.equalToSuperview()
+      }
+    }
+  }
+  
   class Style: Mixin<SearchScreen>, StyleProtocol {
     func setupStyle() {
-      
+      base.tableView.backgroundColor = .clear
+      base.tableView.keyboardDismissMode = .interactive
     }
   }
   
