@@ -97,4 +97,9 @@ extension AppLocation.DeviceLocation {
     guard case .success = self else { return false }
     return true
   }
+  
+  var location: Location? {
+    guard case let .success(location, _) = self else { return nil }
+    return location
+  }
 }
