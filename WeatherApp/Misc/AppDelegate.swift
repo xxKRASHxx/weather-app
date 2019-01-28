@@ -38,6 +38,7 @@ private extension AppDelegate {
     let _ = AppStore.shared
     let _ = LocationService.shared
     let _ = WeatherService.shared
+    let _ = StorageService.shared
   }
   
   func setupLogging() {

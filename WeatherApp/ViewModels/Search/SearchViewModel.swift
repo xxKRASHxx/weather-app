@@ -45,13 +45,13 @@ private extension ProdicerActions {
     return .empty
   }
   
-  func selectProducer(id: Int) -> () -> SignalProducer<(), NoError> {
-    return {
-      self.router.perform(route: .dismiss)
-      self.store.consume(event: SelectLocation(id: id))
-      return .empty
-    }
-  }
+//  func selectProducer(id: Int) -> () -> SignalProducer<(), NoError> {
+//    return {
+//      self.router.perform(route: .dismiss)
+//      self.store.consume(event: SelectLocation(id: id))
+//      return .empty
+//    }
+//  }
 }
 
 private typealias Mapping = SearchViewModel
@@ -66,7 +66,11 @@ private extension Mapping {
   func makeCellViewModel(from model: SearchResult) -> SearchResultViewModel {
     return SearchResultViewModel(
       searchResult: model,
-      select: Action(execute: self.selectProducer(id: model.id))
+      select: Action {
+        self.router.perform(route: .dismiss)
+        self.store.consume(event: SelectLocation(id: model.id))
+        return .empty
+      }
     )
   }
 }
