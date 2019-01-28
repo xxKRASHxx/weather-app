@@ -62,8 +62,6 @@ extension CitiesListScreen: ScreenProtocol {
     
     let viewSource = ClosureViewSource { (view: RoundedWrapperView<UILabel>, weather: Weather, _) in
       view.base.backgroundColor = .white
-      view.base.layer.cornerRadius = 3.0
-      view.base.layer.masksToBounds = true
       view.base.numberOfLines = 0
       view.base.text = String(describing: weather)
     }

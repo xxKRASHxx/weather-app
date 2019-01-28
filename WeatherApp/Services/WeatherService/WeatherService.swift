@@ -40,6 +40,7 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .throttle(0.3, on: QueueScheduler.main)
       .flatMap(.latest, weatherAPI.search)
       .map { $0.map(SearchResult.fromDTO) }
+      .observe(on: QueueScheduler.main)
       .startWithResult(weakify(WeatherService.consumeSearchResult, object: self))
   }
   
@@ -58,6 +59,7 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .map(Weather.fromDTO)
       .map(fromWeatherResponse)
       .flatMapError(fromWeatherError)
+      .observe(on: QueueScheduler.main)
       .startWithValues(store.consume)
   }
 }
@@ -87,6 +89,7 @@ private extension WeatherService {
     store.consume(event: BeginUpdateWeather(id: .current) )
     weatherAPI.weatherData(for: location)
       .map(Weather.fromDTO)
+      .observe(on: QueueScheduler.main)
       .startWithResult(weakify(WeatherService.consumeCurrentWeather, object: self))
   }
   

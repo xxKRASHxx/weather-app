@@ -72,6 +72,27 @@ extension AppWeather {
           return locationsMap
         }
       )
+    case let event as DidRetrieveSelectedIDs:
+      return AppWeather(
+        locations: execute {
+          var locations = state.locations
+          event.selected
+            .map { .searched(value: $0) }
+            .forEach { woeid in
+              locations.insert(woeid)
+            }
+          return locations
+        },
+        locationsMap: execute {
+          var locationsMap = state.locationsMap
+          event.selected
+            .map { .searched(value: $0) }
+            .forEach { woeid in
+              locationsMap[woeid] = .selected
+            }
+          return locationsMap
+        }
+      )
     case let event as DeselectLocations:
       return AppWeather(
         locations: execute {

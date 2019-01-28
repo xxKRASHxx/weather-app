@@ -5,13 +5,15 @@ struct AppState: Encodable {
   let location: AppLocation
   let weather: AppWeather
   let searching: AppSearch
+  let sync: AppSync
 }
 
 extension AppState: Defaultable {
   static var defaultValue = AppState(
     location: .defaultValue,
     weather: .defaultValue,
-    searching: .defaultValue)
+    searching: .defaultValue,
+    sync: .defaultValue)
 }
 
 extension AppState {
@@ -19,7 +21,8 @@ extension AppState {
     return AppState(
       location: AppLocation.reudce(state.location, event),
       weather: AppWeather.reudce(state.weather, event),
-      searching: AppSearch.reudce(state.searching, event)
+      searching: AppSearch.reudce(state.searching, event),
+      sync: AppSync.reduce(state.sync, event)
     )
   }
   
@@ -27,7 +30,8 @@ extension AppState {
     return AppState(
       location: AppLocation.trottleLocationUpdates(state.location, event),
       weather: state.weather,
-      searching: state.searching
+      searching: state.searching,
+      sync: state.sync
     )
   }
 }

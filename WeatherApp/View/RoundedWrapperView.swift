@@ -24,7 +24,8 @@ class RoundedWrapperView<Base: UIView>: UIView {
   required init?(coder aDecoder: NSCoder) { fatalError() }
   override init(frame: CGRect) {
     super.init(frame: frame)
-    base.layer.cornerRadius = 16
+    base.layer.cornerRadius = 12
+    base.layer.masksToBounds = true
     layer.shadowColor = UIColor.black.cgColor
     layer.shadowRadius = 12
     layer.shadowOpacity = 0.15
