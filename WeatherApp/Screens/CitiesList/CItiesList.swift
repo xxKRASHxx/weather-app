@@ -3,6 +3,7 @@ import CollectionKit
 import ReactiveCocoa
 import ReactiveSwift
 import Result
+import Hero
 
 class CitiesListScreen: Screen {
   
@@ -19,6 +20,8 @@ class CitiesListScreen: Screen {
   var collectionView: CollectionView {
     return view as! CollectionView
   }
+  
+  fileprivate(set) var selectedView: UIView? = nil
 }
 
 extension CitiesListScreen: ScreenProtocol {
@@ -32,44 +35,52 @@ extension CitiesListScreen: ScreenProtocol {
   class Content: Mixin<CitiesListScreen>, ContentProtocol {
     func setupContent() {
       base.navigationItem.rightBarButtonItem = UIBarButtonItem(
-        title: "Add",
-        style: .plain,
-        target: nil,
-        action: nil)
+        barButtonSystemItem: .add, target: nil, action: nil)
     }
   }
   
   class Observing: Mixin<CitiesListScreen>, ObservingProtocol {
     func setupObserving() {
-      base.collectionView.reactive.arrayDataSource(Weather.self, view: RoundedWrapperView<UILabel>.self)
+      base.collectionView.reactive.arrayDataSource(WeatherViewModel.self, view: RoundedWrapperView<UILabel>.self)
         <~ base.viewModel.locations
-          .map { array in ArrayDataSource<Weather>(data: array) }
+          .map { array in ArrayDataSource<WeatherViewModel>(data: array) }
           .flatMapError { _ in .empty }
       
       base.navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(base.viewModel.openSearch)
+      
+      (base.collectionView.provider as? BasicProvider<WeatherViewModel, RoundedWrapperView<UILabel>>)?
+        .tapHandler = selectForecast
+    }
+    
+    func selectForecast(_ context: BasicProvider<WeatherViewModel, RoundedWrapperView<UILabel>>.TapContext) {
+      base.selectedView = context.view.base as UIView
+      context.dataSource.data(at: context.index)
+        .select.apply().start()
     }
   }
   
   class Style: Mixin<CitiesListScreen>, StyleProtocol {
     func setupStyle() {
       base.view.backgroundColor = .white
+      base.collectionView.alwaysBounceVertical = true
       base.collectionView.provider = BasicProvider(
-        dataSource: ArrayDataSource<Weather>(data: []),
+        dataSource: ArrayDataSource<WeatherViewModel>(data: []),
         viewSource: viewSource,
         sizeSource: sizeSource,
         layout: flowLayout)
     }
     
-    let viewSource = ClosureViewSource { (view: RoundedWrapperView<UILabel>, weather: Weather, _) in
-      view.base.backgroundColor = .white
+    let viewSource = ClosureViewSource { (view: RoundedWrapperView<UILabel>, model: WeatherViewModel, _) in
+      view.base.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
       view.base.numberOfLines = 0
-      view.base.text = String(describing: weather)
+      view.base.text = String(describing: model.weather)
     }
     
-    let sizeSource = { (i: Int, weather: Weather, size: CGSize) -> CGSize in
-      return CGSize(
-        width: size.width * 3/4,
-        height: size.width * 3/4
+    let sizeSource = { (i: Int, weather: WeatherViewModel, size: CGSize) -> CGSize in
+      let side = (64...240).clamp(size.width)
+      return  CGSize(
+        width: side,
+        height: side
       )
     }
     
@@ -78,5 +89,13 @@ extension CitiesListScreen: ScreenProtocol {
       justifyContent: .spaceAround,
       alignItems: .center
       ).inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+  }
+}
+
+extension ClosedRange {
+  func clamp(_ value : Bound) -> Bound {
+    return self.lowerBound > value ? self.lowerBound
+      : self.upperBound < value ? self.upperBound
+      : value
   }
 }

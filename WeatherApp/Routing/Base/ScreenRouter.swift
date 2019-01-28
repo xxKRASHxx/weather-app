@@ -1,11 +1,16 @@
 import UIKit
 import Swinject
+import Hero
 
 class ScreenRouter {
   
   private weak var window: UIWindow?
   private let viewModelRouter: ViewModelRouterProtocol = Container.current.resolve(ViewModelRouterProtocol.self)!
   private let screenFactory: ScreenFactoryProtocol = Container.current.resolve(ScreenFactoryProtocol.self)!
+  
+  var navigationController: UINavigationController {
+    return window!.rootViewController as! UINavigationController
+  }
   
   init(window: UIWindow) {
     self.window = window
@@ -21,38 +26,56 @@ class ScreenRouter {
   private func perform(route: (route: RouteType, viewModel: BaseViewModelProtocol?)) {
     switch route.route {
     case .root:
-      TypeDispatcher.value(window?.rootViewController)
-        .dispatch { (navigation: UINavigationController) in
-          let controller = screenFactory.createRootScreen()
-          controller.connectViewModel(route.viewModel)
-          navigation.setViewControllers([controller], animated: false)
-        }
+      let controller = screenFactory.createRootScreen()
+      controller.connectViewModel(route.viewModel)
+      navigationController.setViewControllers([controller], animated: false)
     case .permissions:
-      TypeDispatcher.value(window?.rootViewController)
-        .dispatch { (navigation: UINavigationController) in
-          let controller = screenFactory.createPermissionsScreen()
-          controller.connectViewModel(route.viewModel)
-          navigation.setViewControllers([controller], animated: false)
-      }
+      let controller = screenFactory.createPermissionsScreen()
+      controller.connectViewModel(route.viewModel)
+      navigationController.setViewControllers([controller], animated: false)
     case .citiesList:
-      TypeDispatcher.value(window?.rootViewController)
-        .dispatch { (navigation: UINavigationController) in
-          let controller = screenFactory.createCitiesListScreen()
-          controller.connectViewModel(route.viewModel)
-          navigation.setViewControllers([controller], animated: false)
-      }
+      let controller = screenFactory.createCitiesListScreen()
+      controller.connectViewModel(route.viewModel)
+      navigationController.setViewControllers([controller], animated: false)
     case .search:
-      TypeDispatcher.value(window?.rootViewController)
-        .dispatch { (navigation: UINavigationController) in
-          let controller = screenFactory.createSearchScreen()
-          controller.connectViewModel(route.viewModel)
-          navigation.present(UINavigationController(rootViewController: controller), animated: true)
+      let controller = screenFactory.createSearchScreen()
+      controller.connectViewModel(route.viewModel)
+      let navigation = UINavigationController(rootViewController: controller)
+      navigation.modalPresentationStyle = .overCurrentContext
+      navigationController.present(navigation, animated: true)
+    case .forecast:
+      let controller = screenFactory.createForecastScreen()
+      controller.connectViewModel(route.viewModel)
+      
+      let titleID = UUID().uuidString
+      if let source = navigationController.viewControllers.last as? CitiesListScreen {
+        source.selectedView?.hero.id = titleID
+        source.selectedView?.hero.modifiers = [.spring(stiffness: 250, damping: 25)]
       }
+      controller.hero.isEnabled = true
+      controller.hero.modalAnimationType = .none
+      controller.titleLabel.hero.id = titleID
+      controller.titleLabel.hero.modifiers = [
+        .spring(stiffness: 250, damping: 25),
+        .source(heroID: titleID),
+      ]
+      controller.tableView.hero.id = titleID
+      controller.tableView.hero.modifiers = [
+        .spring(stiffness: 250, damping: 25),
+        .source(heroID: titleID)
+      ]
+      controller.closeButton.hero.modifiers = [
+        .fade,
+        .delay(0.3),
+        .zPosition(1)
+      ]
+      
+      navigationController.present(controller, animated: true, completion: {
+        controller.hero.modalAnimationType = .fade
+      })
+      
     case .dismiss:
-      TypeDispatcher.value(window?.rootViewController)
-        .dispatch { (navigation: UINavigationController) in
-          navigation.presentedViewController?.dismiss(animated: true, completion: nil)
-        }
+      navigationController.presentedViewController?.dismiss(animated: true, completion: nil)
     }
   }
 }

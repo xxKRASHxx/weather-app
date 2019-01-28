@@ -20,4 +20,8 @@ class ScreenFactory: ScreenFactoryProtocol {
   func createSearchScreen() -> SearchScreen {
     return SearchScreen()
   }
+  
+  func createForecastScreen() -> ForecastScreen {
+    return ForecastScreen()
+  }
 }

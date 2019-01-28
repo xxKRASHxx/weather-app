@@ -5,6 +5,7 @@ enum RouteType {
   case permissions
   case citiesList
   case search
+  case forecast(woeid: AppWeather.WoeID)
   case dismiss
 }
 
@@ -13,7 +14,7 @@ protocol Animator: UIViewControllerAnimatedTransitioning {
 }
 
 protocol Transition: class {
-  weak var viewController: UIViewController? { get set }
+  var viewController: UIViewController? { get set }
   
   func open(_ viewController: UIViewController)
   func close(_ viewController: UIViewController)

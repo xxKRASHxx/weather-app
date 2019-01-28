@@ -15,5 +15,9 @@ class ViewModelFactory: ViewModelFactoryProtocol {
   func searchViewModel() -> SearchViewModelProtocol {
     return SearchViewModel()
   }
+  
+  func createForecastViewModel(with woeid: AppWeather.WoeID) -> ForecastViewModelProtocol {
+    return ForecastViewModel(woeid: woeid)
+  }
 }
 

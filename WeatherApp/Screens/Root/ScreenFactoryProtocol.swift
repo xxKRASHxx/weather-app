@@ -6,4 +6,5 @@ protocol ScreenFactoryProtocol {
   func createPermissionsScreen() -> PermissionsScreen
   func createCitiesListScreen() -> CitiesListScreen
   func createSearchScreen() -> SearchScreen
+  func createForecastScreen() -> ForecastScreen
 }

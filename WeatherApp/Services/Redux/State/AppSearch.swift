@@ -21,7 +21,7 @@ extension AppSearch {
       return action.result.analysis(
         ifSuccess: { .success(result: $0) },
         ifFailure: { .error(value: $0) })
-    case is SelectLocation:
+    case is SelectLocation, is CancelSearch:
       return .none
     default: return state
     }

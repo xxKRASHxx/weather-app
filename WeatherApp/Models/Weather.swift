@@ -14,3 +14,14 @@ struct Weather: Codable, Equatable {
   let text: String
   let temperature: Double
 }
+
+extension Weather: CustomDebugStringConvertible {
+  var debugDescription: String {
+    return """
+    \(location.city), \(location.country)
+    \(text)
+    Temp: \(temperature) ºC
+    Wind: \(speed) m/s, dir \(direction)
+    """
+  }
+}

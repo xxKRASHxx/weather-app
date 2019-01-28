@@ -17,6 +17,18 @@ public func weakify<Value: AnyObject, Arguments, Result>(
     }
 }
 
+public func weakify<Value: AnyObject, Arguments, Result>(
+  _ function: @escaping (Value) -> (Arguments) -> () -> Result,
+  object: Value,
+  arguments: Arguments,
+  default value: Result)
+  -> () -> Result {
+    return { [weak object] in
+      let result = object.map { function($0)(arguments) }
+      return result?() ?? value
+    }
+}
+
 public func weakify<Value: AnyObject, Arguments>(
   _ function: @escaping (Value) -> (Arguments) -> Void,
   object: Value)
