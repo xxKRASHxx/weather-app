@@ -19,32 +19,28 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
   @discardableResult private func observeCurrentWeather() -> Disposable {
     return store.producer
       .map(\AppState.location.deviceLocation)
-      .filterMap { locationStatus -> Location? in
-        guard case let .success(location, _) = locationStatus else { return nil }
-        return location
-      }
+      .filterMap { $0.location }
       .skipRepeats()
       .observe(on: QueueScheduler.main)
       .startWithValues(weakify(WeatherService.fetchCurrentWeather, object: self))
   }
   
   @discardableResult private func observeSearching() -> Disposable {
+    
+    let searchingText: (AppSearch) -> String? = { state in
+      guard case let .searching(text) = state
+        else { return nil }
+      return text
+    }
+    
     return store.producer
       .map(\AppState.searching)
-      .filterMap { (search) -> String? in
-        guard case let .searching(text) = search
-          else { return nil }
-        return text
-      }
+      .filterMap(searchingText)
       .skipRepeats()
       .throttle(0.3, on: QueueScheduler.main)
       .flatMap(.latest, weatherAPI.search)
       .map { $0.map(SearchResult.fromDTO) }
-      .startWithResult { result in
-        self.store.consume(event: DidEndSearch(
-          timeStamp: Date().timeIntervalSince1970,
-          result: result))
-    }
+      .startWithResult(weakify(WeatherService.consumeSearchResult, object: self))
   }
   
   @discardableResult private func observeSelectedLocations() -> Disposable {
@@ -60,8 +56,8 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .flatMap(.latest, SignalProducer<Int, NoError>.init)
       .flatMap(.latest, weatherAPI.weatherData)
       .map(Weather.fromDTO)
-      .flatMapError { _ in .never }
       .map(fromWeatherResponse)
+      .flatMapError(fromWeatherError)
       .startWithValues(store.consume)
   }
 }
@@ -75,20 +71,37 @@ private extension Mapping {
       result: .init(value: model)
     )
   }
+  
+  func fromWeatherError(_ error: WeatherAPIError<Int>) -> SignalProducer<AppEvent, NoError> {
+    return SignalProducer(value: DidUpdateWeather(
+      timeStamp: Date().timeIntervalSince1970,
+      id: .searched(value: error.reason),
+      result: .init(error: AnyError(error))
+    ))
+  }
 }
 
 private extension WeatherService {
+  
   func fetchCurrentWeather(in location: Location) {
     store.consume(event: BeginUpdateWeather(id: .current) )
     weatherAPI.weatherData(for: location)
       .map(Weather.fromDTO)
-      .startWithResult { result in
-        self.store.consume(event: DidUpdateWeather(
-          timeStamp: Date().timeIntervalSince1970,
-          id: .current,
-          result: result
-        ))
-    }
+      .startWithResult(weakify(WeatherService.consumeCurrentWeather, object: self))
+  }
+  
+  func consumeCurrentWeather(_ result: Result<Weather, AnyError>) {
+    store.consume(event: DidUpdateWeather(
+      timeStamp: Date().timeIntervalSince1970,
+      id: .current,
+      result: result
+    ))
+  }
+  
+  func consumeSearchResult(_ result: Result<[SearchResult], AnyError>) {
+    store.consume(event: DidEndSearch(
+      timeStamp: Date().timeIntervalSince1970,
+      result: result))
   }
 }
 
