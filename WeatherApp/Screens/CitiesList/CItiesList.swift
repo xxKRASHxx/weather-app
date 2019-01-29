@@ -77,7 +77,7 @@ extension CitiesListScreen: ScreenProtocol {
     }
     
     let sizeSource = { (i: Int, weather: WeatherViewModel, size: CGSize) -> CGSize in
-      let side = (64...240).clamp(size.width)
+      let side = (64...240).clamp((size.width / 2) - 32)
       return  CGSize(
         width: side,
         height: side
@@ -85,17 +85,9 @@ extension CitiesListScreen: ScreenProtocol {
     }
     
     let flowLayout = FlowLayout(
-      spacing: 32,
+      spacing: 16,
       justifyContent: .spaceAround,
       alignItems: .center
-      ).inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
-  }
-}
-
-extension ClosedRange {
-  func clamp(_ value : Bound) -> Bound {
-    return self.lowerBound > value ? self.lowerBound
-      : self.upperBound < value ? self.upperBound
-      : value
+      ).inset(by: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
   }
 }

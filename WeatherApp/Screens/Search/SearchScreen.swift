@@ -55,7 +55,7 @@ extension SearchScreen: ScreenProtocol {
       let searchBar = UISearchBar()
       searchBar.sizeToFit()
       base.navigationItem.titleView = searchBar
-      base.navigationItem.leftBarButtonItem = UIBarButtonItem(
+      base.navigationItem.rightBarButtonItem = UIBarButtonItem(
         title: "Cancel",
         style: .plain,
         target: nil,
