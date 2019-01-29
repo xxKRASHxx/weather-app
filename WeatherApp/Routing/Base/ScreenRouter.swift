@@ -69,10 +69,12 @@ class ScreenRouter {
         .delay(0.3),
         .zPosition(1)
       ]
+      controller.hero.modalAnimationType = .selectBy(
+        presenting: .none,
+        dismissing: .fade
+      )
       
-      navigationController.present(controller, animated: true, completion: {
-        controller.hero.modalAnimationType = .fade
-      })
+      navigationController.present(controller, animated: true)
       
     case .dismiss:
       navigationController.presentedViewController?.dismiss(animated: true, completion: nil)
