@@ -85,7 +85,7 @@ private extension Mapping {
 
 private extension WeatherService {
   
-  func fetchCurrentWeather(in location: Location) {
+  func fetchCurrentWeather(in location: Coordinates2D) {
     store.consume(event: BeginUpdateWeather(id: .current) )
     weatherAPI.weatherData(for: location)
       .map(Weather.fromDTO)
@@ -109,19 +109,43 @@ private extension WeatherService {
 }
 
 private extension Weather {
-  static func fromDTO(_ forecast: Response.Forecast) -> Weather {
+  static func fromDTO(_ forecast: Response.Weather) -> Weather {
+    
+    func fromDTO(forecast: Response.Weather.Forecast) -> Weather.Forecast {
+      return .init(
+        date: forecast.date,
+        low: forecast.low,
+        high: forecast.high,
+        text: forecast.text)
+    }
+    
+    func fromDTO(current: Response.Weather.Main) -> Weather.Now {
+      return Weather.Now(
+        wind: Weather.Now.Wind(
+          chill: current.wind.chill,
+          direction: current.wind.direction,
+          speed: current.wind.speed),
+        condition: Weather.Now.Condition(
+          text: current.condition.text,
+          temperature: current.condition.temperature),
+        atmosphere: Weather.Now.Atmosphere(
+          visibility: current.atmosphere.visibility,
+          pressure: current.atmosphere.pressure),
+        astronomy: Weather.Now.Astronomy(
+          sunrise: current.astronomy.sunrise,
+          sunset: current.astronomy.sunset))
+    }
+    
     return Weather(
       location: Weather.Location(
         woeid: forecast.location.woeid,
         city: forecast.location.city,
         country: forecast.location.country,
-        coordinates: WeatherApp.Location(
+        coordinates: WeatherApp.Coordinates2D(
           latitude: forecast.location.lat,
           longitude: forecast.location.long)),
-      direction: forecast.current.wind.direction,
-      speed: forecast.current.wind.speed,
-      text: forecast.current.condition.text,
-      temperature: forecast.current.condition.temperature)
+      forecasts: forecast.forecasts.map(fromDTO),
+      now: fromDTO(current: forecast.current))
   }
 }
 
@@ -129,7 +153,7 @@ private extension SearchResult {
   static func fromDTO(_ response: Response.SearchResult) -> SearchResult {
     return SearchResult(
       id: response.woeid,
-      location: Location(
+      location: Coordinates2D(
         latitude: response.lat,
         longitude: response.lon),
       city: response.city,

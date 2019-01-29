@@ -69,7 +69,7 @@ extension LocationService: CLLocationManagerDelegate {
     store.consume(event:
       DidUpdateLocation(
         timeStamp: Date().timeIntervalSince1970,
-        result: Result(value: Location(
+        result: Result(value: Coordinates2D(
           latitude: location.coordinate.latitude,
           longitude: location.coordinate.longitude))))
   }

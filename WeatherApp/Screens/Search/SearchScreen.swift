@@ -97,7 +97,7 @@ extension SearchScreen: ScreenProtocol {
             .observeValues { self.base.viewModel.search.apply($0).start() }
       }
       
-      base.navigationItem.leftBarButtonItem?.reactive.pressed = CocoaAction(base.viewModel.back)
+      base.navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(base.viewModel.back)
     }
     
     func tableViewSelectActionHandler(_ options: TableRowActionOptions<SearchTableViewCell>) {
@@ -108,6 +108,14 @@ extension SearchScreen: ScreenProtocol {
 
 extension Reactive where Base: TableDirector {
   var sections: BindingTarget<[TableSection]> {
+    return makeBindingTarget {
+      $0.clear()
+      $0 += $1
+      $0.reload()
+    }
+  }
+  
+  func rows<Cell: UITableViewCell & ConfigurableCell>(type: Cell.Type) -> BindingTarget<[TableRow<Cell>]> {
     return makeBindingTarget {
       $0.clear()
       $0 += $1

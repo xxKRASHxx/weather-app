@@ -2,11 +2,12 @@ import Moya
 
 enum Response {
   
-  struct Forecast: Decodable {
+  struct Weather: Decodable {
     
     enum CodingKeys: String, CodingKey {
       case location
       case current = "current_observation"
+      case forecasts
     }
     
     let location: Coord; struct Coord: Decodable {
@@ -29,6 +30,23 @@ enum Response {
         let text: String
         let temperature: Double
       }
+      
+      let atmosphere: Atmosphere; struct Atmosphere: Decodable {
+        let visibility: Double
+        let pressure: Double
+      }
+      
+      let astronomy: Astronomy; struct Astronomy: Decodable {
+        let sunrise: String
+        let sunset: String
+      }
+    }
+    
+    let forecasts: [Forecast]; struct Forecast: Decodable {
+      let date: Date
+      let low: Double
+      let high: Double
+      let text: String
     }
   }
   

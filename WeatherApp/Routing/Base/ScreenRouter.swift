@@ -14,7 +14,11 @@ class ScreenRouter {
   
   init(window: UIWindow) {
     self.window = window
-    window.rootViewController = UINavigationController()
+    let navigationController = UINavigationController()
+    navigationController.navigationBar.prefersLargeTitles = true
+    navigationController.navigationBar.barTintColor = .white
+    navigationController.navigationBar.setValue(true, forKey: "hidesShadow")
+    window.rootViewController = navigationController
     window.makeKeyAndVisible()
     setupObserving()
   }
@@ -53,22 +57,24 @@ class ScreenRouter {
         source.selectedView?.hero.modifiers = [.spring(stiffness: 250, damping: 25)]
       }
       controller.hero.isEnabled = true
-      controller.hero.modalAnimationType = .none
-      controller.titleLabel.hero.id = titleID
-      controller.titleLabel.hero.modifiers = [
+      
+      controller.cardView.hero.id = titleID
+      controller.cardView.hero.modifiers = [
         .spring(stiffness: 250, damping: 25),
         .source(heroID: titleID),
       ]
+      
       controller.tableView.hero.id = titleID
       controller.tableView.hero.modifiers = [
         .spring(stiffness: 250, damping: 25),
         .source(heroID: titleID)
       ]
-      controller.closeButton.hero.modifiers = [
-        .fade,
-        .delay(0.3),
-        .zPosition(1)
-      ]
+//      
+//      controller.closeButton.hero.modifiers = [
+//        .fade,
+//        .delay(0.3),
+//        .zPosition(1)
+//      ]
       controller.hero.modalAnimationType = .selectBy(
         presenting: .none,
         dismissing: .fade

@@ -14,7 +14,7 @@ struct AppLocation: Encodable, Equatable {
   let deviceLocation: DeviceLocation; enum DeviceLocation: AutoEncodable, Equatable {
     case none
     case updating
-    case success(location: Location, timestamp: TimeInterval)
+    case success(location: Coordinates2D, timestamp: TimeInterval)
     case error(value: AnyError)
   }
 }
@@ -98,7 +98,7 @@ extension AppLocation.DeviceLocation {
     return true
   }
   
-  var location: Location? {
+  var location: Coordinates2D? {
     guard case let .success(location, _) = self else { return nil }
     return location
   }

@@ -26,7 +26,7 @@ class WeatherAPIService: WeatherAPIServiceProtocol {
 }
 
 extension WeatherAPIService {
-  func weatherData(for cityWoeid: Int) -> SignalProducer<Response.Forecast, WeatherAPIError<Int>> {
+  func weatherData(for cityWoeid: Int) -> SignalProducer<Response.Weather, WeatherAPIError<Int>> {
     return SignalProducer { observer, lifetime in
       lifetime += self.provider.reactive.request(
         .byWoeid(id: cityWoeid))
@@ -34,7 +34,7 @@ extension WeatherAPIService {
           defer { observer.sendCompleted() }
           switch event {
           case let .value(response):
-            do { observer.send(value: try response.map(Response.Forecast.self)) }
+            do { observer.send(value: try response.map(Response.Weather.self)) }
             catch { observer.send(error: WeatherAPIError(error, reason: cityWoeid)) }
           case let .failed(error):
             observer.send(error: WeatherAPIError(error, reason: cityWoeid))
@@ -44,7 +44,7 @@ extension WeatherAPIService {
     }
   }
   
-  func weatherData(for location: Location) -> SignalProducer<Response.Forecast, AnyError> {
+  func weatherData(for location: Coordinates2D) -> SignalProducer<Response.Weather, AnyError> {
     return SignalProducer { observer, lifetime in
       lifetime += self.provider.reactive.request(
         .byCoordinates(lat: location.latitude, lon: location.longitude))
@@ -52,7 +52,7 @@ extension WeatherAPIService {
           defer { observer.sendCompleted() }
           switch event {
           case let .value(response):
-            do { observer.send(value: try response.map(Response.Forecast.self)) }
+            do { observer.send(value: try response.map(Response.Weather.self)) }
             catch { observer.send(error: AnyError(error)) }
           case let .failed(error):
             observer.send(error: AnyError(error))
