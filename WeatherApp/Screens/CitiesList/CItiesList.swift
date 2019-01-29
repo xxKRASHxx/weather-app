@@ -41,18 +41,19 @@ extension CitiesListScreen: ScreenProtocol {
   
   class Observing: Mixin<CitiesListScreen>, ObservingProtocol {
     func setupObserving() {
-      base.collectionView.reactive.arrayDataSource(WeatherViewModel.self, view: RoundedWrapperView<UILabel>.self)
+      base.collectionView.reactive.arrayDataSource(WeatherViewModel.self, view: RoundedWrapperView<CardView>.self)
         <~ base.viewModel.locations
           .map { array in ArrayDataSource<WeatherViewModel>(data: array) }
           .flatMapError { _ in .empty }
       
+      base.reactive.title <~ base.viewModel.title
       base.navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(base.viewModel.openSearch)
       
-      (base.collectionView.provider as? BasicProvider<WeatherViewModel, RoundedWrapperView<UILabel>>)?
+      (base.collectionView.provider as? BasicProvider<WeatherViewModel, RoundedWrapperView<CardView>>)?
         .tapHandler = selectForecast
     }
     
-    func selectForecast(_ context: BasicProvider<WeatherViewModel, RoundedWrapperView<UILabel>>.TapContext) {
+    func selectForecast(_ context: BasicProvider<WeatherViewModel, RoundedWrapperView<CardView>>.TapContext) {
       base.selectedView = context.view.base as UIView
       context.dataSource.data(at: context.index)
         .select.apply().start()
@@ -70,10 +71,12 @@ extension CitiesListScreen: ScreenProtocol {
         layout: flowLayout)
     }
     
-    let viewSource = ClosureViewSource { (view: RoundedWrapperView<UILabel>, model: WeatherViewModel, _) in
-      view.base.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
-      view.base.numberOfLines = 0
-      view.base.text = String(describing: model.weather)
+    let viewSource = ClosureViewSource { (view: RoundedWrapperView<CardView>, model: WeatherViewModel, _) in
+      view.base.titleLabel.text
+        = "\(model.weather.now.condition.temperature) ºC"
+      view.base.subtitleLabel.text
+        = "\(model.weather.location.city), \(model.weather.location.country)"
+      view.base.imageView.image = #imageLiteral(resourceName: "default_background")
     }
     
     let sizeSource = { (i: Int, weather: WeatherViewModel, size: CGSize) -> CGSize in

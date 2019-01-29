@@ -2,7 +2,9 @@ import ReactiveSwift
 import Result
 
 protocol ForecastViewModelProtocol: BaseViewModelProtocol {
-  var description: Property<String> { get }
+  var title: Property<String> { get }
+  var subtitle: Property<String> { get }
+  var forecast: SignalProducer<[Weather.Forecast], NoError> { get }
   var back: Action<(), (), NoError> { get }
 }
 
@@ -14,14 +16,33 @@ class ForecastViewModel: BaseViewModel, ForecastViewModelProtocol {
     return .init(weakExecute: weakify(Actions.backProducer, object: self))
   }
   
-  var description: Property<String> {
+  var title: Property<String> {
     return Property(
       initial: "",
       then: store.producer
         .map(\AppState.weather.locationsMap)
         .filterMap { $0[self.woeid]?.weather } //<<<<< retain
-        .map { String(describing: $0) }
+        .map { "\($0.now.condition.temperature) ºC\n\($0.now.condition.text)" }
     )
+  }
+  
+  var subtitle: Property<String> {
+    return Property(
+      initial: "",
+      then: store.producer
+        .map(\AppState.weather.locationsMap)
+        .filterMap { $0[self.woeid]?.weather } //<<<<< retain
+        .map { "\($0.location.city), \($0.location.country)" }
+    )
+  }
+  
+  var forecast: SignalProducer<[Weather.Forecast], NoError> {
+    return store.producer
+      .map(\AppState.weather.locationsMap)
+      .map { [weak self] locations in
+        guard let self = self else { return [] }
+        return locations[self.woeid]?.weather?.forecasts ?? []
+      }
   }
   
   required init(woeid: AppWeather.WoeID) {

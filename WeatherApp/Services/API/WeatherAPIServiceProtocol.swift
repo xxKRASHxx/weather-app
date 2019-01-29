@@ -18,8 +18,8 @@ struct WeatherAPIError<T>: Swift.Error {
 }
 
 protocol WeatherAPIServiceProtocol {
-  func weatherData(for location: Location) -> SignalProducer<Response.Forecast, AnyError>
-  func weatherData(for cityWoeid: Int) -> SignalProducer<Response.Forecast, WeatherAPIError<Int>>
+  func weatherData(for location: Coordinates2D) -> SignalProducer<Response.Weather, AnyError>
+  func weatherData(for cityWoeid: Int) -> SignalProducer<Response.Weather, WeatherAPIError<Int>>
   func search(city named: String) -> SignalProducer<[Response.SearchResult], AnyError>
 }
 

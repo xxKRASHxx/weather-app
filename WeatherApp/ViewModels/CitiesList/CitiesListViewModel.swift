@@ -3,11 +3,14 @@ import ReactiveSwift
 import Result
 
 protocol CitiesListViewModelProtocol: BaseViewModelProtocol {
+  var title: Property<String> { get }
   var locations: SignalProducer<[WeatherViewModel], AnyError> { get }
   var openSearch: Action<(), (), NoError> { get }
 }
 
 class CitiesListViewModel: BaseViewModel, CitiesListViewModelProtocol {
+  
+  let title = Property(initial: "Forecast", then: .never)
   
   var locations: SignalProducer<[WeatherViewModel], AnyError> {
     return store.producer

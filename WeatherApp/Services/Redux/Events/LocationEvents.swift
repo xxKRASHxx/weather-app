@@ -10,5 +10,5 @@ struct UpdateLocation: AppEvent {}
 
 struct DidUpdateLocation: AppEvent {
   let timeStamp: TimeInterval
-  let result: Result<Location, AnyError>
+  let result: Result<Coordinates2D, AnyError>
 }
