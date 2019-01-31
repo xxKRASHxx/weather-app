@@ -13,15 +13,22 @@ private struct RouterAssembly: Assembly {
   }
 }
 
-private struct UtilityServicesAssembly: Assembly {
+private struct APIServicesAssembly: Assembly {
   func assemble(container: Container) {
+    container.autoregister(PhotosAPIServiceProtocol.self, initializer: PhotosAPIService.init).inObjectScope(.container)
     container.autoregister(WeatherAPIServiceProtocol.self, initializer: WeatherAPIService.init).inObjectScope(.container)
+  }
+}
+
+private struct StorageServicesAssembly: Assembly {
+  func assemble(container: Container) {
     container.autoregister(UserDefaultsStorageProtocol.self, initializer: UserDefaultsStorage.init).inObjectScope(.container)
   }
 }
 
 public let assemblies: [Assembly] = [
-  UtilityServicesAssembly(),
+  APIServicesAssembly(),
+  StorageServicesAssembly(),
   FactoryAssembly(),
   RouterAssembly()
 ]
