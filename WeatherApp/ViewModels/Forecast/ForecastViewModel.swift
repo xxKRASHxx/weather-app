@@ -4,6 +4,7 @@ import Result
 protocol ForecastViewModelProtocol: BaseViewModelProtocol {
   var title: Property<String> { get }
   var subtitle: Property<String> { get }
+  var image: Property<URL?> { get }
   var forecast: SignalProducer<[Weather.Forecast], NoError> { get }
   var back: Action<(), (), NoError> { get }
 }
@@ -33,6 +34,16 @@ class ForecastViewModel: BaseViewModel, ForecastViewModelProtocol {
         .map(\AppState.weather.locationsMap)
         .filterMap { $0[self.woeid]?.weather } //<<<<< retain
         .map { "\($0.location.city), \($0.location.country)" }
+    )
+  }
+  
+  var image: Property<URL?> {
+    return Property<URL?>(
+      initial: .none,
+      then: store.producer
+        .map(\AppState.photos.sights)
+        .attemptMap { sights in sights[self.woeid]?.url }
+        .flatMapError { _ in .never }
     )
   }
   
