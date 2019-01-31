@@ -85,6 +85,7 @@ extension ForecastScreen: ScreenProtocol {
   
   class Observing: Mixin<ForecastScreen>, ObservingProtocol {
     func setupObserving() {
+      base.cardView.imageView.reactive.url <~ base.viewModel.image
       base.closeButton.reactive.pressed = CocoaAction(base.viewModel.back)
       base.cardView.titleLabel.reactive.text <~ base.viewModel.title
       base.cardView.subtitleLabel.reactive.text <~ base.viewModel.subtitle

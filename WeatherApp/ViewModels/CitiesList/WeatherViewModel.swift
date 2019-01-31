@@ -3,12 +3,12 @@ import Result
 
 class WeatherViewModel: BaseViewModel {
   let weather: Weather
-  let photo: URL?
+  let photo: Property<URL?>
   let select: Action<(), (), NoError>
   
   init(weather: Weather, photo: URL?, select: Action<(), (), NoError>) {
     self.weather = weather
-    self.photo = photo
+    self.photo = Property(value: photo)
     self.select = select
   }
   
