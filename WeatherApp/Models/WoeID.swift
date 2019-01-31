@@ -1,9 +1,5 @@
-enum WoeID: AutoCodable, Equatable, Hashable {
-  case current
-  case searched(value: Int)
+struct WoeID: Codable, Equatable, Hashable {
+  let value: Int
   
-  var id: Int? {
-    guard case let .searched(id) = self else { return nil }
-    return id
-  }
+  static let unknown: WoeID = .init(value: -1)
 }

@@ -39,3 +39,22 @@ extension AppState {
     )
   }
 }
+
+extension AppState: CustomStringConvertible {
+  var description: String {
+    return """
+    ________AppState________
+    - location
+      \(location)
+    - weather
+      \(weather)
+    - searching
+      \(searching)
+    - sync
+      \(sync)
+    - photos
+      \(photos)
+    ________________________
+    """
+  }
+}

@@ -51,7 +51,7 @@ private typealias Mapping = SearchViewModel
 private extension Mapping {
   func skipAlreadySelected(result: SearchResult) -> Bool {
     return store.value.weather.locations
-      .compactMap { $0.id }
+      .map { $0.value }
       .contains(result.id)
       == false
   }
@@ -61,7 +61,7 @@ private extension Mapping {
       searchResult: model,
       select: Action {
         self.router.perform(route: .dismiss)
-        self.store.consume(event: SelectLocation(id: model.id))
+        self.store.consume(event: SelectLocation(id: WoeID(value: model.id)))
         return .empty
       }
     )
