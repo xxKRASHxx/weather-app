@@ -39,6 +39,7 @@ private extension AppDelegate {
     let _ = LocationService.shared
     let _ = WeatherService.shared
     let _ = StorageService.shared
+    let _ = PhotosService.shared
   }
   
   func setupLogging() {

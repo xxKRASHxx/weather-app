@@ -9,7 +9,7 @@ class RootScreenViewModel: BaseViewModel, RootScreenViewModelProtocol {
   
   var log: SignalProducer<String?, NoError> {
     return AppStore.shared.producer
-      .map { state in String(describing: state) }
+      .map(String.init(describing:))
       .observe(on: QueueScheduler.main)
   }
   

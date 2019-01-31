@@ -13,19 +13,22 @@ class CitiesListViewModel: BaseViewModel, CitiesListViewModelProtocol {
   let title = Property(initial: "Forecast", then: .never)
   
   var locations: SignalProducer<[WeatherViewModel], AnyError> {
-    return store.producer
-      .map(\AppState.weather.locationsMap)
-      .attemptMap { locations in try locations
-        .map { (key, value) in (value, self.openWeather(woeid: key) ) }  // <<<<<<<<retain
-        .compactMap(WeatherRequestState.makeResult)
-    }
+    let sights = store.producer.map(\AppState.photos.sights)
+    let locations = store.producer.map(\AppState.weather.locationsMap)
+    return SignalProducer.combineLatest(locations, sights)
+      .attemptMap { (arg) -> [WeatherViewModel] in
+        let (locations, sights) = arg
+        return try locations
+          .map { (key, value) in (value, sights[key]?.url, self.openWeather(woeid: key) ) }
+          .compactMap(WeatherRequestState.makeResult)
+        }
   }
   
   var openSearch: Action<(), (), NoError> {
     return Action(weakExecute: weakify(CitiesListViewModel.searchActionProducer, object: self))
   }
   
-  fileprivate func openWeather(woeid: AppWeather.WoeID) -> Action<(), (), NoError> {
+  fileprivate func openWeather(woeid: WoeID) -> Action<(), (), NoError> {
     return Action(weakExecute: weakify(
       CitiesListViewModel.forecastActionProducer,
       object: self,
@@ -41,7 +44,7 @@ private extension ActionsProducers {
     return .empty
   }
   
-  func forecastActionProducer(woeid: AppWeather.WoeID) -> () -> SignalProducer<(), NoError> {
+  func forecastActionProducer(woeid: WoeID) -> () -> SignalProducer<(), NoError> {
     return {
       self.router.perform(route: .forecast(woeid: woeid))
       return .empty
@@ -52,10 +55,11 @@ private extension ActionsProducers {
 private extension WeatherRequestState {
   static func makeResult(
     _ state: WeatherRequestState,
+    url: URL?,
     action: Action<(), (), NoError>)
     throws -> WeatherViewModel? {
       switch state {
-      case let .success(current): return WeatherViewModel(weather: current, select: action)
+      case let .success(current): return WeatherViewModel(weather: current, photo: url, select: action)
       case let .error(value): throw value
       case .updating, .selected: return nil
       }

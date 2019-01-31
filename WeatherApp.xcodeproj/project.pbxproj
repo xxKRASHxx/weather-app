@@ -78,6 +78,12 @@
 		D2D8302121FB3556009090AC /* SearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D8302021FB3556009090AC /* SearchScreen.swift */; };
 		D2D8302321FB36F5009090AC /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D8302221FB36F5009090AC /* SearchTableViewCell.swift */; };
 		D2D8302521FB9648009090AC /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D8302421FB9648009090AC /* SearchResultViewModel.swift */; };
+		D2E5D6442201BC5200566437 /* PhotosAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D6432201BC5200566437 /* PhotosAPIProtocol.swift */; };
+		D2E5D6462201BDD500566437 /* PhotosAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D6452201BDD500566437 /* PhotosAPIService.swift */; };
+		D2E5D6492201C67800566437 /* WoeID.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D6482201C67800566437 /* WoeID.swift */; };
+		D2E5D64B2201C7F800566437 /* PhotosService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D64A2201C7F800566437 /* PhotosService.swift */; };
+		D2E5D64D2201C91900566437 /* AppPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D64C2201C91900566437 /* AppPhotos.swift */; };
+		D2E5D6512201EB8F00566437 /* PhotosEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D6502201EB8F00566437 /* PhotosEvents.swift */; };
 		DD420A97D15A742CF143DE28 /* Pods_WeatherApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0DA43F1C6EE676DB6092DE /* Pods_WeatherApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -173,6 +179,12 @@
 		D2D8302021FB3556009090AC /* SearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreen.swift; sourceTree = "<group>"; };
 		D2D8302221FB36F5009090AC /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		D2D8302421FB9648009090AC /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
+		D2E5D6432201BC5200566437 /* PhotosAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosAPIProtocol.swift; sourceTree = "<group>"; };
+		D2E5D6452201BDD500566437 /* PhotosAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosAPIService.swift; sourceTree = "<group>"; };
+		D2E5D6482201C67800566437 /* WoeID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoeID.swift; sourceTree = "<group>"; };
+		D2E5D64A2201C7F800566437 /* PhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosService.swift; sourceTree = "<group>"; };
+		D2E5D64C2201C91900566437 /* AppPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPhotos.swift; sourceTree = "<group>"; };
+		D2E5D6502201EB8F00566437 /* PhotosEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosEvents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +295,7 @@
 		D288C86D21F5D58E005229AF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D2E5D6482201C67800566437 /* WoeID.swift */,
 				D288C87921F5D828005229AF /* Weather.swift */,
 				D2C8DEE321F7332200D82B65 /* Coordinates2D.swift */,
 				D2D8301421FAF710009090AC /* SearchPlace.swift */,
@@ -296,6 +309,7 @@
 				D2D8301121FA213F009090AC /* Storage */,
 				D247F93E21F89938004950D3 /* WeatherService */,
 				D2C8DEE721F737E900D82B65 /* LocationService */,
+				D2E5D6472201C46100566437 /* PhotosService */,
 				D288C87621F5D7A6005229AF /* Redux */,
 				D288C87321F5D768005229AF /* API */,
 			);
@@ -310,6 +324,7 @@
 				D247F94321F89EFD004950D3 /* AppWeather.swift */,
 				D2D8301B21FB265B009090AC /* AppSearch.swift */,
 				D2194D6E21FF18BE00186A26 /* AppSync.swift */,
+				D2E5D64C2201C91900566437 /* AppPhotos.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -337,8 +352,8 @@
 			isa = PBXGroup;
 			children = (
 				D247F93B21F8945D004950D3 /* Models */,
-				D247F93221F870C3004950D3 /* WeatherAPIService.swift */,
-				D247F93421F870D3004950D3 /* WeatherAPIServiceProtocol.swift */,
+				D2E5D6412201BC2800566437 /* Weather */,
+				D2E5D6422201BC3800566437 /* Photos */,
 				D247F93621F87DCF004950D3 /* OAuthProvider.swift */,
 				D2D8301621FB0826009090AC /* QueryEncoding.swift */,
 			);
@@ -364,6 +379,7 @@
 				D247F94521F8A0A8004950D3 /* WeatherEvents.swift */,
 				D2D8301D21FB28FE009090AC /* SearchEvents.swift */,
 				D2194D7021FF19ED00186A26 /* SyncEvents.swift */,
+				D2E5D6502201EB8F00566437 /* PhotosEvents.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -549,6 +565,32 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		D2E5D6412201BC2800566437 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				D247F93221F870C3004950D3 /* WeatherAPIService.swift */,
+				D247F93421F870D3004950D3 /* WeatherAPIServiceProtocol.swift */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		D2E5D6422201BC3800566437 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				D2E5D6432201BC5200566437 /* PhotosAPIProtocol.swift */,
+				D2E5D6452201BDD500566437 /* PhotosAPIService.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		D2E5D6472201C46100566437 /* PhotosService */ = {
+			isa = PBXGroup;
+			children = (
+				D2E5D64A2201C7F800566437 /* PhotosService.swift */,
+			);
+			path = PhotosService;
+			sourceTree = "<group>";
+		};
 		D87D5329D8C0A350811D6DC2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -709,10 +751,12 @@
 				D28C774A21F77AB900079EAE /* WeakExecute.swift in Sources */,
 				D247F93D21F8947D004950D3 /* Response.swift in Sources */,
 				D288C88721F5DB45005229AF /* ScreenProtocol.swift in Sources */,
+				D2E5D64D2201C91900566437 /* AppPhotos.swift in Sources */,
 				D2C8DEDB21F71F5700D82B65 /* AppLocation.swift in Sources */,
 				D2C8DEAD21F5EEB500D82B65 /* PermissionsViewModel.swift in Sources */,
 				D2194D7121FF19ED00186A26 /* SyncEvents.swift in Sources */,
 				D247F93521F870D3004950D3 /* WeatherAPIServiceProtocol.swift in Sources */,
+				D2E5D6442201BC5200566437 /* PhotosAPIProtocol.swift in Sources */,
 				D2D8301C21FB265B009090AC /* AppSearch.swift in Sources */,
 				D288C88D21F5DC6E005229AF /* PortraitNavigationController.swift in Sources */,
 				D2C8DEC821F61D2500D82B65 /* RouterTransition.swift in Sources */,
@@ -730,6 +774,8 @@
 				D2C8DE9121F5E46E00D82B65 /* ViewModelConnectable.swift in Sources */,
 				D2C8DE9321F5E48500D82B65 /* BaseViewModel.swift in Sources */,
 				D2C8DEE221F72FB000D82B65 /* LocationEvents.swift in Sources */,
+				D2E5D6512201EB8F00566437 /* PhotosEvents.swift in Sources */,
+				D2E5D64B2201C7F800566437 /* PhotosService.swift in Sources */,
 				D288C88021F5DA37005229AF /* AppEvent.swift in Sources */,
 				D29E2F0F2200A0490047F0C7 /* ForecastTableVIewCell.swift in Sources */,
 				D2C8DEC521F615C000D82B65 /* RootScreenViewModel.swift in Sources */,
@@ -745,12 +791,14 @@
 				D2C8DEEB21F7380100D82B65 /* LocationService.swift in Sources */,
 				D2C8DEE421F7332200D82B65 /* Coordinates2D.swift in Sources */,
 				D2C8DEE621F733D200D82B65 /* DecodableResult.swift in Sources */,
+				D2E5D6492201C67800566437 /* WoeID.swift in Sources */,
 				D2C8DE9921F5E60100D82B65 /* DI.swift in Sources */,
 				D2C8DED821F62E8100D82B65 /* ViewModelFactory.swift in Sources */,
 				D2C8DE9E21F5E9C300D82B65 /* ScreenRouter.swift in Sources */,
 				D2C8DE9521F5E4B300D82B65 /* ViewModelRouterProtocol.swift in Sources */,
 				D2D8302521FB9648009090AC /* SearchResultViewModel.swift in Sources */,
 				D2D8300D21FA053C009090AC /* RoundedWrapperView.swift in Sources */,
+				D2E5D6462201BDD500566437 /* PhotosAPIService.swift in Sources */,
 				D2D8302321FB36F5009090AC /* SearchTableViewCell.swift in Sources */,
 				D2C8DEDE21F723D600D82B65 /* AppStore.swift in Sources */,
 				D2C8DECD21F6252200D82B65 /* TypeDispatcher.swift in Sources */,

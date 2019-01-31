@@ -5,5 +5,5 @@ protocol ViewModelFactoryProtocol {
   func permissionsViewModel() -> PermissionsViewModelProtocol
   func citiesListViewModel() -> CitiesListViewModelProtocol
   func searchViewModel() -> SearchViewModelProtocol
-  func createForecastViewModel(with woeid: AppWeather.WoeID) -> ForecastViewModelProtocol
+  func createForecastViewModel(with woeid: WoeID) -> ForecastViewModelProtocol
 }

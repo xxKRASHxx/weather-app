@@ -22,7 +22,7 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .filterMap { $0.location }
       .skipRepeats()
       .observe(on: QueueScheduler.main)
-      .startWithValues(weakify(WeatherService.fetchCurrentWeather, object: self))
+      .startWithValues(fetchCurrentWeather)
   }
   
   @discardableResult private func observeSearching() -> Disposable {
@@ -41,26 +41,39 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .flatMap(.latest, weatherAPI.search)
       .map { $0.map(SearchResult.fromDTO) }
       .observe(on: QueueScheduler.main)
-      .startWithResult(weakify(WeatherService.consumeSearchResult, object: self))
+      .startWithResult(consumeSearchResult)
   }
   
   @discardableResult private func observeSelectedLocations() -> Disposable {
     
-    let unhandled: (([AppWeather.WoeID : WeatherRequestState]) -> [Int]) = { locations in locations
+    let compositeDisposable = CompositeDisposable()
+    
+    let unhandled: (([WoeID : WeatherRequestState]) -> [Int]) = { locations in locations
       .filter { (_, value) in value == .selected }
       .compactMap { (key, _) in key.id }
     }
     
-    return store.producer
+    let woeidProducer =
+      store.producer
       .map(\AppState.weather.locationsMap)
       .map(unhandled)
       .flatMap(.latest, SignalProducer<Int, NoError>.init)
+    
+    woeidProducer
       .flatMap(.latest, weatherAPI.weatherData)
       .map(Weather.fromDTO)
       .map(fromWeatherResponse)
       .flatMapError(fromWeatherError)
       .observe(on: QueueScheduler.main)
       .startWithValues(store.consume)
+    
+    woeidProducer
+      .map(WoeID.searched)
+      .map(BeginUpdateWeather.init)
+      .observe(on: QueueScheduler.main)
+      .startWithValues(store.consume)
+    
+    return compositeDisposable
   }
 }
 
@@ -90,7 +103,7 @@ private extension WeatherService {
     weatherAPI.weatherData(for: location)
       .map(Weather.fromDTO)
       .observe(on: QueueScheduler.main)
-      .startWithResult(weakify(WeatherService.consumeCurrentWeather, object: self))
+      .startWithResult(consumeCurrentWeather)
   }
   
   func consumeCurrentWeather(_ result: Result<Weather, AnyError>) {

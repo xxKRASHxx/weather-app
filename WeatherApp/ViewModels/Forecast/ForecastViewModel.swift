@@ -10,7 +10,7 @@ protocol ForecastViewModelProtocol: BaseViewModelProtocol {
 
 class ForecastViewModel: BaseViewModel, ForecastViewModelProtocol {
   
-  private let woeid: AppWeather.WoeID
+  private let woeid: WoeID
   
   var back: Action<(), (), NoError> {
     return .init(weakExecute: weakify(Actions.backProducer, object: self))
@@ -45,7 +45,7 @@ class ForecastViewModel: BaseViewModel, ForecastViewModelProtocol {
       }
   }
   
-  required init(woeid: AppWeather.WoeID) {
+  required init(woeid: WoeID) {
     self.woeid = woeid
     super.init()
     setupObserving()
