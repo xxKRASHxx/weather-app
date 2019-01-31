@@ -5,6 +5,6 @@ enum RouteType {
   case permissions
   case citiesList
   case search
-  case forecast(woeid: AppWeather.WoeID)
+  case forecast(woeid: WoeID)
   case dismiss
 }

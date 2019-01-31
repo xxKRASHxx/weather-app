@@ -58,4 +58,16 @@ enum Response {
     let country: String
     let qualifiedName: String
   }
+  
+  struct PhotoResult: Decodable {
+    let photos: Photos; struct Photos: Decodable {
+      let photo: [PhotoInfo]; struct PhotoInfo: Decodable {
+        let id: String
+        let secret: String
+        let server: String
+        let farm: Int
+        let title: String
+      }
+    }
+  }
 }
