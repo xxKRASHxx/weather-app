@@ -5,11 +5,12 @@ struct AppPhotos: Encodable, Equatable {
   enum Status: AutoEncodable, Equatable {
     case notStarted
     case inProgress
-    case completed(result: Result<URL, PhotosAPIError>)
+    case completed(result: URL)
+    case failed(error: PhotosAPIError)
     
     var url: URL? {
       guard case let .completed(result) = self else { return nil }
-      return result.value
+      return result
     }
   }
   
@@ -17,7 +18,7 @@ struct AppPhotos: Encodable, Equatable {
 }
 
 extension AppPhotos: Defaultable {
-  static var defaultValue: AppPhotos = .init(sights: [.current: .notStarted])
+  static var defaultValue: AppPhotos = .init(sights: [:])
 }
 
 extension AppPhotos {
@@ -25,16 +26,20 @@ extension AppPhotos {
     switch event {
     case let event as BeginUpdateWeather:
       return AppPhotos(sights: state.sights
-        .merging([event.id: .notStarted], uniquingKeysWith: { current, new in new })
+        .merging([event.id: .notStarted], uniquingKeysWith: new)
       )
     case let event as DidStartPhotoSearching:
       return AppPhotos(sights: state.sights
-        .merging([event.id: .inProgress], uniquingKeysWith: { current, new in new })
+        .merging([event.id: .inProgress], uniquingKeysWith: new)
       )
     case let event as DidFinishPhotoSearching:
-      return AppPhotos(sights: state.sights
-        .merging([event.id: .completed(result: event.result)], uniquingKeysWith: { current, new in new })
+      
+      let delta: [WoeID: Status] = event.result.analysis(
+        ifSuccess: { [event.id: .completed(result: $0)] },
+        ifFailure: { [event.id: .failed(error: $0)] }
       )
+      return AppPhotos(sights: state.sights.merging(delta, uniquingKeysWith: new))
+      
     default: return state
     }
   }

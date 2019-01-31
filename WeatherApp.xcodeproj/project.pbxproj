@@ -84,6 +84,7 @@
 		D2E5D64B2201C7F800566437 /* PhotosService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D64A2201C7F800566437 /* PhotosService.swift */; };
 		D2E5D64D2201C91900566437 /* AppPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D64C2201C91900566437 /* AppPhotos.swift */; };
 		D2E5D6512201EB8F00566437 /* PhotosEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D6502201EB8F00566437 /* PhotosEvents.swift */; };
+		D2E5D653220326CA00566437 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D652220326CA00566437 /* Function.swift */; };
 		DD420A97D15A742CF143DE28 /* Pods_WeatherApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0DA43F1C6EE676DB6092DE /* Pods_WeatherApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -185,6 +186,7 @@
 		D2E5D64A2201C7F800566437 /* PhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosService.swift; sourceTree = "<group>"; };
 		D2E5D64C2201C91900566437 /* AppPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPhotos.swift; sourceTree = "<group>"; };
 		D2E5D6502201EB8F00566437 /* PhotosEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosEvents.swift; sourceTree = "<group>"; };
+		D2E5D652220326CA00566437 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +346,7 @@
 				D2C8DEE521F733D200D82B65 /* DecodableResult.swift */,
 				D28C774921F77AB900079EAE /* WeakExecute.swift */,
 				D2194D7A2200431C00186A26 /* Clamp.swift */,
+				D2E5D652220326CA00566437 /* Function.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -814,6 +817,7 @@
 				D2D8300F21FA0B4B009090AC /* CollectionReactiveProvider.swift in Sources */,
 				D247F93321F870C3004950D3 /* WeatherAPIService.swift in Sources */,
 				D288C87121F5D6EF005229AF /* AppState.swift in Sources */,
+				D2E5D653220326CA00566437 /* Function.swift in Sources */,
 				D2194D7921FF51C100186A26 /* WeatherViewModel.swift in Sources */,
 				D288C87521F5D782005229AF /* Mixin.swift in Sources */,
 				D2194D7721FF402000186A26 /* ForecastViewModel.swift in Sources */,

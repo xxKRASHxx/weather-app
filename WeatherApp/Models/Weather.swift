@@ -3,7 +3,7 @@ import Foundation
 struct Weather: Codable, Equatable {
   
   let location: Location; struct Location: Codable, Equatable {
-    let woeid: Int
+    let woeid: WoeID
     let city: String
     let country: String
     let coordinates: Coordinates2D

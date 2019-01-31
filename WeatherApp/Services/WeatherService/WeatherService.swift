@@ -37,7 +37,7 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .map(\AppState.searching)
       .filterMap(searchingText)
       .skipRepeats()
-      .throttle(0.3, on: QueueScheduler.main)
+      .throttle(0.5, on: QueueScheduler.main)
       .flatMap(.latest, weatherAPI.search)
       .map { $0.map(SearchResult.fromDTO) }
       .observe(on: QueueScheduler.main)
@@ -48,19 +48,20 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
     
     let compositeDisposable = CompositeDisposable()
     
-    let unhandled: (([WoeID : WeatherRequestState]) -> [Int]) = { locations in locations
+    let unhandled: (([WoeID : WeatherRequestState]) -> [WoeID]) = { locations in locations
       .filter { (_, value) in value == .selected }
-      .compactMap { (key, _) in key.id }
+      .compactMap { (key, _) in key }
     }
     
     let woeidProducer =
       store.producer
       .map(\AppState.weather.locationsMap)
       .map(unhandled)
-      .flatMap(.latest, SignalProducer<Int, NoError>.init)
+      .flatMap(.latest, SignalProducer<WoeID, NoError>.init)
+      .skipRepeats()
     
     woeidProducer
-      .flatMap(.latest, weatherAPI.weatherData)
+      .flatMap(.merge, weatherAPI.weatherData)
       .map(Weather.fromDTO)
       .map(fromWeatherResponse)
       .flatMapError(fromWeatherError)
@@ -68,7 +69,6 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .startWithValues(store.consume)
     
     woeidProducer
-      .map(WoeID.searched)
       .map(BeginUpdateWeather.init)
       .observe(on: QueueScheduler.main)
       .startWithValues(store.consume)
@@ -82,34 +82,30 @@ private extension Mapping {
   func fromWeatherResponse(_ model: Weather) -> AppEvent {
     return DidUpdateWeather(
       timeStamp: Date().timeIntervalSince1970,
-      id: .searched(value: model.location.woeid),
       result: .init(value: model)
     )
   }
   
-  func fromWeatherError(_ error: WeatherAPIError<Int>) -> SignalProducer<AppEvent, NoError> {
+  func fromWeatherError(_ error: WeatherAPIError<WoeID>) -> SignalProducer<AppEvent, NoError> {
     return SignalProducer(value: DidUpdateWeather(
       timeStamp: Date().timeIntervalSince1970,
-      id: .searched(value: error.reason),
-      result: .init(error: AnyError(error))
-    ))
+      result: .init(error: error)))
   }
 }
 
 private extension WeatherService {
   
   func fetchCurrentWeather(in location: Coordinates2D) {
-    store.consume(event: BeginUpdateWeather(id: .current) )
+    store.consume(event: BeginUpdateCurrentWeather())
     weatherAPI.weatherData(for: location)
       .map(Weather.fromDTO)
       .observe(on: QueueScheduler.main)
       .startWithResult(consumeCurrentWeather)
   }
   
-  func consumeCurrentWeather(_ result: Result<Weather, AnyError>) {
-    store.consume(event: DidUpdateWeather(
+  func consumeCurrentWeather(_ result: Result<Weather, WeatherAPIError<WoeID>>) {
+    store.consume(event: DidUpdateCurrentWeather(
       timeStamp: Date().timeIntervalSince1970,
-      id: .current,
       result: result
     ))
   }
@@ -151,7 +147,7 @@ private extension Weather {
     
     return Weather(
       location: Weather.Location(
-        woeid: forecast.location.woeid,
+        woeid: WoeID(value: forecast.location.woeid),
         city: forecast.location.city,
         country: forecast.location.country,
         coordinates: WeatherApp.Coordinates2D(

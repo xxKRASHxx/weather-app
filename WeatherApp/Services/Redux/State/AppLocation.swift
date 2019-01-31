@@ -4,7 +4,7 @@ import Result
 
 struct AppLocation: Encodable, Equatable {
   
-  let availability: Availability; enum Availability: AutoEncodable, Equatable {
+  let availability: Availability; enum Availability: String, Encodable, Equatable {
     case notYetRequested
     case requested
     case notAvailable
@@ -102,4 +102,18 @@ extension AppLocation.DeviceLocation {
     guard case let .success(location, _) = self else { return nil }
     return location
   }
+}
+
+
+extension AppLocation: CustomStringConvertible {
+  var description: String {
+    return """
+    - availability:
+        \(availability)
+    - deviceLocation:
+        \(deviceLocation)
+    """
+  }
+  
+  
 }
