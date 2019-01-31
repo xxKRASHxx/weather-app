@@ -13,9 +13,9 @@ struct DidEndSearch: AppEvent {
 }
 
 struct SelectLocation: AppEvent {
-  let id: Int
+  let id: WoeID
 }
 
 struct DeselectLocations: AppEvent {
-  let id: Int
+  let id: WoeID
 }

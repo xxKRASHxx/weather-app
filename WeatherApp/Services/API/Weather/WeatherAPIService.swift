@@ -26,10 +26,10 @@ class WeatherAPIService: WeatherAPIServiceProtocol {
 }
 
 extension WeatherAPIService {
-  func weatherData(for cityWoeid: Int) -> SignalProducer<Response.Weather, WeatherAPIError<Int>> {
+  func weatherData(for cityWoeid: WoeID) -> SignalProducer<Response.Weather, WeatherAPIError<WoeID>> {
     return SignalProducer { observer, lifetime in
       lifetime += self.provider.reactive.request(
-        .byWoeid(id: cityWoeid))
+        .byWoeid(id: cityWoeid.value))
         .start { [weak self] event in
           defer { observer.sendCompleted() }
           switch event {
@@ -44,7 +44,7 @@ extension WeatherAPIService {
     }
   }
   
-  func weatherData(for location: Coordinates2D) -> SignalProducer<Response.Weather, AnyError> {
+  func weatherData(for location: Coordinates2D) -> SignalProducer<Response.Weather, WeatherAPIError<WoeID>> {
     return SignalProducer { observer, lifetime in
       lifetime += self.provider.reactive.request(
         .byCoordinates(lat: location.latitude, lon: location.longitude))
@@ -53,9 +53,9 @@ extension WeatherAPIService {
           switch event {
           case let .value(response):
             do { observer.send(value: try response.map(Response.Weather.self)) }
-            catch { observer.send(error: AnyError(error)) }
+            catch { observer.send(error: WeatherAPIError(error, reason: .unknown)) }
           case let .failed(error):
-            observer.send(error: AnyError(error))
+            observer.send(error: WeatherAPIError(error, reason: .unknown))
           default: break
           }
       }

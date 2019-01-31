@@ -1,12 +1,20 @@
 import Foundation
 import Result
 
+struct BeginUpdateCurrentWeather: AppEvent {
+  let id: WoeID = .unknown
+}
+
 struct BeginUpdateWeather: AppEvent {
   let id: WoeID
 }
 
 struct DidUpdateWeather: AppEvent {
   let timeStamp: TimeInterval
-  let id: WoeID
-  let result: Result<Weather, AnyError>
+  let result: Result<Weather, WeatherAPIError<WoeID>>
+}
+
+struct DidUpdateCurrentWeather: AppEvent {
+  let timeStamp: TimeInterval
+  let result: Result<Weather, WeatherAPIError<WoeID>>
 }
