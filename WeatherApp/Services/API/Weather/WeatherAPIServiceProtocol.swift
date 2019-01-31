@@ -2,10 +2,27 @@ import ReactiveSwift
 import Result
 import Swinject
 
-struct WeatherAPIError<T>: Swift.Error {
+struct WeatherAPIError<T: Codable & Equatable>: Swift.Error, Codable, Equatable {
+  
+  struct CannotDecode: Error {}
   
   public let original: Swift.Error
   public let reason: T
+
+  static func == (lhs: WeatherAPIError<T>, rhs: WeatherAPIError<T>) -> Bool {
+    return lhs.reason == rhs.reason &&
+      rhs.original.localizedDescription == lhs.original.localizedDescription
+  }
+  
+  init(from decoder: Decoder) throws {
+    self.original = CannotDecode()
+    self.reason = try decoder.singleValueContainer().decode(T.self)
+  }
+  
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.singleValueContainer()
+    try container.encode(reason)
+  }
   
   public init(_ error: Swift.Error, reason: T) {
     if let apiError = error as? WeatherAPIError<T> {
@@ -18,8 +35,8 @@ struct WeatherAPIError<T>: Swift.Error {
 }
 
 protocol WeatherAPIServiceProtocol {
-  func weatherData(for location: Coordinates2D) -> SignalProducer<Response.Weather, AnyError>
-  func weatherData(for cityWoeid: Int) -> SignalProducer<Response.Weather, WeatherAPIError<Int>>
+  func weatherData(for location: Coordinates2D) -> SignalProducer<Response.Weather, WeatherAPIError<WoeID>>
+  func weatherData(for cityWoeid: WoeID) -> SignalProducer<Response.Weather, WeatherAPIError<WoeID>>
   func search(city named: String) -> SignalProducer<[Response.SearchResult], AnyError>
 }
 

@@ -53,9 +53,9 @@ private typealias UserDefaults = StorageService
 private extension UserDefaults {
   
   func getSyncData() -> [Int] {
-    return store.value.weather.locations.compactMap { woeid in
-      guard case let .searched(id) = woeid else { return nil }
-      return id
-    }
+    let all = store.value.weather.locations.map { $0.value }
+    guard let current = store.value.weather.current
+      else { return all }
+    return all.filter { $0 != current.value }
   }
 }
