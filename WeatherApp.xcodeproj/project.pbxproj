@@ -85,6 +85,7 @@
 		D2E5D64D2201C91900566437 /* AppPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D64C2201C91900566437 /* AppPhotos.swift */; };
 		D2E5D6512201EB8F00566437 /* PhotosEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D6502201EB8F00566437 /* PhotosEvents.swift */; };
 		D2E5D653220326CA00566437 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D652220326CA00566437 /* Function.swift */; };
+		D2E5D655220342EE00566437 /* Kingfisher+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E5D654220342EE00566437 /* Kingfisher+Reactive.swift */; };
 		DD420A97D15A742CF143DE28 /* Pods_WeatherApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0DA43F1C6EE676DB6092DE /* Pods_WeatherApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -187,6 +188,7 @@
 		D2E5D64C2201C91900566437 /* AppPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPhotos.swift; sourceTree = "<group>"; };
 		D2E5D6502201EB8F00566437 /* PhotosEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosEvents.swift; sourceTree = "<group>"; };
 		D2E5D652220326CA00566437 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		D2E5D654220342EE00566437 /* Kingfisher+Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+Reactive.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,6 +349,7 @@
 				D28C774921F77AB900079EAE /* WeakExecute.swift */,
 				D2194D7A2200431C00186A26 /* Clamp.swift */,
 				D2E5D652220326CA00566437 /* Function.swift */,
+				D2E5D654220342EE00566437 /* Kingfisher+Reactive.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -707,6 +710,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CollectionKit/CollectionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
@@ -725,6 +729,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CollectionKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
@@ -808,6 +813,7 @@
 				D2D8301721FB0826009090AC /* QueryEncoding.swift in Sources */,
 				D247F94621F8A0A8004950D3 /* WeatherEvents.swift in Sources */,
 				D2194D7421FF3F5D00186A26 /* ForecastScreen.swift in Sources */,
+				D2E5D655220342EE00566437 /* Kingfisher+Reactive.swift in Sources */,
 				D2C8DED421F62BC400D82B65 /* CitiesListViewModel.swift in Sources */,
 				D2C8DE9721F5E58200D82B65 /* CurrentContainer.swift in Sources */,
 				D288C88921F5DB54005229AF /* Screen.swift in Sources */,

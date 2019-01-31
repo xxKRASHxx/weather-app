@@ -16,6 +16,7 @@ target 'WeatherApp' do
   
   pod 'Moya'
   pod 'Moya/ReactiveSwift'
+  pod 'Kingfisher', '~> 5.1'
   pod 'Swinject'
   pod 'SwinjectAutoregistration'
   pod 'OAuthSwift', '~> 1.2.0'
