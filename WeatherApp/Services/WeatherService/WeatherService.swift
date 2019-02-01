@@ -21,7 +21,7 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .map(\AppState.location.deviceLocation)
       .filterMap { $0.location }
       .skipRepeats()
-      .observe(on: QueueScheduler.main)
+      .observe(on: QueueScheduler.service)
       .startWithValues(fetchCurrentWeather)
   }
   
@@ -40,7 +40,7 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .throttle(0.5, on: QueueScheduler.main)
       .flatMap(.latest, weatherAPI.search)
       .map { $0.map(SearchResult.fromDTO) }
-      .observe(on: QueueScheduler.main)
+      .observe(on: QueueScheduler.service)
       .startWithResult(consumeSearchResult)
   }
   
@@ -65,12 +65,12 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .map(Weather.fromDTO)
       .map(fromWeatherResponse)
       .flatMapError(fromWeatherError)
-      .observe(on: QueueScheduler.main)
+      .observe(on: QueueScheduler.service)
       .startWithValues(store.consume)
     
     woeidProducer
       .map(BeginUpdateWeather.init)
-      .observe(on: QueueScheduler.main)
+      .observe(on: QueueScheduler.service)
       .startWithValues(store.consume)
     
     return compositeDisposable
@@ -99,7 +99,7 @@ private extension WeatherService {
     store.consume(event: BeginUpdateCurrentWeather())
     weatherAPI.weatherData(for: location)
       .map(Weather.fromDTO)
-      .observe(on: QueueScheduler.main)
+      .observe(on: QueueScheduler.service)
       .startWithResult(consumeCurrentWeather)
   }
   
