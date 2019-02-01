@@ -24,8 +24,7 @@ public func weakify<Value: AnyObject, Arguments, Result>(
   default value: Result)
   -> () -> Result {
     return { [weak object] in
-      let result = object.map { function($0)(arguments) }
-      return result?() ?? value
+      return object.map { function($0)(arguments) }?() ?? value
     }
 }
 

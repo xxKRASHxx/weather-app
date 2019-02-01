@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       setupAppDI()
       setupUI()
       setupStore()
-      setupLogging()
+//      setupLogging()
       return true
   }
 }

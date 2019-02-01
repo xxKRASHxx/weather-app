@@ -45,4 +45,13 @@ extension AppPhotos {
   }
 }
 
-
+extension AppPhotos.Status: CustomStringConvertible {
+  var description: String {
+    switch self {
+    case .notStarted: return "not started"
+    case .inProgress: return "in progress"
+    case let .completed(result): return "completed with \(String(describing: result))"
+    case let .failed(error): return "failed due to \(String(describing: error))"
+    }
+  }
+}
