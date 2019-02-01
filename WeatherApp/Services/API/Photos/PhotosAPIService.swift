@@ -31,7 +31,7 @@ fileprivate extension PhotosAPIService {
 }
 
 class PhotosAPIService {
-  fileprivate lazy var provider = MoyaProvider<Request>()
+  fileprivate lazy var provider = MoyaProvider<Request>(callbackQueue: DispatchQueue(label: "com.service.api.photos"))
 }
 
 extension PhotosAPIService: PhotosAPIServiceProtocol {
@@ -73,18 +73,25 @@ extension PhotosAPIService.Request: TargetType {
   var task: Task {
     switch self {
     case let .photo(city, country, condition):
+      
+      let query = condition
+        .split(separator: " ")
+        .map(String.init)
+        .join(.concat(separator: ","))
+      
       return .requestParameters(
         parameters: [
+          "tags": "city, view, weather, sight, \(query)",
+          "text": "\(city) \(country)",
           "method": "flickr.photos.search",
           "api_key": PhotosAPIService.Authorization.key,
-          "tags": "city",//;view;weather;sight;\(condition)",
-          "text": "\(city) \(country) \(condition)",
           "safe_search": PhotosAPIService.SearchType.safe.rawValue,
           "content_type": PhotosAPIService.ContentType.photosOnly.rawValue,
           "per_page": 1,
           "page": 1,
           "format": "json",
-          "nojsoncallback": true
+          "nojsoncallback": true,
+          "sort": "interestingness-desc"
         ],
         encoding: URLEncoding.queryString)
     }

@@ -38,6 +38,8 @@
 		D28C774821F7674600079EAE /* AutoCodable.swifttemplate in Sources */ = {isa = PBXBuildFile; fileRef = D2C8DEF021F7654E00D82B65 /* AutoCodable.swifttemplate */; };
 		D28C774A21F77AB900079EAE /* WeakExecute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28C774921F77AB900079EAE /* WeakExecute.swift */; };
 		D28C774C21F78DA400079EAE /* PermissionsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D28C774B21F78DA400079EAE /* PermissionsScreen.xib */; };
+		D292FED922048CDA0029EAA8 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292FED822048CDA0029EAA8 /* Scheduler.swift */; };
+		D292FEDD220491DE0029EAA8 /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292FEDC220491DE0029EAA8 /* Reducer.swift */; };
 		D29E2F0F2200A0490047F0C7 /* ForecastTableVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29E2F0E2200A0490047F0C7 /* ForecastTableVIewCell.swift */; };
 		D2C8DE9121F5E46E00D82B65 /* ViewModelConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C8DE9021F5E46E00D82B65 /* ViewModelConnectable.swift */; };
 		D2C8DE9321F5E48500D82B65 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C8DE9221F5E48500D82B65 /* BaseViewModel.swift */; };
@@ -140,6 +142,8 @@
 		D288C88C21F5DC6E005229AF /* PortraitNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitNavigationController.swift; sourceTree = "<group>"; };
 		D28C774921F77AB900079EAE /* WeakExecute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakExecute.swift; sourceTree = "<group>"; };
 		D28C774B21F78DA400079EAE /* PermissionsScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PermissionsScreen.xib; sourceTree = "<group>"; };
+		D292FED822048CDA0029EAA8 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		D292FEDC220491DE0029EAA8 /* Reducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
 		D29E2F0E2200A0490047F0C7 /* ForecastTableVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableVIewCell.swift; sourceTree = "<group>"; };
 		D2C8DE9021F5E46E00D82B65 /* ViewModelConnectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelConnectable.swift; sourceTree = "<group>"; };
 		D2C8DE9221F5E48500D82B65 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -350,6 +354,8 @@
 				D2E5D652220326CA00566437 /* Function.swift */,
 				D2E5D654220342EE00566437 /* Kingfisher+Reactive.swift */,
 				D2652CE92204629100F57B6D /* SourceKeptTuple.swift */,
+				D292FED822048CDA0029EAA8 /* Scheduler.swift */,
+				D292FEDC220491DE0029EAA8 /* Reducer.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -775,6 +781,7 @@
 				D2C8DEF421F765A800D82B65 /* AutoCodableLike.swift in Sources */,
 				D247F94221F89C0F004950D3 /* StoreAccessible.swift in Sources */,
 				D2194D7B2200431C00186A26 /* Clamp.swift in Sources */,
+				D292FED922048CDA0029EAA8 /* Scheduler.swift in Sources */,
 				D2C8DECF21F6296600D82B65 /* ScreenFactory.swift in Sources */,
 				D2C8DECB21F623D800D82B65 /* ViewModelRouter.swift in Sources */,
 				D2C8DED621F62DF400D82B65 /* DI+App.swift in Sources */,
@@ -814,6 +821,7 @@
 				D2D8301721FB0826009090AC /* QueryEncoding.swift in Sources */,
 				D247F94621F8A0A8004950D3 /* WeatherEvents.swift in Sources */,
 				D2194D7421FF3F5D00186A26 /* ForecastScreen.swift in Sources */,
+				D292FEDD220491DE0029EAA8 /* Reducer.swift in Sources */,
 				D2E5D655220342EE00566437 /* Kingfisher+Reactive.swift in Sources */,
 				D2C8DED421F62BC400D82B65 /* CitiesListViewModel.swift in Sources */,
 				D2C8DE9721F5E58200D82B65 /* CurrentContainer.swift in Sources */,

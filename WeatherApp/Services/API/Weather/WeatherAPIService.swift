@@ -22,7 +22,9 @@ class WeatherAPIService: WeatherAPIServiceProtocol {
     key: "dj0yJmk9SFhVaTJHQmc4b3lkJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTU3",
     secret: "f9dde1d934edc4750d8f5a47169f8ca62050ac42"))
   
-  fileprivate lazy var provider = MoyaProvider<Request>(plugins: [self.authPlugin])
+  fileprivate lazy var provider = MoyaProvider<Request>(
+    callbackQueue: DispatchQueue(label: "com.service.api.weather"),
+    plugins: [self.authPlugin])
 }
 
 extension WeatherAPIService {
