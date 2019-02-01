@@ -3,25 +3,21 @@ import Result
 import Swinject
 import Moya
 
-struct PhotosAPIError: Error, Codable, Equatable {
-  let woeid: WoeID
-  let type: ErrorType; enum ErrorType: Codable, Equatable {
-    
-    static func == (lhs: PhotosAPIError.ErrorType, rhs: PhotosAPIError.ErrorType) -> Bool {
-     return false
-    }
-    
-    init(from decoder: Decoder) throws { fatalError("PhotosAPIError.init(from decoder:) unimplemented") }
-    func encode(to encoder: Encoder) throws {}
-    
-    case noPhotos
-    case networking(MoyaError)
-    case generic(Error)
+enum PhotosAPIError: Error, Codable, Equatable {
+  
+  static func == (lhs: PhotosAPIError, rhs: PhotosAPIError) -> Bool {
+    return false
   }
+  
+  init(from decoder: Decoder) throws { fatalError("PhotosAPIError.init(from decoder:) unimplemented") }
+  func encode(to encoder: Encoder) throws {}
+  
+  case noPhotos
+  case networking(MoyaError)
+  case generic(Error)
 }
-
 protocol PhotosAPIServiceProtocol {
-  func photo(woeid: WoeID, city: String, country: String, condition: String)
+  func photo(city: String, country: String, condition: String)
     -> SignalProducer<Response.PhotoResult.Photos.PhotoInfo, PhotosAPIError>
 }
 

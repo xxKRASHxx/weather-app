@@ -35,7 +35,7 @@ class PhotosAPIService {
 }
 
 extension PhotosAPIService: PhotosAPIServiceProtocol {
-  func photo(woeid: WoeID, city: String, country: String, condition: String)
+  func photo(city: String, country: String, condition: String)
     -> SignalProducer<Response.PhotoResult.Photos.PhotoInfo, PhotosAPIError> {
       return SignalProducer<Response.PhotoResult, PhotosAPIError>{ observer, lifetime in
         lifetime += self.provider.reactive.request(
@@ -45,16 +45,16 @@ extension PhotosAPIService: PhotosAPIServiceProtocol {
             switch event {
             case let .value(response):
               do { observer.send(value: try response.map(Response.PhotoResult.self)) }
-              catch { observer.send(error: PhotosAPIError(woeid: woeid, type: .generic(error))) }
+              catch { observer.send(error: .generic(error)) }
             case let .failed(error):
-              observer.send(error: PhotosAPIError(woeid: woeid, type: .networking(error)))
+              observer.send(error: .networking(error))
             default: break
             }
           }
         }
         .attemptMap { result in
           guard let photo = result.photos.photo.first
-            else { return .failure(PhotosAPIError(woeid: woeid, type: .noPhotos)) }
+            else { return .failure(.noPhotos) }
           return .success(photo)
         }
   }
