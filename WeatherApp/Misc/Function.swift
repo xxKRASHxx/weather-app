@@ -1,5 +1,9 @@
 import Foundation
 
+func execute<T> (_ action: () -> T) -> T {
+  return action()
+}
+
 func id<T>(_ value: T) -> T {
   return value
 }

@@ -11,10 +11,6 @@ class PhotosService: PhotosAPIAccessable, AppStoreAccessable {
   }
   
   private func setupObserving() {
-    observeWoeIDs()
-  }
-  
-  private func observeWoeIDs() {
     
     let unhandled: (([WoeID : WeatherRequestState]) -> [WoeID]) = { locations in locations
       .filter { (key, value) in
@@ -24,51 +20,45 @@ class PhotosService: PhotosAPIAccessable, AppStoreAccessable {
       .compactMap { (key, _) in key }
     }
     
+    let needsDownload: ((WoeID) -> Bool) = {
+      self.store.value.photos.sights[$0] == .notStarted || self.store.value.photos.sights[$0] == .none
+    }
+    
     let woeidProducer = store.producer
       .map(\AppState.weather.locationsMap)
       .map(unhandled)
       .flatMap(.latest, SignalProducer<WoeID, NoError>.init)
-      .filter { self.store.value.photos.sights[$0] == .notStarted || self.store.value.photos.sights[$0] == .none}
-    
-    let photosProducer = woeidProducer
-      .map(weatherFromWoeID)
-      .map(photoRequestParams)
-      .flatMap(.merge, photosAPI.photo)
+      .filter(needsDownload)
+      
+    woeidProducer
+      .map(keepSource(weatherFromWoeID))
+      .map(transformResult(photoRequestParams))
+      .flatMap(.merge, transformResult(photosAPI.photo, consumePhotosError))
+      .observe(on: QueueScheduler.main)
+      .map(transformResult(Response.PhotoResult.Photos.PhotoInfo.url))
+      .startWithValues(consumePhotosValue)
     
     woeidProducer
       .map(DidStartPhotoSearching.init)
       .flatMap(.merge, SignalProducer<DidStartPhotoSearching, NoError>.init)
       .observe(on: QueueScheduler.main)
       .startWithValues(store.consume)
-    
-    SignalProducer.zip(
-      woeidProducer.flatMap(.latest, SignalProducer<WoeID, PhotosAPIError>.init),
-      photosProducer)
-      .observe(on: QueueScheduler.main)
-      .map { (id, info) in ( id, Response.PhotoResult.Photos.PhotoInfo.url(info)) }
-      .startWithResult(consumePhotosResult)
-  }
-}
-
-private extension Response.PhotoResult.Photos.PhotoInfo {
-  static func url(_ response: Response.PhotoResult.Photos.PhotoInfo) -> URL {
-    return URL(string: "https://farm\(response.farm).staticflickr.com/\(response.server)/\(response.id)_\(response.secret).jpg")!
   }
 }
 
 private extension PhotosService {
   
-  func consumePhotosResult(_ result: Result<(WoeID, URL), PhotosAPIError>) {
-    store.consume(event: result.analysis(
-      ifSuccess: { (woeid, url) in DidFinishPhotoSearching(id: woeid, result: .init(value: url)) },
-      ifFailure: { (error) in DidFinishPhotoSearching(id: error.woeid, result: .init(error: error)) }
-    ))
+  func consumePhotosValue(tuple: SourceKeptTuple<WoeID, URL>) {
+    store.consume(event: DidFinishPhotoSearching(id: tuple.source, result: .init(value: tuple.result)))
+  }
+  
+  func consumePhotosError(error: PhotosAPIError, tuple: SourceKeptTuple<WoeID, Any>) {
+    store.consume(event: DidFinishPhotoSearching(id: tuple.source, result: .init(error: error)))
   }
   
   func photoRequestParams(from weather: Weather)
-    -> (woeid: WoeID, city: String, country: String, condition: String) {
+    -> (city: String, country: String, condition: String) {
       return (
-        weather.location.woeid,
         weather.location.city,
         weather.location.country,
         weather.now.condition.text
@@ -77,5 +67,11 @@ private extension PhotosService {
   
   func weatherFromWoeID(woeid: WoeID) -> Weather {
     return store.value.weather.locationsMap[woeid]!.weather!
+  }
+}
+
+private extension Response.PhotoResult.Photos.PhotoInfo {
+  static func url(_ response: Response.PhotoResult.Photos.PhotoInfo) -> URL {
+    return URL(string: "https://farm\(response.farm).staticflickr.com/\(response.server)/\(response.id)_\(response.secret).jpg")!
   }
 }
