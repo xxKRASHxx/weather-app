@@ -77,6 +77,7 @@ extension CitiesListScreen: ScreenProtocol {
       view.base.subtitleLabel.text
         = "\(model.weather.location.city), \(model.weather.location.country)"
       view.base.imageView.reactive.url <~ model.photo
+      view.base.locationIcon.reactive.isHidden <~ model.isCurrent.map { !$0 }
     }
     
     let sizeSource = { (i: Int, weather: WeatherViewModel, size: CGSize) -> CGSize in

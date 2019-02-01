@@ -19,9 +19,10 @@ class CitiesListViewModel: BaseViewModel, CitiesListViewModelProtocol {
       .attemptMap { (arg) -> [WeatherViewModel] in
         let (locations, sights) = arg
         return try locations
-          .map { (key, value) in (value, sights[key]?.url, self.openWeather(woeid: key) ) }
+          .map { (key, value) in (value, sights[key]?.url, self.isCurrent, self.openWeather(woeid: key) ) }
           .compactMap(WeatherRequestState.makeResult)
-        }
+          .sorted { (lhs, rhs) in lhs.isCurrent.value }
+    }
   }
   
   var openSearch: Action<(), (), NoError> {
@@ -39,6 +40,11 @@ class CitiesListViewModel: BaseViewModel, CitiesListViewModelProtocol {
 
 private typealias ActionsProducers = CitiesListViewModel
 private extension ActionsProducers {
+  
+  func isCurrent(_ id: WoeID) -> SignalProducer<Bool, NoError> {
+    return store.producer.map(\AppState.weather.current).map { current in id == current }
+  }
+  
   func searchActionProducer() -> SignalProducer<(), NoError> {
     router.perform(route: .search)
     return .empty
@@ -56,10 +62,15 @@ private extension WeatherRequestState {
   static func makeResult(
     _ state: WeatherRequestState,
     url: URL?,
+    isCurrent: (WoeID) -> SignalProducer<Bool, NoError>,
     action: Action<(), (), NoError>)
     throws -> WeatherViewModel? {
       switch state {
-      case let .success(current): return WeatherViewModel(weather: current, photo: url, select: action)
+      case let .success(current): return WeatherViewModel(
+        weather: current,
+        photo: url,
+        isCurrent: Property(initial: false, then: isCurrent(current.location.woeid)),
+        select: action)
       case let .error(value): throw value
       case .updating, .selected: return nil
       }
