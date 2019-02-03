@@ -15,14 +15,16 @@ class CitiesListViewModel: BaseViewModel, CitiesListViewModelProtocol {
   var locations: SignalProducer<[WeatherViewModel], AnyError> {
     let sights = store.producer.map(\AppState.photos.sights)
     let locations = store.producer.map(\AppState.weather.locationsMap)
+    
+//    let smth: (
+//      _ locations: [WoeID : WeatherRequestState],
+//      _ sights: [WoeID : AppPhotos.Status])
+//      throws -> [WeatherViewModel]
+//      = weakify_throws(CitiesListViewModel.makeWeatherViewModel, object: self, default: [WeatherViewModel]())
+//
+    
     return SignalProducer.combineLatest(locations, sights)
-      .attemptMap { (arg) -> [WeatherViewModel] in
-        let (locations, sights) = arg
-        return try locations
-          .map { (key, value) in (value, sights[key]?.url, self.isCurrent, self.openWeather(woeid: key) ) }
-          .compactMap(WeatherRequestState.makeResult)
-          .sorted { (lhs, rhs) in lhs.isCurrent.value }
-    }
+      .attemptMap(makeWeatherViewModel)
   }
   
   var openSearch: Action<(), (), NoError> {
@@ -58,18 +60,33 @@ private extension ActionsProducers {
   }
 }
 
+private typealias Mapping = CitiesListViewModel
+private extension Mapping {
+  func makeWeatherViewModel(
+    locations: [WoeID : WeatherRequestState],
+    sights: [WoeID : AppPhotos.Status])
+    throws -> [WeatherViewModel] {
+      return try locations
+        .compactMap { [weak self] (key, value) in
+          guard let `self` = self else { return nil }
+          return (value, sights[key]?.url, self.isCurrent(key), self.openWeather(woeid: key) )
+        }
+        .compactMap(WeatherRequestState.makeResult)
+        .sorted { (lhs, rhs) in lhs.isCurrent.value }
+  }
+}
 private extension WeatherRequestState {
   static func makeResult(
     _ state: WeatherRequestState,
     url: URL?,
-    isCurrent: (WoeID) -> SignalProducer<Bool, NoError>,
+    isCurrent: SignalProducer<Bool, NoError>,
     action: Action<(), (), NoError>)
     throws -> WeatherViewModel? {
       switch state {
       case let .success(current): return WeatherViewModel(
         weather: current,
         photo: url,
-        isCurrent: Property(initial: false, then: isCurrent(current.location.woeid)),
+        isCurrent: Property(initial: false, then: isCurrent),
         select: action)
       case let .error(value): throw value
       case .updating, .selected: return nil

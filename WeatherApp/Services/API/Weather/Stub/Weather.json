@@ -1,0 +1,46 @@
+{
+  "location": {
+    "woeid":44418,
+    "city":"London",
+    "region": "England",
+    "country":"United Kingdom",
+    "lat":51.506401,
+    "long":-0.12721,
+    "timezone_id": "Europe/London"
+  },
+  "current_observation": {
+    "wind":{
+      "chill":3,
+      "direction":225,
+      "speed":13.0
+    },
+    "atmosphere": {
+      "humidity":52,
+      "visibility":16.1,
+      "pressure":1020.0,
+      "rising":0
+    },
+    "astronomy": {
+      "sunrise":"7:36 am",
+      "sunset":"4:53 pm"
+    },
+    "condition": {
+      "text": "Mostly Cloudy",
+      "code":28,
+      "temperature":6
+    },
+    "pubDate":1549206000
+  },
+  "forecasts": [
+    {"day":"Sun","date":1549152000,"low":-3,"high":5,"text":"Partly Cloudy","code":30},
+    {"day":"Mon","date":1549238400,"low":3,"high":8,"text":"Showers","code":11},
+    {"day":"Tue","date":1549324800,"low":1,"high":10,"text":"Scattered Showers","code":39},
+    {"day":"Wed","date":1549411200,"low":7,"high":11,"text":"Scattered Showers","code":39},
+    {"day":"Thu","date":1549497600,"low":6,"high":10,"text":"Scattered Showers","code":39},
+    {"day":"Fri","date":1549584000,"low":5,"high":10,"text":"Rain","code":12},
+    {"day":"Sat","date":1549670400,"low":7,"high":10,"text":"Scattered Showers","code":39},
+    {"day":"Sun","date":1549756800,"low":6,"high":9,"text":"Scattered Showers","code":39},
+    {"day":"Mon","date":1549843200,"low":6,"high":10,"text":"Partly Cloudy","code":30},
+    {"day":"Tue","date":1549929600,"low":5,"high":11,"text":"Mostly Cloudy","code":28}
+  ]
+}
