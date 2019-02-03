@@ -23,6 +23,7 @@ class WeatherAPIService: WeatherAPIServiceProtocol {
     secret: "***REMOVED***"))
   
   fileprivate lazy var provider = MoyaProvider<Request>(
+    stubClosure: MoyaProvider.immediatelyStub,
     callbackQueue: DispatchQueue(label: "com.service.api.weather"),
     plugins: [self.authPlugin])
 }
@@ -101,7 +102,20 @@ extension WeatherAPIService.Request: TargetType {
   
   var method: Moya.Method { return .get }
   
-  var sampleData: Data { return Data() }
+  var sampleData: Data {
+    switch self {
+    case .byCoordinates, .byWoeid: return Bundle.main
+      .url(
+        forResource: "Weather",
+        withExtension: "json")
+      .flatMap { try? Data(contentsOf: $0) } ?? Data()
+    case .searchCity: return Bundle.main
+      .url(
+        forResource: "Search",
+        withExtension: "json")
+      .flatMap { try? Data(contentsOf: $0) } ?? Data()
+    }
+  }
   
   var task: Task {
     switch self {

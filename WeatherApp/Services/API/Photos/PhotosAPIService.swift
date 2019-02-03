@@ -31,7 +31,9 @@ fileprivate extension PhotosAPIService {
 }
 
 class PhotosAPIService {
-  fileprivate lazy var provider = MoyaProvider<Request>(callbackQueue: DispatchQueue(label: "com.service.api.photos"))
+  fileprivate lazy var provider = MoyaProvider<Request>(
+    stubClosure: MoyaProvider.immediatelyStub,
+    callbackQueue: DispatchQueue(label: "com.service.api.photos"))
 }
 
 extension PhotosAPIService: PhotosAPIServiceProtocol {
@@ -68,7 +70,13 @@ extension PhotosAPIService.Request: TargetType {
   
   var method: Moya.Method { return .get }
   
-  var sampleData: Data { return Data() }
+  var sampleData: Data {
+    return Bundle.main
+      .url(
+        forResource: "Photo",
+        withExtension: "json")
+      .flatMap { try? Data(contentsOf: $0) } ?? Data()
+  }
   
   var task: Task {
     switch self {
