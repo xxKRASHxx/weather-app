@@ -81,6 +81,11 @@ extension CitiesListScreen: ScreenProtocol {
     }
     
     let sizeSource = { (i: Int, weather: WeatherViewModel, size: CGSize) -> CGSize in
+      if i == 0 && weather.isCurrent.value {
+        return CGSize(
+          width: size.width - 32,
+          height: (64...240).clamp(size.width - 32))
+      }
       let side = (64...240).clamp((size.width / 2) - 32)
       return  CGSize(
         width: side,

@@ -13,18 +13,11 @@ class CitiesListViewModel: BaseViewModel, CitiesListViewModelProtocol {
   let title = Property(initial: "Forecast", then: .never)
   
   var locations: SignalProducer<[WeatherViewModel], AnyError> {
-    let sights = store.producer.map(\AppState.photos.sights)
-    let locations = store.producer.map(\AppState.weather.locationsMap)
-    
-//    let smth: (
-//      _ locations: [WoeID : WeatherRequestState],
-//      _ sights: [WoeID : AppPhotos.Status])
-//      throws -> [WeatherViewModel]
-//      = weakify_throws(CitiesListViewModel.makeWeatherViewModel, object: self, default: [WeatherViewModel]())
-//
-    
-    return SignalProducer.combineLatest(locations, sights)
-      .attemptMap(makeWeatherViewModel)
+    let sights = store.producer.map(\AppState.photos.sights).skipRepeats()
+    let locations = store.producer.map(\AppState.weather.locationsMap).skipRepeats()
+    return SignalProducer
+      .combineLatest(locations, sights)
+      .attemptMap(weakify(CitiesListViewModel.makeWeatherViewModel, object: self, default: []))
   }
   
   var openSearch: Action<(), (), NoError> {
@@ -44,7 +37,9 @@ private typealias ActionsProducers = CitiesListViewModel
 private extension ActionsProducers {
   
   func isCurrent(_ id: WoeID) -> SignalProducer<Bool, NoError> {
-    return store.producer.map(\AppState.weather.current).map { current in id == current }
+    return store.producer
+      .map(\AppState.weather.current)
+      .map { current in id == current }
   }
   
   func searchActionProducer() -> SignalProducer<(), NoError> {
@@ -60,21 +55,20 @@ private extension ActionsProducers {
   }
 }
 
-private typealias Mapping = CitiesListViewModel
-private extension Mapping {
-  func makeWeatherViewModel(
+fileprivate extension CitiesListViewModel {
+  func makeWeatherViewModel(tuple: (
     locations: [WoeID : WeatherRequestState],
-    sights: [WoeID : AppPhotos.Status])
+    sights: [WoeID : AppPhotos.Status]))
     throws -> [WeatherViewModel] {
-      return try locations
-        .compactMap { [weak self] (key, value) in
-          guard let `self` = self else { return nil }
-          return (value, sights[key]?.url, self.isCurrent(key), self.openWeather(woeid: key) )
+      return try tuple.locations
+        .compactMap { (key, value) in
+          (value, tuple.sights[key]?.url, self.isCurrent(key), self.openWeather(woeid: key) )
         }
         .compactMap(WeatherRequestState.makeResult)
         .sorted { (lhs, rhs) in lhs.isCurrent.value }
   }
 }
+
 private extension WeatherRequestState {
   static func makeResult(
     _ state: WeatherRequestState,

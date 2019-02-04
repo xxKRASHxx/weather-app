@@ -32,7 +32,7 @@ fileprivate extension PhotosAPIService {
 
 class PhotosAPIService {
   fileprivate lazy var provider = MoyaProvider<Request>(
-    stubClosure: MoyaProvider.immediatelyStub,
+//    stubClosure: MoyaProvider.immediatelyStub,
     callbackQueue: DispatchQueue(label: "com.service.api.photos"))
 }
 

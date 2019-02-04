@@ -19,6 +19,7 @@ class SearchViewModel: BaseViewModel, SearchViewModelProtocol {
   
   var results: SignalProducer<[SearchResultViewModel], AnyError> {
     return store.producer
+      .observe(on: QueueScheduler.service)
       .map(\AppState.searching)
       .attemptMap { searching in
         switch searching {

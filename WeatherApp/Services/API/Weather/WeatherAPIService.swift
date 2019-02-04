@@ -23,7 +23,7 @@ class WeatherAPIService: WeatherAPIServiceProtocol {
     secret: "f9dde1d934edc4750d8f5a47169f8ca62050ac42"))
   
   fileprivate lazy var provider = MoyaProvider<Request>(
-    stubClosure: MoyaProvider.immediatelyStub,
+//    stubClosure: MoyaProvider.immediatelyStub,
     callbackQueue: DispatchQueue(label: "com.service.api.weather"),
     plugins: [self.authPlugin])
 }

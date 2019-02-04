@@ -66,8 +66,7 @@ extension SearchScreen: ScreenProtocol {
   class Observing: Mixin<SearchScreen>, ObservingProtocol {
     func setupObserving() {
       
-      base.reactive
-        .signal(for: #selector(viewDidAppear(_:)))
+      base.reactive.viewDidAppear
         .take(first: 1)
         .observeValues { [weak base] _ in base?.navigationItem.titleView?.becomeFirstResponder() }
       
