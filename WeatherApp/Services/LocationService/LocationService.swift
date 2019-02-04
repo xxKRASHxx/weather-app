@@ -19,7 +19,7 @@ class LocationService: NSObject, AppStoreAccessable {
     let locationProducer = self.store.producer
       .map(\AppState.location.availability)
       .skipRepeats()
-      .observe(on: QueueScheduler.service)
+      .observe(on: QueueScheduler.main)
     locationProducer
       .filter { $0 == .requested }
       .startWithValues { [weak self] _ in self?.locationManager.requestWhenInUseAuthorization() }
@@ -29,7 +29,7 @@ class LocationService: NSObject, AppStoreAccessable {
     let locationRequestProducer = self.store.producer
       .map { $0.location.deviceLocation }
       .skipRepeats()
-      .observe(on: QueueScheduler.service)
+      .observe(on: QueueScheduler.main)
     locationRequestProducer
       .filter { $0 == .updating }
       .startWithValues { [weak self] _ in self?.locationManager.startUpdatingLocation() }

@@ -10,8 +10,8 @@ struct WeatherAPIError<T: Codable & Equatable>: Swift.Error, Codable, Equatable 
   public let reason: T
 
   static func == (lhs: WeatherAPIError<T>, rhs: WeatherAPIError<T>) -> Bool {
-    return lhs.reason == rhs.reason &&
-      rhs.original.localizedDescription == lhs.original.localizedDescription
+    return lhs.reason == rhs.reason
+      && rhs.original.localizedDescription == lhs.original.localizedDescription
   }
   
   init(from decoder: Decoder) throws {
