@@ -47,16 +47,12 @@ extension AppWeather {
     case let event as BeginUpdateWeather:
       return AppWeather(
         current: state.current,
-        locations: execute {
-          var locations = state.locations
-          locations.insert(event.id)
-          return locations
-        },
-        locationsMap: execute {
-          var locationsMap = state.locationsMap
-          locationsMap[event.id] = .updating
-          return locationsMap
-        }
+        locations: event.ids.reduce(into: state.locations, { (locations, id) in
+          locations.insert(id)
+        }),
+        locationsMap: event.ids.reduce(into: state.locationsMap, { ( map, id) in
+          map[id] = .updating
+        })
       )
     case let event as DidUpdateWeather:
       return AppWeather(

@@ -18,10 +18,10 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
   
   @discardableResult private func observeCurrentWeather() -> Disposable {
     return store.producer
+      .observe(on: QueueScheduler.service)
       .map(\AppState.location.deviceLocation)
       .filterMap { $0.location }
       .skipRepeats()
-      .observe(on: QueueScheduler.service)
       .startWithValues(fetchCurrentWeather)
   }
   
@@ -34,13 +34,13 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
     }
     
     return store.producer
+      .observe(on: QueueScheduler.service)
       .map(\AppState.searching)
       .filterMap(searchingText)
       .skipRepeats()
       .throttle(0.5, on: QueueScheduler.main)
       .flatMap(.latest, weatherAPI.search)
       .map { $0.map(SearchResult.fromDTO) }
-      .observe(on: QueueScheduler.service)
       .startWithResult(consumeSearchResult)
   }
   
@@ -53,26 +53,25 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .compactMap { (key, _) in key }
     }
     
-    let woeidProducer =
-      store.producer
+    let woeidProducer = store.producer
+      .observe(on: QueueScheduler.service)
       .map(\AppState.weather.locationsMap)
       .map(unhandled)
-      .flatMap(.latest, SignalProducer<WoeID, NoError>.init)
       .skipRepeats()
     
     woeidProducer
-      .flatMap(.merge, weatherAPI.weatherData)
-      .map(Weather.fromDTO)
-      .map(fromWeatherResponse)
-      .flatMapError(fromWeatherError)
-      .observe(on: QueueScheduler.service)
+      .map(BeginUpdateWeather.init)
       .startWithValues(store.consume)
     
     woeidProducer
-      .map(BeginUpdateWeather.init)
+      .flatMap(.latest, SignalProducer<WoeID, NoError>.init)
+      .flatMap(.merge, weatherAPI.weatherData)
+      .map(Weather.fromDTO)
+      .map(fromWeatherResponse)
       .observe(on: QueueScheduler.service)
+      .flatMapError(fromWeatherError)
       .startWithValues(store.consume)
-    
+
     return compositeDisposable
   }
 }
@@ -98,8 +97,8 @@ private extension WeatherService {
   func fetchCurrentWeather(in location: Coordinates2D) {
     store.consume(event: BeginUpdateCurrentWeather())
     weatherAPI.weatherData(for: location)
-      .map(Weather.fromDTO)
       .observe(on: QueueScheduler.service)
+      .map(Weather.fromDTO)
       .startWithResult(consumeCurrentWeather)
   }
   

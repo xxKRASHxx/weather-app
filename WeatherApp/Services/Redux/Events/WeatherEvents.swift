@@ -6,7 +6,7 @@ struct BeginUpdateCurrentWeather: AppEvent {
 }
 
 struct BeginUpdateWeather: AppEvent {
-  let id: WoeID
+  let ids: [WoeID]
 }
 
 struct DidUpdateWeather: AppEvent {

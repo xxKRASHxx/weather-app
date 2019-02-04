@@ -25,9 +25,9 @@ extension AppPhotos {
   static func reduce(_ state: AppPhotos, _ event: AppEvent) -> AppPhotos {
     switch event {
     case let event as BeginUpdateWeather:
-      return AppPhotos(sights: state.sights
-        .merging([event.id: .notStarted], uniquingKeysWith: new)
-      )
+      return AppPhotos(sights: event.ids.reduce(into: state.sights, { (result, id) in
+        result[id] = .notStarted
+      }))
     case let event as DidStartPhotoSearching:
       return AppPhotos(sights: state.sights
         .merging([event.id: .inProgress], uniquingKeysWith: new)
