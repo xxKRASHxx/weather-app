@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (4.8.1)
+  - CocoaAsyncSocket (7.6.3)
+  - CocoaMQTT (1.1.3):
+    - CocoaAsyncSocket (~> 7.6.3)
   - CollectionKit (2.3.0):
     - CollectionKit/Core (= 2.3.0)
   - CollectionKit/Core (2.3.0)
@@ -29,6 +32,7 @@ PODS:
   - TableKit (2.8.1)
 
 DEPENDENCIES:
+  - CocoaMQTT
   - CollectionKit
   - Hero
   - Kingfisher (~> 5.1)
@@ -47,6 +51,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - CocoaAsyncSocket
+    - CocoaMQTT
     - CollectionKit
     - Hero
     - Kingfisher
@@ -67,6 +73,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
+  CocoaMQTT: b506d38ad3bbe1c55a4f8ee8c9fd02c35da1a7d8
   CollectionKit: 6910479bf865bfe49040e73322ce4b8fe8991231
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   Kingfisher: fcec238063d17404fca89bf0a850583211c4cbf6
@@ -82,6 +90,6 @@ SPEC CHECKSUMS:
   SwinjectAutoregistration: f72bf894cbd2ee4a9153e00fa5208e93fb44d283
   TableKit: 18a0049dea981c1106409bdeebc763ef74d36f02
 
-PODFILE CHECKSUM: 47120463b070ed5320a25e213d12190ffbdd2680
+PODFILE CHECKSUM: c153fd987bbaea8215de14b5505a1a716f264fd7
 
 COCOAPODS: 1.6.0

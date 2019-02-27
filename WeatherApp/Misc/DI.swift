@@ -17,6 +17,7 @@ private struct APIServicesAssembly: Assembly {
   func assemble(container: Container) {
     container.autoregister(PhotosAPIServiceProtocol.self, initializer: PhotosAPIService.init).inObjectScope(.container)
     container.autoregister(WeatherAPIServiceProtocol.self, initializer: WeatherAPIService.init).inObjectScope(.container)
+    container.autoregister(MQTTServiceProtocol.self, initializer: MQTTService.init).inObjectScope(.container)
   }
 }
 

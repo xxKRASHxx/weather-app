@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       setupAppDI()
       setupUI()
       setupStore()
+      setupLogging()
       return true
   }
 }
@@ -39,5 +40,9 @@ private extension AppDelegate {
     let _ = WeatherService.shared
     let _ = StorageService.shared
     let _ = PhotosService.shared
+  }
+  
+  func setupLogging() {
+    UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
   }
 }

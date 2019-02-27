@@ -15,6 +15,7 @@ target 'WeatherApp' do
   pod 'TableKit', '~> 2.8'
   pod 'SnapKit', '~> 4.0.0'
   
+  pod 'CocoaMQTT', '~> 1.1'
   pod 'Moya'
   pod 'Moya/ReactiveSwift'
   pod 'Kingfisher', '~> 5.1'

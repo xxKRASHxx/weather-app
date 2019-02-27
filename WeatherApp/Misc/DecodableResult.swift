@@ -46,8 +46,7 @@ extension AnyError: Codable {
   
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: Keys.self)
-    try container.encode(Keys.error.rawValue, forKey: .error)
-    try self.errorDescription?.encode(to: encoder)
+    try container.encode(errorDescription, forKey: .error)
   }
 }
 
