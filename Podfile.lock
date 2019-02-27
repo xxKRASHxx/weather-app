@@ -21,7 +21,7 @@ PODS:
     - ReactiveSwift (~> 4.0)
   - ReactiveSwift (4.0.0):
     - Result (~> 4.0)
-  - Redux-ReactiveSwift (0.2.0):
+  - Redux-ReactiveSwift (0.3.0):
     - ReactiveSwift (= 4.0.0)
   - Result (4.1.0)
   - SnapKit (4.0.1)
@@ -32,7 +32,7 @@ PODS:
   - TableKit (2.8.1)
 
 DEPENDENCIES:
-  - CocoaMQTT
+  - CocoaMQTT (~> 1.1)
   - CollectionKit
   - Hero
   - Kingfisher (~> 5.1)
@@ -41,7 +41,7 @@ DEPENDENCIES:
   - OAuthSwift (~> 1.2.0)
   - ReactiveCocoa (~> 8.0)
   - ReactiveSwift
-  - Redux-ReactiveSwift (from `../Redux-ReactiveSwift`)
+  - "Redux-ReactiveSwift (from `git@github.com:xxKRASHxx/Redux-ReactiveSwift.git`, branch `feature/issue-3`)"
   - SnapKit (~> 4.0.0)
   - Sourcery (~> 0.15)
   - Swinject
@@ -69,7 +69,13 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Redux-ReactiveSwift:
-    :path: "../Redux-ReactiveSwift"
+    :branch: feature/issue-3
+    :git: "git@github.com:xxKRASHxx/Redux-ReactiveSwift.git"
+
+CHECKOUT OPTIONS:
+  Redux-ReactiveSwift:
+    :commit: 2a1360539a9c85eaeb6c7dbbe52d13347d4ca58e
+    :git: "git@github.com:xxKRASHxx/Redux-ReactiveSwift.git"
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
@@ -82,7 +88,7 @@ SPEC CHECKSUMS:
   OAuthSwift: 27b34fe80b76b67cd8f45571e0be2432bc9f6de1
   ReactiveCocoa: fbd26e9ba60e98417ee47433e59465a98ed9da0f
   ReactiveSwift: a2bb9ace428a109e9c0209615645d9d286c8c433
-  Redux-ReactiveSwift: 26e847f0db90d826f83b77e5cfad0aeba9b44a0e
+  Redux-ReactiveSwift: 107e69a2790b4e6a1b96ae773ae00ac35c0db5ee
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   Sourcery: 5895672cae353cdbfa95f3f4aaeb75a664d76f6a
@@ -90,6 +96,6 @@ SPEC CHECKSUMS:
   SwinjectAutoregistration: f72bf894cbd2ee4a9153e00fa5208e93fb44d283
   TableKit: 18a0049dea981c1106409bdeebc763ef74d36f02
 
-PODFILE CHECKSUM: c153fd987bbaea8215de14b5505a1a716f264fd7
+PODFILE CHECKSUM: 3215a84cdb47c7d03aae782c856c6ec8c42a0fab
 
 COCOAPODS: 1.6.0

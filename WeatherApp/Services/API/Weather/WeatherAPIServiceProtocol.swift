@@ -20,8 +20,7 @@ struct WeatherAPIError<T: Codable & Equatable>: Swift.Error, Codable, Equatable 
   }
   
   func encode(to encoder: Encoder) throws {
-    var container = encoder.singleValueContainer()
-    try container.encode(reason)
+    try reason.encode(to: encoder)
   }
   
   public init(_ error: Swift.Error, reason: T) {

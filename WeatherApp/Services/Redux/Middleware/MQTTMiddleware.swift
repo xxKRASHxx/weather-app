@@ -16,17 +16,20 @@ extension MQTTMiddleware {
 class MQTTMiddleware: StoreMiddleware, MQTTServiceAccessible {
   
   private let flags: LoggerFlags
-  private let name: String?
+  private let name: String
   
-//  private lazy var logEvent: Action<AppState, (), AnyError> = mqttService.publish(in: "store/event")
-  private lazy var logState: Action<AppState, (), AnyError> = mqttService.publish(in: "store/state")
+  private lazy var logEvent: Action<AnyEvent, (), AnyError> =
+    mqttService.publish(in: "\(name)/store/event")
+  private lazy var logState: Action<AppState, (), AnyError> =
+    mqttService.publish(in: "\(name)/store/state")
+
   
   private let events = Signal<AppEvent, NoError>.pipe()
   private let states = Signal<AppState, NoError>.pipe()
   
   public init(
     flags: LoggerFlags = .logAll,
-    name: String? = nil
+    name: String = "undefined"
     )
   {
     self.flags = flags
@@ -53,7 +56,7 @@ class MQTTMiddleware: StoreMiddleware, MQTTServiceAccessible {
 private typealias Observing = MQTTMiddleware
 private extension Observing {
   func setupObserving() {
-//    logEvents <~ events.output.throttle(0.5, on: QueueScheduler.main)
+    logEvent <~ events.output.throttle(0.5, on: QueueScheduler.main).map(AnyEvent.init)
     logState <~ states.output.throttle(0.5, on: QueueScheduler.main)
   }
 }

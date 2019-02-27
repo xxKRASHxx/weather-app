@@ -30,6 +30,7 @@
 		D258CD632226CD9D0071AAC1 /* MQTTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD622226CD9D0071AAC1 /* MQTTService.swift */; };
 		D258CD662226D21C0071AAC1 /* MQTTServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD652226D21C0071AAC1 /* MQTTServiceProtocol.swift */; };
 		D258CD6B2226DA9D0071AAC1 /* MQTTMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD6A2226DA9D0071AAC1 /* MQTTMiddleware.swift */; };
+		D258CD70222702FE0071AAC1 /* AnyEvent.swifttemplate in Sources */ = {isa = PBXBuildFile; fileRef = D258CD6E2227021D0071AAC1 /* AnyEvent.swifttemplate */; };
 		D2652CEA2204629100F57B6D /* SourceKeptTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2652CE92204629100F57B6D /* SourceKeptTuple.swift */; };
 		D288C85921F5D2DF005229AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288C85821F5D2DF005229AF /* AppDelegate.swift */; };
 		D288C86021F5D2E1005229AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D288C85F21F5D2E1005229AF /* Assets.xcassets */; };
@@ -139,6 +140,7 @@
 		D258CD622226CD9D0071AAC1 /* MQTTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTService.swift; sourceTree = "<group>"; };
 		D258CD652226D21C0071AAC1 /* MQTTServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTServiceProtocol.swift; sourceTree = "<group>"; };
 		D258CD6A2226DA9D0071AAC1 /* MQTTMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTMiddleware.swift; sourceTree = "<group>"; };
+		D258CD6E2227021D0071AAC1 /* AnyEvent.swifttemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AnyEvent.swifttemplate; sourceTree = "<group>"; };
 		D2652CE92204629100F57B6D /* SourceKeptTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceKeptTuple.swift; sourceTree = "<group>"; };
 		D288C85521F5D2DF005229AF /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D288C85821F5D2DF005229AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -148,7 +150,6 @@
 		D288C87021F5D6EF005229AF /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D288C87421F5D782005229AF /* Mixin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mixin.swift; sourceTree = "<group>"; };
 		D288C87921F5D828005229AF /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
-		D288C87D21F5D9C9005229AF /* SomeAction.swifttemplate */ = {isa = PBXFileReference; lastKnownFileType = text; path = SomeAction.swifttemplate; sourceTree = "<group>"; };
 		D288C87F21F5DA37005229AF /* AppEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEvent.swift; sourceTree = "<group>"; };
 		D288C88621F5DB45005229AF /* ScreenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtocol.swift; sourceTree = "<group>"; };
 		D288C88821F5DB54005229AF /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -380,6 +381,7 @@
 		D288C87221F5D749005229AF /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				D258CD6E2227021D0071AAC1 /* AnyEvent.swifttemplate */,
 				D2C8DEF521F765B400D82B65 /* AutoCodable */,
 				D288C85821F5D2DF005229AF /* AppDelegate.swift */,
 				D288C87421F5D782005229AF /* Mixin.swift */,
@@ -427,7 +429,6 @@
 		D288C87721F5D7B6005229AF /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				D288C87D21F5D9C9005229AF /* SomeAction.swifttemplate */,
 				D288C87F21F5DA37005229AF /* AppEvent.swift */,
 				D2C8DEE121F72FB000D82B65 /* LocationEvents.swift */,
 				D247F94521F8A0A8004950D3 /* WeatherEvents.swift */,
@@ -819,6 +820,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D258CD70222702FE0071AAC1 /* AnyEvent.swifttemplate in Sources */,
 				D28C774821F7674600079EAE /* AutoCodable.swifttemplate in Sources */,
 				D2C8DED121F6298000D82B65 /* ScreenFactoryProtocol.swift in Sources */,
 				D2C8DEAF21F5EF7C00D82B65 /* Weakify.swift in Sources */,
