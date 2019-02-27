@@ -4,6 +4,7 @@ extension Result: Codable where Value: Codable, Error: Codable {
   
   private enum Keys: String, CodingKey {
     case type = "type"
+    case value = "value"
   }
   
   enum ResultType: String, Codable {
@@ -24,10 +25,10 @@ extension Result: Codable where Value: Codable, Error: Codable {
     switch self {
     case let .success(value):
       try container.encode(ResultType.value.rawValue, forKey: .type)
-      try value.encode(to: encoder)
+      try container.encode(value, forKey: .value)
     case let .failure(error):
       try container.encode(ResultType.error.rawValue, forKey: .type)
-      try error.encode(to: encoder)
+      try container.encode(error, forKey: .value)
     }
   }
 }
