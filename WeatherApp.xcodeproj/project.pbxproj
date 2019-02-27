@@ -27,6 +27,9 @@
 		D247F94421F89EFD004950D3 /* AppWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247F94321F89EFD004950D3 /* AppWeather.swift */; };
 		D247F94621F8A0A8004950D3 /* WeatherEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247F94521F8A0A8004950D3 /* WeatherEvents.swift */; };
 		D258CD602226C1320071AAC1 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD5F2226C1320071AAC1 /* Keys.swift */; };
+		D258CD632226CD9D0071AAC1 /* MQTTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD622226CD9D0071AAC1 /* MQTTService.swift */; };
+		D258CD662226D21C0071AAC1 /* MQTTServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD652226D21C0071AAC1 /* MQTTServiceProtocol.swift */; };
+		D258CD6B2226DA9D0071AAC1 /* MQTTMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD6A2226DA9D0071AAC1 /* MQTTMiddleware.swift */; };
 		D2652CEA2204629100F57B6D /* SourceKeptTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2652CE92204629100F57B6D /* SourceKeptTuple.swift */; };
 		D288C85921F5D2DF005229AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288C85821F5D2DF005229AF /* AppDelegate.swift */; };
 		D288C86021F5D2E1005229AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D288C85F21F5D2E1005229AF /* Assets.xcassets */; };
@@ -133,6 +136,9 @@
 		D247F94321F89EFD004950D3 /* AppWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWeather.swift; sourceTree = "<group>"; };
 		D247F94521F8A0A8004950D3 /* WeatherEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEvents.swift; sourceTree = "<group>"; };
 		D258CD5F2226C1320071AAC1 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		D258CD622226CD9D0071AAC1 /* MQTTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTService.swift; sourceTree = "<group>"; };
+		D258CD652226D21C0071AAC1 /* MQTTServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTServiceProtocol.swift; sourceTree = "<group>"; };
+		D258CD6A2226DA9D0071AAC1 /* MQTTMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTMiddleware.swift; sourceTree = "<group>"; };
 		D2652CE92204629100F57B6D /* SourceKeptTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceKeptTuple.swift; sourceTree = "<group>"; };
 		D288C85521F5D2DF005229AF /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D288C85821F5D2DF005229AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -273,6 +279,23 @@
 			path = WeatherService;
 			sourceTree = "<group>";
 		};
+		D258CD612226CD5C0071AAC1 /* Middleware */ = {
+			isa = PBXGroup;
+			children = (
+				D258CD6A2226DA9D0071AAC1 /* MQTTMiddleware.swift */,
+			);
+			path = Middleware;
+			sourceTree = "<group>";
+		};
+		D258CD672226D3DE0071AAC1 /* MQTT */ = {
+			isa = PBXGroup;
+			children = (
+				D258CD652226D21C0071AAC1 /* MQTTServiceProtocol.swift */,
+				D258CD622226CD9D0071AAC1 /* MQTTService.swift */,
+			);
+			path = MQTT;
+			sourceTree = "<group>";
+		};
 		D288C84C21F5D2DF005229AF = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +353,7 @@
 		D288C86E21F5D61F005229AF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D258CD672226D3DE0071AAC1 /* MQTT */,
 				D2D8301121FA213F009090AC /* Storage */,
 				D247F93E21F89938004950D3 /* WeatherService */,
 				D2C8DEE721F737E900D82B65 /* LocationService */,
@@ -392,6 +416,7 @@
 		D288C87621F5D7A6005229AF /* Redux */ = {
 			isa = PBXGroup;
 			children = (
+				D258CD612226CD5C0071AAC1 /* Middleware */,
 				D288C87721F5D7B6005229AF /* Events */,
 				D2C8DEDC21F723C300D82B65 /* Store */,
 				D288C86F21F5D6BC005229AF /* State */,
@@ -745,6 +770,8 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WeatherApp/Pods-WeatherApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaMQTT/CocoaMQTT.framework",
 				"${BUILT_PRODUCTS_DIR}/CollectionKit/CollectionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -764,6 +791,8 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaMQTT.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CollectionKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
@@ -821,15 +850,18 @@
 				D2C8DE9121F5E46E00D82B65 /* ViewModelConnectable.swift in Sources */,
 				D2C8DE9321F5E48500D82B65 /* BaseViewModel.swift in Sources */,
 				D2C8DEE221F72FB000D82B65 /* LocationEvents.swift in Sources */,
+				D258CD6B2226DA9D0071AAC1 /* MQTTMiddleware.swift in Sources */,
 				D2E5D6512201EB8F00566437 /* PhotosEvents.swift in Sources */,
 				D2E5D64B2201C7F800566437 /* PhotosService.swift in Sources */,
 				D288C88021F5DA37005229AF /* AppEvent.swift in Sources */,
 				D29E2F0F2200A0490047F0C7 /* ForecastTableVIewCell.swift in Sources */,
+				D258CD632226CD9D0071AAC1 /* MQTTService.swift in Sources */,
 				D2C8DEC521F615C000D82B65 /* RootScreenViewModel.swift in Sources */,
 				D2C8DEBE21F6070200D82B65 /* CItiesList.swift in Sources */,
 				D2D8301521FAF710009090AC /* SearchPlace.swift in Sources */,
 				D288C87A21F5D828005229AF /* Weather.swift in Sources */,
 				D2C8DEB121F5F06800D82B65 /* PermissionsScreen.swift in Sources */,
+				D258CD662226D21C0071AAC1 /* MQTTServiceProtocol.swift in Sources */,
 				D247F93721F87DCF004950D3 /* OAuthProvider.swift in Sources */,
 				D247F94021F89944004950D3 /* WeatherService.swift in Sources */,
 				D2D8302121FB3556009090AC /* SearchScreen.swift in Sources */,
