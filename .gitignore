@@ -4,6 +4,9 @@
 
 .DS_Store
 
+### Private sensitive data ###
+WeatherApp/Services/API/Keys.swift
+
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
 
