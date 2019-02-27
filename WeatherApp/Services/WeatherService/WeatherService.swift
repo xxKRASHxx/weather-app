@@ -48,7 +48,7 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
     
     let unhandled: (([WoeID : WeatherRequestState]) -> [WoeID]) = { locations in locations
       .filter { (_, value) in value == .selected }
-      .compactMap { (key, _) in key }
+      .compactMap(takeFirst)
     }
     
     let woeidProducer = store.producer

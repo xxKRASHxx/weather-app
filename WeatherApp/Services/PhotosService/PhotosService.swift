@@ -17,7 +17,7 @@ class PhotosService: PhotosAPIAccessable, AppStoreAccessable {
         guard case .success = value else { return false }
         return true
       }
-      .compactMap { (key, _) in key }
+      .compactMap(takeFirst)// { (key, _) in key }
     }
     
     let needsDownload: ((WoeID) -> Bool) = {

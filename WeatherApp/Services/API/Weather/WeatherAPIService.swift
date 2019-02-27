@@ -19,8 +19,8 @@ fileprivate extension WeatherAPIService {
 class WeatherAPIService: WeatherAPIServiceProtocol {
 
   private let authPlugin = AuthPlugin(credentials: .init(
-    key: "***REMOVED***",
-    secret: "***REMOVED***"))
+    key: Private.Yahoo.key,
+    secret: Private.Yahoo.secret))
   
   fileprivate lazy var provider = MoyaProvider<Request>(
 //    stubClosure: MoyaProvider.immediatelyStub,
