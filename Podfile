@@ -5,7 +5,8 @@ target 'WeatherApp' do
   use_frameworks!
   inhibit_all_warnings!
   
-  pod 'Redux-ReactiveSwift', :git => 'git@github.com:xxKRASHxx/Redux-ReactiveSwift.git', :branch => 'swift-4.2'
+  pod 'Redux-ReactiveSwift', :path => '../Redux-ReactiveSwift'
+  # :git => 'git@github.com:xxKRASHxx/Redux-ReactiveSwift.git', :branch => 'feature/issue-3'
   pod 'ReactiveSwift'
   pod 'ReactiveCocoa', '~> 8.0'
   

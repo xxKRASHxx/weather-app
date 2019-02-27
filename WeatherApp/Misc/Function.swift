@@ -8,10 +8,10 @@ func id<T>(_ value: T) -> T {
   return value
 }
 
-func new<T>(current: T, new: T) -> T {
-  return new
+func takeSecond<T, U>(first: T, second: U) -> U {
+  return second
 }
 
-func current<T>(current: T, new: T) -> T {
-  return current
+func takeFirst<T, U>(first: T, second: U) -> T {
+  return first
 }

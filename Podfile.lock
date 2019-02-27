@@ -31,13 +31,13 @@ PODS:
 DEPENDENCIES:
   - CollectionKit
   - Hero
-  - Kingfisher
+  - Kingfisher (~> 5.1)
   - Moya
   - Moya/ReactiveSwift
   - OAuthSwift (~> 1.2.0)
   - ReactiveCocoa (~> 8.0)
   - ReactiveSwift
-  - "Redux-ReactiveSwift (from `git@github.com:xxKRASHxx/Redux-ReactiveSwift.git`, branch `swift-4.2`)"
+  - Redux-ReactiveSwift (from `../Redux-ReactiveSwift`)
   - SnapKit (~> 4.0.0)
   - Sourcery (~> 0.15)
   - Swinject
@@ -63,13 +63,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Redux-ReactiveSwift:
-    :branch: swift-4.2
-    :git: "git@github.com:xxKRASHxx/Redux-ReactiveSwift.git"
-
-CHECKOUT OPTIONS:
-  Redux-ReactiveSwift:
-    :commit: a19ed5ede84c4b99cddb55406d3e487582a95275
-    :git: "git@github.com:xxKRASHxx/Redux-ReactiveSwift.git"
+    :path: "../Redux-ReactiveSwift"
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
@@ -88,6 +82,6 @@ SPEC CHECKSUMS:
   SwinjectAutoregistration: f72bf894cbd2ee4a9153e00fa5208e93fb44d283
   TableKit: 18a0049dea981c1106409bdeebc763ef74d36f02
 
-PODFILE CHECKSUM: f2b55b70bf71f06f165f57081ed2bb1cb61de242
+PODFILE CHECKSUM: 47120463b070ed5320a25e213d12190ffbdd2680
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0

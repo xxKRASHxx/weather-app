@@ -30,7 +30,7 @@ extension AppPhotos {
       }))
     case let event as DidStartPhotoSearching:
       return AppPhotos(sights: state.sights
-        .merging([event.id: .inProgress], uniquingKeysWith: new)
+        .merging([event.id: .inProgress], uniquingKeysWith: takeSecond)
       )
     case let event as DidFinishPhotoSearching:
       
@@ -38,7 +38,7 @@ extension AppPhotos {
         ifSuccess: { [event.id: .completed(result: $0)] },
         ifFailure: { [event.id: .failed(error: $0)] }
       )
-      return AppPhotos(sights: state.sights.merging(delta, uniquingKeysWith: new))
+      return AppPhotos(sights: state.sights.merging(delta, uniquingKeysWith: takeSecond))
       
     default: return state
     }

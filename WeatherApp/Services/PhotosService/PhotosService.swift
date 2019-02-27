@@ -17,7 +17,7 @@ class PhotosService: PhotosAPIAccessable, AppStoreAccessable {
         guard case .success = value else { return false }
         return true
       }
-      .compactMap { (key, _) in key }
+      .compactMap(takeFirst)// { (key, _) in key }
     }
     
     let needsDownload: ((WoeID) -> Bool) = {
@@ -34,14 +34,12 @@ class PhotosService: PhotosAPIAccessable, AppStoreAccessable {
       .map(keepSource(weatherFromWoeID))
       .map(transformResult(photoRequestParams))
       .flatMap(.merge, transformResult(photosAPI.photo, consumePhotosError))
-      .observe(on: QueueScheduler.service)
       .map(transformResult(Response.PhotoResult.Photos.PhotoInfo.url))
       .startWithValues(consumePhotosValue)
     
     woeidProducer
       .map(DidStartPhotoSearching.init)
       .flatMap(.merge, SignalProducer<DidStartPhotoSearching, NoError>.init)
-      .observe(on: QueueScheduler.service)
       .startWithValues(store.consume)
   }
 }

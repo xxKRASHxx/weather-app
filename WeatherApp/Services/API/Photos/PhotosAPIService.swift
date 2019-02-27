@@ -9,10 +9,7 @@ fileprivate extension PhotosAPIService {
   enum Request {
     case photo(city: String, country: String, condition: String)
   }
-  enum Authorization {
-    static let key = "***REMOVED***"
-  }
-  
+
   enum SearchType: Int {
     case safe = 1
     case moderate
@@ -92,7 +89,7 @@ extension PhotosAPIService.Request: TargetType {
           "tags": "city, view, weather, sight, \(query)",
           "text": "\(city) \(country)",
           "method": "flickr.photos.search",
-          "api_key": PhotosAPIService.Authorization.key,
+          "api_key": Private.Flickr.key,
           "safe_search": PhotosAPIService.SearchType.safe.rawValue,
           "content_type": PhotosAPIService.ContentType.photosOnly.rawValue,
           "per_page": 1,

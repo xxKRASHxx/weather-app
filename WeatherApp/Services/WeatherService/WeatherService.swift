@@ -18,7 +18,6 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
   
   @discardableResult private func observeCurrentWeather() -> Disposable {
     return store.producer
-      .observe(on: QueueScheduler.service)
       .map(\AppState.location.deviceLocation)
       .filterMap { $0.location }
       .skipRepeats()
@@ -34,7 +33,6 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
     }
     
     return store.producer
-      .observe(on: QueueScheduler.service)
       .map(\AppState.searching)
       .filterMap(searchingText)
       .skipRepeats()
@@ -50,11 +48,10 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
     
     let unhandled: (([WoeID : WeatherRequestState]) -> [WoeID]) = { locations in locations
       .filter { (_, value) in value == .selected }
-      .compactMap { (key, _) in key }
+      .compactMap(takeFirst)
     }
     
     let woeidProducer = store.producer
-      .observe(on: QueueScheduler.service)
       .map(\AppState.weather.locationsMap)
       .map(unhandled)
       .skipRepeats()
@@ -68,7 +65,6 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .flatMap(.merge, weatherAPI.weatherData)
       .map(Weather.fromDTO)
       .map(fromWeatherResponse)
-      .observe(on: QueueScheduler.service)
       .flatMapError(fromWeatherError)
       .startWithValues(store.consume)
 
@@ -97,7 +93,6 @@ private extension WeatherService {
   func fetchCurrentWeather(in location: Coordinates2D) {
     store.consume(event: BeginUpdateCurrentWeather())
     weatherAPI.weatherData(for: location)
-      .observe(on: QueueScheduler.service)
       .map(Weather.fromDTO)
       .startWithResult(consumeCurrentWeather)
   }

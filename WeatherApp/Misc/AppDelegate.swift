@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       setupAppDI()
       setupUI()
       setupStore()
-//      setupLogging()
       return true
   }
 }
@@ -40,11 +39,5 @@ private extension AppDelegate {
     let _ = WeatherService.shared
     let _ = StorageService.shared
     let _ = PhotosService.shared
-  }
-  
-  func setupLogging() {
-    AppStore.shared.producer.startWithValues { (state) in
-      print(state)
-    }
   }
 }

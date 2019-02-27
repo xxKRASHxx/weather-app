@@ -26,6 +26,7 @@
 		D247F94221F89C0F004950D3 /* StoreAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247F94121F89C0F004950D3 /* StoreAccessible.swift */; };
 		D247F94421F89EFD004950D3 /* AppWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247F94321F89EFD004950D3 /* AppWeather.swift */; };
 		D247F94621F8A0A8004950D3 /* WeatherEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247F94521F8A0A8004950D3 /* WeatherEvents.swift */; };
+		D258CD602226C1320071AAC1 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD5F2226C1320071AAC1 /* Keys.swift */; };
 		D2652CEA2204629100F57B6D /* SourceKeptTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2652CE92204629100F57B6D /* SourceKeptTuple.swift */; };
 		D288C85921F5D2DF005229AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288C85821F5D2DF005229AF /* AppDelegate.swift */; };
 		D288C86021F5D2E1005229AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D288C85F21F5D2E1005229AF /* Assets.xcassets */; };
@@ -131,6 +132,7 @@
 		D247F94121F89C0F004950D3 /* StoreAccessible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAccessible.swift; sourceTree = "<group>"; };
 		D247F94321F89EFD004950D3 /* AppWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWeather.swift; sourceTree = "<group>"; };
 		D247F94521F8A0A8004950D3 /* WeatherEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEvents.swift; sourceTree = "<group>"; };
+		D258CD5F2226C1320071AAC1 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		D2652CE92204629100F57B6D /* SourceKeptTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceKeptTuple.swift; sourceTree = "<group>"; };
 		D288C85521F5D2DF005229AF /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D288C85821F5D2DF005229AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				D2E5D6422201BC3800566437 /* Photos */,
 				D247F93621F87DCF004950D3 /* OAuthProvider.swift */,
 				D2D8301621FB0826009090AC /* QueryEncoding.swift */,
+				D258CD5F2226C1320071AAC1 /* Keys.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -740,7 +743,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WeatherApp/Pods-WeatherApp-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-WeatherApp/Pods-WeatherApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CollectionKit/CollectionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
@@ -777,7 +780,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WeatherApp/Pods-WeatherApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeatherApp/Pods-WeatherApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -847,6 +850,7 @@
 				D2C8DEDE21F723D600D82B65 /* AppStore.swift in Sources */,
 				D2C8DECD21F6252200D82B65 /* TypeDispatcher.swift in Sources */,
 				D2D8301721FB0826009090AC /* QueryEncoding.swift in Sources */,
+				D258CD602226C1320071AAC1 /* Keys.swift in Sources */,
 				D247F94621F8A0A8004950D3 /* WeatherEvents.swift in Sources */,
 				D2194D7421FF3F5D00186A26 /* ForecastScreen.swift in Sources */,
 				D292FEDD220491DE0029EAA8 /* Reducer.swift in Sources */,
