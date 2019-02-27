@@ -33,7 +33,6 @@ private extension Observing {
       .map(getSyncData)
       .map(userDefaultsStorage.selectedCities.store)
       .map(DidStoreSelectedIDs.init)
-      .observe(on: QueueScheduler.service)
       .startWithValues(store.consume)
   }
   
@@ -44,7 +43,6 @@ private extension Observing {
       .map(userDefaultsStorage.selectedCities.retrieve)
       .skipNil()
       .map(DidRetrieveSelectedIDs.init)
-      .observe(on: QueueScheduler.service)
       .startWithValues(store.consume)
   }
 }
