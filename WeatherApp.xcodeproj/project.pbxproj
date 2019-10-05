@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,7 +30,6 @@
 		D258CD632226CD9D0071AAC1 /* MQTTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD622226CD9D0071AAC1 /* MQTTService.swift */; };
 		D258CD662226D21C0071AAC1 /* MQTTServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD652226D21C0071AAC1 /* MQTTServiceProtocol.swift */; };
 		D258CD6B2226DA9D0071AAC1 /* MQTTMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258CD6A2226DA9D0071AAC1 /* MQTTMiddleware.swift */; };
-		D258CD70222702FE0071AAC1 /* AnyEvent.swifttemplate in Sources */ = {isa = PBXBuildFile; fileRef = D258CD6E2227021D0071AAC1 /* AnyEvent.swifttemplate */; };
 		D2652CEA2204629100F57B6D /* SourceKeptTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2652CE92204629100F57B6D /* SourceKeptTuple.swift */; };
 		D288C85921F5D2DF005229AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288C85821F5D2DF005229AF /* AppDelegate.swift */; };
 		D288C86021F5D2E1005229AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D288C85F21F5D2E1005229AF /* Assets.xcassets */; };
@@ -42,12 +41,14 @@
 		D288C88721F5DB45005229AF /* ScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288C88621F5DB45005229AF /* ScreenProtocol.swift */; };
 		D288C88921F5DB54005229AF /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288C88821F5DB54005229AF /* Screen.swift */; };
 		D288C88D21F5DC6E005229AF /* PortraitNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288C88C21F5DC6E005229AF /* PortraitNavigationController.swift */; };
-		D28C774821F7674600079EAE /* AutoCodable.swifttemplate in Sources */ = {isa = PBXBuildFile; fileRef = D2C8DEF021F7654E00D82B65 /* AutoCodable.swifttemplate */; };
 		D28C774A21F77AB900079EAE /* WeakExecute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28C774921F77AB900079EAE /* WeakExecute.swift */; };
 		D28C774C21F78DA400079EAE /* PermissionsScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D28C774B21F78DA400079EAE /* PermissionsScreen.xib */; };
 		D2903B512207454300C05C71 /* Weather.json in Resources */ = {isa = PBXBuildFile; fileRef = D2903B502207454300C05C71 /* Weather.json */; };
 		D292FED922048CDA0029EAA8 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292FED822048CDA0029EAA8 /* Scheduler.swift */; };
 		D292FEDD220491DE0029EAA8 /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292FEDC220491DE0029EAA8 /* Reducer.swift */; };
+		D29CF65C2348EFB200003B12 /* .sourcery.yml in Resources */ = {isa = PBXBuildFile; fileRef = D29CF65B2348EFB200003B12 /* .sourcery.yml */; };
+		D29CF6632348F18300003B12 /* AnyEvent.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29CF6612348F18300003B12 /* AnyEvent.generated.swift */; };
+		D29CF6642348F18300003B12 /* AutoCodable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29CF6622348F18300003B12 /* AutoCodable.generated.swift */; };
 		D29E2F0F2200A0490047F0C7 /* ForecastTableVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29E2F0E2200A0490047F0C7 /* ForecastTableVIewCell.swift */; };
 		D2C8DE9121F5E46E00D82B65 /* ViewModelConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C8DE9021F5E46E00D82B65 /* ViewModelConnectable.swift */; };
 		D2C8DE9321F5E48500D82B65 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C8DE9221F5E48500D82B65 /* BaseViewModel.swift */; };
@@ -99,23 +100,6 @@
 		FC7ECADEA429EA2047692815 /* Pods_common_WeatherApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CB5F6D8CBF6FDC25F3ED103 /* Pods_common_WeatherApp.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildRule section */
-		D2C8DEEE21F7613D00D82B65 /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*.swifttemplate";
-			fileType = pattern.proxy;
-			inputFiles = (
-			);
-			isEditable = 1;
-			outputFiles = (
-				"$(DERIVED_SOURCES_DIR)/$(INPUT_FILE_BASE).generated.swift",
-			);
-			runOncePerArchitecture = 0;
-			script = "if [ ! \"$PODS_ROOT/Sourcery/bin/Sourcery.app\" ]; then\n    echo \"error: Sourcery is missing. Update pods\"\n    exit 1\nfi\n\necho \"${SOURCE_ROOT}/WeatherApp\"\necho \"${INPUT_FILE_DIR}/${INPUT_FILE_NAME}\" \n\n\"$PODS_ROOT/Sourcery/bin/sourcery\" \\\n--sources \"${SOURCE_ROOT}/WeatherApp\" \\\n--templates \"${INPUT_FILE_DIR}/${INPUT_FILE_NAME}\" \\\n--output \"${DERIVED_SOURCES_DIR}/${INPUT_FILE_BASE}.generated.swift\" \\\n--verbose \\\n--disableCache\n";
-		};
-/* End PBXBuildRule section */
-
 /* Begin PBXFileReference section */
 		5DD6A297048B1905B9FA4157 /* Pods-common-WeatherApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-common-WeatherApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-common-WeatherApp/Pods-common-WeatherApp.release.xcconfig"; sourceTree = "<group>"; };
 		6CB5F6D8CBF6FDC25F3ED103 /* Pods_common_WeatherApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_common_WeatherApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +148,9 @@
 		D2903B502207454300C05C71 /* Weather.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Weather.json; sourceTree = "<group>"; };
 		D292FED822048CDA0029EAA8 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		D292FEDC220491DE0029EAA8 /* Reducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
+		D29CF65B2348EFB200003B12 /* .sourcery.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .sourcery.yml; sourceTree = SOURCE_ROOT; };
+		D29CF6612348F18300003B12 /* AnyEvent.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyEvent.generated.swift; sourceTree = "<group>"; };
+		D29CF6622348F18300003B12 /* AutoCodable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCodable.generated.swift; sourceTree = "<group>"; };
 		D29E2F0E2200A0490047F0C7 /* ForecastTableVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableVIewCell.swift; sourceTree = "<group>"; };
 		D2C8DE9021F5E46E00D82B65 /* ViewModelConnectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelConnectable.swift; sourceTree = "<group>"; };
 		D2C8DE9221F5E48500D82B65 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -192,7 +179,7 @@
 		D2C8DEE321F7332200D82B65 /* Coordinates2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates2D.swift; sourceTree = "<group>"; };
 		D2C8DEE521F733D200D82B65 /* DecodableResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResult.swift; sourceTree = "<group>"; };
 		D2C8DEEA21F7380100D82B65 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
-		D2C8DEF021F7654E00D82B65 /* AutoCodable.swifttemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AutoCodable.swifttemplate; path = WeatherApp/Misc/AutoCodable/AutoCodable.swifttemplate; sourceTree = SOURCE_ROOT; };
+		D2C8DEF021F7654E00D82B65 /* AutoCodable.swifttemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AutoCodable.swifttemplate; path = WeatherApp/Misc/Metaprogramming/Templates/AutoCodable.swifttemplate; sourceTree = SOURCE_ROOT; };
 		D2C8DEF321F765A800D82B65 /* AutoCodableLike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCodableLike.swift; sourceTree = "<group>"; };
 		D2D8300C21FA053C009090AC /* RoundedWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedWrapperView.swift; sourceTree = "<group>"; };
 		D2D8300E21FA0B4B009090AC /* CollectionReactiveProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReactiveProvider.swift; sourceTree = "<group>"; };
@@ -289,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				D258CD6A2226DA9D0071AAC1 /* MQTTMiddleware.swift */,
+				D29CF65B2348EFB200003B12 /* .sourcery.yml */,
 			);
 			path = Middleware;
 			sourceTree = "<group>";
@@ -386,8 +374,7 @@
 		D288C87221F5D749005229AF /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				D258CD6E2227021D0071AAC1 /* AnyEvent.swifttemplate */,
-				D2C8DEF521F765B400D82B65 /* AutoCodable */,
+				D29CF65E2348F0EA00003B12 /* Metaprogramming */,
 				D288C85821F5D2DF005229AF /* AppDelegate.swift */,
 				D288C87421F5D782005229AF /* Mixin.swift */,
 				D2C8DE9621F5E58200D82B65 /* CurrentContainer.swift */,
@@ -474,6 +461,34 @@
 				D236A01A220745ED001FA976 /* Search.json */,
 			);
 			path = Stub;
+			sourceTree = "<group>";
+		};
+		D29CF65E2348F0EA00003B12 /* Metaprogramming */ = {
+			isa = PBXGroup;
+			children = (
+				D2C8DEF321F765A800D82B65 /* AutoCodableLike.swift */,
+				D29CF6602348F14500003B12 /* Output */,
+				D29CF65F2348F0F300003B12 /* Templates */,
+			);
+			path = Metaprogramming;
+			sourceTree = "<group>";
+		};
+		D29CF65F2348F0F300003B12 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				D2C8DEF021F7654E00D82B65 /* AutoCodable.swifttemplate */,
+				D258CD6E2227021D0071AAC1 /* AnyEvent.swifttemplate */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
+		D29CF6602348F14500003B12 /* Output */ = {
+			isa = PBXGroup;
+			children = (
+				D29CF6612348F18300003B12 /* AnyEvent.generated.swift */,
+				D29CF6622348F18300003B12 /* AutoCodable.generated.swift */,
+			);
+			path = Output;
 			sourceTree = "<group>";
 		};
 		D2C8DE8E21F5E45800D82B65 /* ViewModels */ = {
@@ -588,15 +603,6 @@
 			path = LocationService;
 			sourceTree = "<group>";
 		};
-		D2C8DEF521F765B400D82B65 /* AutoCodable */ = {
-			isa = PBXGroup;
-			children = (
-				D2C8DEF021F7654E00D82B65 /* AutoCodable.swifttemplate */,
-				D2C8DEF321F765A800D82B65 /* AutoCodableLike.swift */,
-			);
-			path = AutoCodable;
-			sourceTree = "<group>";
-		};
 		D2D8300A21FA0522009090AC /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,13 +687,13 @@
 			buildConfigurationList = D288C86721F5D2E1005229AF /* Build configuration list for PBXNativeTarget "WeatherApp" */;
 			buildPhases = (
 				991E2C0495D186C555AEA51E /* [CP] Check Pods Manifest.lock */,
+				D29CF65D2348EFF800003B12 /* Metaprogramming */,
 				D288C85121F5D2DF005229AF /* Sources */,
 				D288C85221F5D2DF005229AF /* Frameworks */,
 				D288C85321F5D2DF005229AF /* Resources */,
 				C8ABE96628FCC9AC9722FA6E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
-				D2C8DEEE21F7613D00D82B65 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -740,6 +746,7 @@
 				D288C86021F5D2E1005229AF /* Assets.xcassets in Resources */,
 				D236A01E22074614001FA976 /* Photo.json in Resources */,
 				D28C774C21F78DA400079EAE /* PermissionsScreen.xib in Resources */,
+				D29CF65C2348EFB200003B12 /* .sourcery.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,6 +792,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-common-WeatherApp/Pods-common-WeatherApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D29CF65D2348EFF800003B12 /* Metaprogramming */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Metaprogramming;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! \"$PODS_ROOT/Sourcery/bin/Sourcery.app\" ]; then\n    echo \"error: Sourcery is missing. Update pods\"\n    exit 1\nfi\n\n\"$PODS_ROOT/Sourcery/bin/sourcery\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -792,8 +817,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D258CD70222702FE0071AAC1 /* AnyEvent.swifttemplate in Sources */,
-				D28C774821F7674600079EAE /* AutoCodable.swifttemplate in Sources */,
 				D2C8DED121F6298000D82B65 /* ScreenFactoryProtocol.swift in Sources */,
 				D2C8DEAF21F5EF7C00D82B65 /* Weakify.swift in Sources */,
 				D28C774A21F77AB900079EAE /* WeakExecute.swift in Sources */,
@@ -844,6 +867,7 @@
 				D2C8DEEB21F7380100D82B65 /* LocationService.swift in Sources */,
 				D2C8DEE421F7332200D82B65 /* Coordinates2D.swift in Sources */,
 				D2C8DEE621F733D200D82B65 /* DecodableResult.swift in Sources */,
+				D29CF6642348F18300003B12 /* AutoCodable.generated.swift in Sources */,
 				D2E5D6492201C67800566437 /* WoeID.swift in Sources */,
 				D2C8DE9921F5E60100D82B65 /* DI.swift in Sources */,
 				D2C8DED821F62E8100D82B65 /* ViewModelFactory.swift in Sources */,
@@ -856,6 +880,7 @@
 				D2C8DEDE21F723D600D82B65 /* AppStore.swift in Sources */,
 				D2C8DECD21F6252200D82B65 /* TypeDispatcher.swift in Sources */,
 				D2D8301721FB0826009090AC /* QueryEncoding.swift in Sources */,
+				D29CF6632348F18300003B12 /* AnyEvent.generated.swift in Sources */,
 				D258CD602226C1320071AAC1 /* Keys.swift in Sources */,
 				D247F94621F8A0A8004950D3 /* WeatherEvents.swift in Sources */,
 				D2194D7421FF3F5D00186A26 /* ForecastScreen.swift in Sources */,
