@@ -14,7 +14,7 @@ extension Container {
   }
   
   fileprivate static func pop(container: Container) {
-    if let index = containerChain.index(of: container) {
+    if let index = containerChain.firstIndex(of: container) {
       containerChain.remove(at: index)
     }
   }
