@@ -1,7 +1,7 @@
 import Redux_ReactiveSwift
 import ReactiveSwift
 import ReactiveCocoa
-import Result
+import struct Result.AnyError
 
 extension MQTTMiddleware {
   struct LoggerFlags: OptionSet {
@@ -24,8 +24,8 @@ class MQTTMiddleware: StoreMiddleware, MQTTServiceAccessible {
     mqttService.publish(in: "\(name)/store/state")
 
   
-  private let events = Signal<AppEvent, NoError>.pipe()
-  private let states = Signal<AppState, NoError>.pipe()
+  private let events = Signal<AppEvent, Never>.pipe()
+  private let states = Signal<AppState, Never>.pipe()
   
   public init(
     flags: LoggerFlags = .logAll,
@@ -37,7 +37,7 @@ class MQTTMiddleware: StoreMiddleware, MQTTServiceAccessible {
     setupObserving()
   }
   
-  func consume<Event>(event: Event) -> SignalProducer<Event, NoError>? {
+  func consume<Event>(event: Event) -> SignalProducer<Event, Never>? {
     return SignalProducer(value:
       TypeDispatcher.value(event)
         .dispatch { (event: AppEvent) in events.input.send(value: event) }
@@ -50,7 +50,7 @@ class MQTTMiddleware: StoreMiddleware, MQTTServiceAccessible {
       .dispatch { (state: AppState) in states.input.send(value: state) }
   }
   
-  func unsafeValue() -> Signal<Any, NoError>? { return nil }
+  func unsafeValue() -> Signal<Any, Never>? { return nil }
 }
 
 private typealias Observing = MQTTMiddleware

@@ -1,11 +1,11 @@
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 class SearchResultViewModel: BaseViewModel {
   let searchResult: SearchResult
-  let select: Action<(), (), NoError>
+  let select: Action<(), (), Never>
   
-  init(searchResult: SearchResult, select: Action<(), (), NoError>) {
+  init(searchResult: SearchResult, select: Action<(), (), Never>) {
     self.searchResult = searchResult
     self.select = select
   }

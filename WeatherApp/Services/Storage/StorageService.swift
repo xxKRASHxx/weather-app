@@ -1,6 +1,6 @@
 import Swinject
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 class StorageService: AppStoreAccessable, UserDefaultsAccessable {
   
@@ -15,7 +15,7 @@ private typealias Observing = StorageService
 private extension Observing {
   
   func setupObserving() {
-    let typeProducer : SignalProducer<AppSync.SyncType, NoError> = store.producer
+    let typeProducer : SignalProducer<AppSync.SyncType, Never> = store.producer
       .map(\AppState.sync)
       .filterMap { state in
         guard case let .notSynced(type) = state else { return nil }
@@ -26,7 +26,7 @@ private extension Observing {
     setupReadObserving(with: typeProducer)
   }
   
-  func setupWriteObserving(with producer: SignalProducer<AppSync.SyncType, NoError>) {
+  func setupWriteObserving(with producer: SignalProducer<AppSync.SyncType, Never>) {
     producer
       .filter { $0 == .write }
       .map { _ in () }
@@ -36,7 +36,7 @@ private extension Observing {
       .startWithValues(store.consume)
   }
   
-  func setupReadObserving(with producer: SignalProducer<AppSync.SyncType, NoError>) {
+  func setupReadObserving(with producer: SignalProducer<AppSync.SyncType, Never>) {
     producer
       .filter { $0 == .read }
       .map { _ in () }

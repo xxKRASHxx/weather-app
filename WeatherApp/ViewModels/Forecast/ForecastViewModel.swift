@@ -1,19 +1,19 @@
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 protocol ForecastViewModelProtocol: BaseViewModelProtocol {
   var title: Property<String> { get }
   var subtitle: Property<String> { get }
   var image: Property<URL?> { get }
-  var forecast: SignalProducer<[Weather.Forecast], NoError> { get }
-  var back: Action<(), (), NoError> { get }
+  var forecast: SignalProducer<[Weather.Forecast], Never> { get }
+  var back: Action<(), (), Never> { get }
 }
 
 class ForecastViewModel: BaseViewModel, ForecastViewModelProtocol {
   
   private let woeid: WoeID
   
-  var back: Action<(), (), NoError> {
+  var back: Action<(), (), Never> {
     return .init(weakExecute: weakify(Actions.backProducer, object: self))
   }
   
@@ -47,7 +47,7 @@ class ForecastViewModel: BaseViewModel, ForecastViewModelProtocol {
     )
   }
   
-  var forecast: SignalProducer<[Weather.Forecast], NoError> {
+  var forecast: SignalProducer<[Weather.Forecast], Never> {
     return store.producer
       .map(\AppState.weather.locationsMap)
       .map { [weak self] locations in
@@ -76,7 +76,7 @@ private extension Observing {
 
 private typealias Actions = ForecastViewModel
 private extension Actions {
-  func backProducer() -> SignalProducer<(), NoError> {
+  func backProducer() -> SignalProducer<(), Never> {
     router.perform(route: .dismiss)
     return .empty
   }

@@ -1,6 +1,6 @@
 import Foundation
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 public extension Action {
   public convenience init<P: PropertyProtocol>(enabledIf isEnabled: P,

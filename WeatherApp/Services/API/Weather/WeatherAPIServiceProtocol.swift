@@ -1,5 +1,5 @@
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 import Swinject
 
 struct WeatherAPIError<T: Codable & Equatable>: Swift.Error, Codable, Equatable {

@@ -2,7 +2,7 @@ import UIKit
 import CollectionKit
 import ReactiveCocoa
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 import Hero
 
 class CitiesListScreen: Screen {

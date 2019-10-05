@@ -1,13 +1,13 @@
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 protocol RootScreenViewModelProtocol: BaseViewModelProtocol {
-  var log: SignalProducer<String?, NoError> { get }
+  var log: SignalProducer<String?, Never> { get }
 }
 
 class RootScreenViewModel: BaseViewModel, RootScreenViewModelProtocol {
   
-  var log: SignalProducer<String?, NoError> {
+  var log: SignalProducer<String?, Never> {
     return AppStore.shared.producer
       .map(String.init(describing:))
       .observe(on: QueueScheduler.main)

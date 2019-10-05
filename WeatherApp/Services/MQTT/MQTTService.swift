@@ -1,7 +1,7 @@
 import Foundation
 import ReactiveSwift
 import CocoaMQTT
-import Result
+import struct Result.AnyError
 
 class MQTTService {
   
@@ -10,7 +10,7 @@ class MQTTService {
     client.connect()
   }
   
-  private lazy var messages: Signal<(CocoaMQTTMessage, UInt16), NoError> = {
+  private lazy var messages: Signal<(CocoaMQTTMessage, UInt16), Never> = {
     return Signal { [weak self] observer, lifetime in
       guard let self = self else { return }
       self.client.didPublishMessage = { _, message, handle in
@@ -19,7 +19,7 @@ class MQTTService {
     }
   } ()
   
-  private lazy var state: Signal<CocoaMQTTConnState, NoError> = {
+  private lazy var state: Signal<CocoaMQTTConnState, Never> = {
     return Signal { [weak self] observer, lifetime in
       guard let self = self else { return }
       self.client.didChangeState = { _, state in
@@ -37,7 +37,7 @@ extension MQTTService: MQTTServiceProtocol {
     return Action(execute: publishClosure(in: channel))
   }
   
-  func subscribe<T>(to channel: String) -> Signal<T, NoError> where T : Decodable {
+  func subscribe<T>(to channel: String) -> Signal<T, Never> where T : Decodable {
     fatalError()
   }
 }

@@ -1,4 +1,5 @@
-import Result
+import Foundation
+import struct Result.AnyError
 
 struct DidChangeLocationPermission: AppEvent {
   let access: Bool

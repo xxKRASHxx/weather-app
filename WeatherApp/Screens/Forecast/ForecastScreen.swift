@@ -2,7 +2,7 @@ import UIKit
 import TableKit
 import ReactiveCocoa
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 import SnapKit
 
 class ForecastScreen: Screen {

@@ -1,7 +1,7 @@
 import UIKit
 import ReactiveSwift
 import ReactiveCocoa
-import Result
+import struct Result.AnyError
 
 class Screen: UIViewController, ViewModelConnectable {
   

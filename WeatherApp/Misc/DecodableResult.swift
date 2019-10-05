@@ -1,4 +1,4 @@
-import Result
+import struct Result.AnyError
 
 extension Result: Codable where Value: Codable, Error: Codable {
   

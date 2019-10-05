@@ -1,11 +1,11 @@
 import Foundation
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 protocol CitiesListViewModelProtocol: BaseViewModelProtocol {
   var title: Property<String> { get }
   var locations: SignalProducer<[WeatherViewModel], AnyError> { get }
-  var openSearch: Action<(), (), NoError> { get }
+  var openSearch: Action<(), (), Never> { get }
 }
 
 class CitiesListViewModel: BaseViewModel, CitiesListViewModelProtocol {
@@ -18,13 +18,14 @@ class CitiesListViewModel: BaseViewModel, CitiesListViewModelProtocol {
     return SignalProducer
       .combineLatest(locations, sights)
       .attemptMap(weakify(CitiesListViewModel.makeWeatherViewModel, object: self, default: []))
+      .mapError(AnyError.init)
   }
   
-  var openSearch: Action<(), (), NoError> {
+  var openSearch: Action<(), (), Never> {
     return Action(weakExecute: weakify(CitiesListViewModel.searchActionProducer, object: self))
   }
   
-  fileprivate func openWeather(woeid: WoeID) -> Action<(), (), NoError> {
+  fileprivate func openWeather(woeid: WoeID) -> Action<(), (), Never> {
     return Action(weakExecute: weakify(
       CitiesListViewModel.forecastActionProducer,
       object: self,
@@ -36,18 +37,18 @@ class CitiesListViewModel: BaseViewModel, CitiesListViewModelProtocol {
 private typealias ActionsProducers = CitiesListViewModel
 private extension ActionsProducers {
   
-  func isCurrent(_ id: WoeID) -> SignalProducer<Bool, NoError> {
+  func isCurrent(_ id: WoeID) -> SignalProducer<Bool, Never> {
     return store.producer
       .map(\AppState.weather.current)
       .map { current in id == current }
   }
   
-  func searchActionProducer() -> SignalProducer<(), NoError> {
+  func searchActionProducer() -> SignalProducer<(), Never> {
     router.perform(route: .search)
     return .empty
   }
   
-  func forecastActionProducer(woeid: WoeID) -> () -> SignalProducer<(), NoError> {
+  func forecastActionProducer(woeid: WoeID) -> () -> SignalProducer<(), Never> {
     return {
       self.router.perform(route: .forecast(woeid: woeid))
       return .empty
@@ -63,9 +64,9 @@ fileprivate extension CitiesListViewModel {
       return try tuple.locations
         .compactMap { (key, value) in
           (value, tuple.sights[key]?.url, self.isCurrent(key), self.openWeather(woeid: key) )
-        }
-        .compactMap(WeatherRequestState.makeResult)
-        .sorted { (lhs, rhs) in lhs.isCurrent.value }
+      }
+      .compactMap(WeatherRequestState.makeResult)
+      .sorted { (lhs, rhs) in lhs.isCurrent.value }
   }
 }
 
@@ -73,8 +74,8 @@ private extension WeatherRequestState {
   static func makeResult(
     _ state: WeatherRequestState,
     url: URL?,
-    isCurrent: SignalProducer<Bool, NoError>,
-    action: Action<(), (), NoError>)
+    isCurrent: SignalProducer<Bool, Never>,
+    action: Action<(), (), Never>)
     throws -> WeatherViewModel? {
       switch state {
       case let .success(current): return WeatherViewModel(

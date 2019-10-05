@@ -1,5 +1,5 @@
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 import Swinject
 import Moya
 

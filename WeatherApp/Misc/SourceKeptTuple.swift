@@ -1,5 +1,5 @@
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 typealias SourceKeptTuple<T, U> = (source: T, result: U)
 func keepSource<T, U>(_ transform: @escaping (T) -> U) -> (T) -> SourceKeptTuple<T, U> {
@@ -16,9 +16,9 @@ func transformResult<T, U, V>(
 func transformResult<T, U, V, Error>(
   _ transform: @escaping (U) -> SignalProducer<V, Error>,
   _ transformError: @escaping (Error, SourceKeptTuple<T, U>) -> Void)
-  -> (SourceKeptTuple<T, U>) -> SignalProducer<(T, V), NoError>
+  -> (SourceKeptTuple<T, U>) -> SignalProducer<(T, V), Never>
 {
-  return { tuple -> SignalProducer<(T, V), NoError> in
+  return { tuple -> SignalProducer<(T, V), Never> in
     return SignalProducer.zip(
       Property(value: tuple.source).producer,
       transform(tuple.result).flatMapError { error in
@@ -30,10 +30,10 @@ func transformResult<T, U, V, Error>(
 }
 
 func transformResult<T, U, V>(
-  _ transform: @escaping (U) -> SignalProducer<V, NoError>)
-  -> (SourceKeptTuple<T, U>) -> SignalProducer<(T, V), NoError>
+  _ transform: @escaping (U) -> SignalProducer<V, Never>)
+  -> (SourceKeptTuple<T, U>) -> SignalProducer<(T, V), Never>
 {
-  return { tuple -> SignalProducer<(T, V), NoError> in
+  return { tuple -> SignalProducer<(T, V), Never> in
     return SignalProducer.zip(
       Property(value: tuple.source).producer,
       transform(tuple.result)
