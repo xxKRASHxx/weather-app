@@ -5,8 +5,8 @@ import Hero
 class ScreenRouter {
   
   private weak var window: UIWindow?
-  private let viewModelRouter: ViewModelRouterProtocol = Container.current.resolve(ViewModelRouterProtocol.self)!
-  private let screenFactory: ScreenFactoryProtocol = Container.current.resolve(ScreenFactoryProtocol.self)!
+  private let viewModelRouter: ViewModelRouterProtocol = Container.default.resolver.resolve(ViewModelRouterProtocol.self)!
+  private let screenFactory: ScreenFactoryProtocol = Container.default.resolver.resolve(ScreenFactoryProtocol.self)!
   
   var navigationController: UINavigationController {
     return window!.rootViewController as! UINavigationController

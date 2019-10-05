@@ -1,6 +1,8 @@
 import Foundation
+import WeatherAppShared
 import ReactiveSwift
 import struct Result.AnyError
+import WeatherAppCore
 
 protocol PermissionsViewModelProtocol: BaseViewModelProtocol {
   var skip: Action<(), (), Never> { get }

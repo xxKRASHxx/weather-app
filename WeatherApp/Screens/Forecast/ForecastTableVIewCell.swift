@@ -1,5 +1,7 @@
 import UIKit
+import WeatherAppShared
 import TableKit
+import WeatherAppCore
 
 private let dateFormatter: DateFormatter = execute {
   let dateFormatter = DateFormatter()

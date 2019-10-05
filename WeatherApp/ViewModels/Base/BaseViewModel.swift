@@ -1,4 +1,5 @@
 import Swinject
+import WeatherAppCore
 
 protocol BaseViewModelProtocol {
   var router: ViewModelRouterProtocol { get }
@@ -6,7 +7,7 @@ protocol BaseViewModelProtocol {
 
 class BaseViewModel: AppStoreAccessable, BaseViewModelProtocol {
   
-  let router: ViewModelRouterProtocol = Container.current.resolve(ViewModelRouterProtocol.self)!
+  let router: ViewModelRouterProtocol = Container.default.resolver.resolve(ViewModelRouterProtocol.self)!
   
   required init() {}
 }

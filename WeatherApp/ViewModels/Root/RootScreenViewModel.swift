@@ -1,5 +1,6 @@
 import ReactiveSwift
 import struct Result.AnyError
+import WeatherAppCore
 
 protocol RootScreenViewModelProtocol: BaseViewModelProtocol {
   var log: SignalProducer<String?, Never> { get }

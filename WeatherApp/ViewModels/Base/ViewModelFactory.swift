@@ -1,3 +1,5 @@
+import WeatherAppCore
+
 class ViewModelFactory: ViewModelFactoryProtocol {
   
   func rootViewModel() -> RootScreenViewModelProtocol {

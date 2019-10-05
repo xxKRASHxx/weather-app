@@ -1,4 +1,5 @@
 import UIKit
+import WeatherAppShared
 import ReactiveCocoa
 import ReactiveSwift
 

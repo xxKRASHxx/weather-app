@@ -1,4 +1,4 @@
-import UIKit
+import WeatherAppCore
 
 protocol ViewModelFactoryProtocol {
   func rootViewModel() -> RootScreenViewModelProtocol

@@ -1,5 +1,6 @@
 import ReactiveSwift
 import struct Result.AnyError
+import WeatherAppCore
 
 class WeatherViewModel: BaseViewModel {
   let weather: Weather

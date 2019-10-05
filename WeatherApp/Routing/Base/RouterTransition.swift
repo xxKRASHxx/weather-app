@@ -1,10 +1,10 @@
-import UIKit
+import WeatherAppCore
 
 enum RouteType {
   case root
   case permissions
   case citiesList
   case search
-  case forecast(woeid: WoeID)
+  case forecast(woeid: WeatherAppCore.WoeID)
   case dismiss
 }

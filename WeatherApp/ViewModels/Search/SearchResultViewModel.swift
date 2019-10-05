@@ -1,3 +1,4 @@
+import WeatherAppCore
 import ReactiveSwift
 import struct Result.AnyError
 

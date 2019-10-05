@@ -26,7 +26,7 @@ abstract_target 'common' do
   pod 'Sourcery', '~> 0.17'
   
   target 'WeatherApp' do
-    platform :ios, '12.0'
+    platform :ios, '13.0'
     
     pod 'Hero'
     pod 'CollectionKit'
@@ -34,4 +34,9 @@ abstract_target 'common' do
     pod 'SnapKit', '~> 4.0.0'
   end
   
+  target 'WeatherAppCore' do
+  end
+  
+  target 'WeatherAppShared' do
+  end
 end

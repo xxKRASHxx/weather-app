@@ -1,6 +1,6 @@
 sources:
-  - ./WeatherApp
+  - ./WeatherAppCore
 templates:
-  - ./WeatherApp/Misc/Metaprogramming/Templates
+  - ./WeatherAppCore/Misc/Metaprogramming/Templates
 output:
-  ./WeatherApp/Misc/Metaprogramming/Output
+  ./WeatherAppCore/Misc/Metaprogramming/Output

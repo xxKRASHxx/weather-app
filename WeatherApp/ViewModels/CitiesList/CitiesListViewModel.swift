@@ -1,4 +1,6 @@
 import Foundation
+import WeatherAppCore
+import WeatherAppShared
 import ReactiveSwift
 import struct Result.AnyError
 

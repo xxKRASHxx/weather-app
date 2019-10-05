@@ -6,7 +6,7 @@ class ViewModelRouter: ViewModelRouterProtocol {
   
   let uiRouteSignal: Signal<(route: RouteType, viewModel: BaseViewModelProtocol?), Never>
   private let uiRouteObserver: Signal<(route: RouteType, viewModel: BaseViewModelProtocol?), Never>.Observer
-  private lazy var factory: ViewModelFactoryProtocol = Container.current.resolve(ViewModelFactoryProtocol.self)!
+  private lazy var factory: ViewModelFactoryProtocol = Container.default.resolver.resolve(ViewModelFactoryProtocol.self)!
   
   init() {
     (uiRouteSignal, uiRouteObserver) = Signal<(route: RouteType, viewModel: BaseViewModelProtocol?), Never>.pipe()
