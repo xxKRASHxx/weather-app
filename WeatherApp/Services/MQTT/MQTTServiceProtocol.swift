@@ -1,11 +1,10 @@
 import ReactiveSwift
 import Swinject
 import struct Result.AnyError
-import enum Result.NoError
 
 protocol MQTTServiceProtocol {
   func publish<T>(in channel: String) -> Action<T, (), AnyError> where T: Encodable
-  func subscribe<T>(to channel: String) -> Signal<T, NoError> where T: Decodable
+  func subscribe<T>(to channel: String) -> Signal<T, Never> where T: Decodable
 }
 
 protocol MQTTServiceAccessible {

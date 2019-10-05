@@ -1,6 +1,6 @@
 import Swinject
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 class PhotosService: PhotosAPIAccessable, AppStoreAccessable {
   
@@ -27,7 +27,7 @@ class PhotosService: PhotosAPIAccessable, AppStoreAccessable {
     let woeidProducer = store.producer
       .map(\AppState.weather.locationsMap)
       .map(unhandled)
-      .flatMap(.latest, SignalProducer<WoeID, NoError>.init)
+      .flatMap(.latest, SignalProducer<WoeID, Never>.init)
       .filter(needsDownload)
       
     woeidProducer
@@ -39,7 +39,7 @@ class PhotosService: PhotosAPIAccessable, AppStoreAccessable {
     
     woeidProducer
       .map(DidStartPhotoSearching.init)
-      .flatMap(.merge, SignalProducer<DidStartPhotoSearching, NoError>.init)
+      .flatMap(.merge, SignalProducer<DidStartPhotoSearching, Never>.init)
       .startWithValues(store.consume)
   }
 }

@@ -1,5 +1,5 @@
 import Redux_ReactiveSwift
-import Result
+import struct Result.AnyError
 
 enum AppSearch: AutoEncodable, Equatable {
   case none

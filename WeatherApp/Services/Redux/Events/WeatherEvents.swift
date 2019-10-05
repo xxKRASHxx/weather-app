@@ -1,5 +1,5 @@
 import Foundation
-import Result
+import struct Result.AnyError
 
 struct BeginUpdateCurrentWeather: AppEvent {
   let id: WoeID = .unknown

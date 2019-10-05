@@ -1,15 +1,15 @@
 import Swinject
-import Result
+import struct Result.AnyError
 import ReactiveSwift
 
 class ViewModelRouter: ViewModelRouterProtocol {
   
-  let uiRouteSignal: Signal<(route: RouteType, viewModel: BaseViewModelProtocol?), NoError>
-  private let uiRouteObserver: Signal<(route: RouteType, viewModel: BaseViewModelProtocol?), NoError>.Observer
+  let uiRouteSignal: Signal<(route: RouteType, viewModel: BaseViewModelProtocol?), Never>
+  private let uiRouteObserver: Signal<(route: RouteType, viewModel: BaseViewModelProtocol?), Never>.Observer
   private lazy var factory: ViewModelFactoryProtocol = Container.current.resolve(ViewModelFactoryProtocol.self)!
   
   init() {
-    (uiRouteSignal, uiRouteObserver) = Signal<(route: RouteType, viewModel: BaseViewModelProtocol?), NoError>.pipe()
+    (uiRouteSignal, uiRouteObserver) = Signal<(route: RouteType, viewModel: BaseViewModelProtocol?), Never>.pipe()
   }
   
   func perform(route: RouteType) {

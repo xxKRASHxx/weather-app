@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 class LocationService: NSObject, AppStoreAccessable {
   

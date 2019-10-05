@@ -1,5 +1,5 @@
 import Redux_ReactiveSwift
-import Result
+import struct Result.AnyError
 
 struct AppWeather: Encodable, Equatable {
   var current: WoeID?

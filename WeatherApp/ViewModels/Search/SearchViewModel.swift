@@ -1,15 +1,15 @@
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 protocol SearchViewModelProtocol: BaseViewModelProtocol {
   var search: Action<String?, (), AnyError> { get }
-  var back: Action<(), (), NoError> { get }
+  var back: Action<(), (), Never> { get }
   var results: SignalProducer<[SearchResultViewModel], AnyError> { get }
 }
 
 class SearchViewModel: BaseViewModel, SearchViewModelProtocol {
   
-  var back: Action<(), (), NoError> {
+  var back: Action<(), (), Never> {
     return .init(weakExecute: weakify(SearchViewModel.backProducer, object: self))
   }
   
@@ -28,7 +28,7 @@ class SearchViewModel: BaseViewModel, SearchViewModelProtocol {
         case .none, .searching: return []
         case let .error(value): throw value
         }
-      }
+    }.mapError(AnyError.init)
   }
 }
 
@@ -40,7 +40,7 @@ private extension ProdicerActions {
     return .empty
   }
   
-  func backProducer() -> SignalProducer<(), NoError> {
+  func backProducer() -> SignalProducer<(), Never> {
     store.consume(event: CancelSearch())
     router.perform(route: .dismiss)
     return .empty

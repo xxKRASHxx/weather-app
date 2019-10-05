@@ -1,6 +1,6 @@
 import Swinject
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
   
@@ -61,7 +61,7 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
       .startWithValues(store.consume)
     
     woeidProducer
-      .flatMap(.latest, SignalProducer<WoeID, NoError>.init)
+      .flatMap(.latest, SignalProducer<WoeID, Never>.init)
       .flatMap(.merge, weatherAPI.weatherData)
       .map(Weather.fromDTO)
       .map(fromWeatherResponse)
@@ -81,7 +81,7 @@ private extension Mapping {
     )
   }
   
-  func fromWeatherError(_ error: WeatherAPIError<WoeID>) -> SignalProducer<AppEvent, NoError> {
+  func fromWeatherError(_ error: WeatherAPIError<WoeID>) -> SignalProducer<AppEvent, Never> {
     return SignalProducer(value: DidUpdateWeather(
       timeStamp: Date().timeIntervalSince1970,
       result: .init(error: error)))

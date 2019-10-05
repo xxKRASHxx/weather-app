@@ -1,19 +1,19 @@
 import Foundation
 import ReactiveSwift
-import Result
+import struct Result.AnyError
 
 protocol PermissionsViewModelProtocol: BaseViewModelProtocol {
-  var skip: Action<(), (), NoError> { get }
-  var allowLocationUsage: Action<(), (), NoError> { get }
+  var skip: Action<(), (), Never> { get }
+  var allowLocationUsage: Action<(), (), Never> { get }
 }
 
 class PermissionsViewModel: BaseViewModel, PermissionsViewModelProtocol {
   
-  private(set) lazy var skip: Action<(), (), NoError> = {
+  private(set) lazy var skip: Action<(), (), Never> = {
     return Action(weakExecute: weakify(PermissionsViewModel.skipClosure, object: self))
   } ()
   
-  private(set) lazy var allowLocationUsage: Action<(), (), NoError> = {
+  private(set) lazy var allowLocationUsage: Action<(), (), Never> = {
     return Action(
       enabledIf: Property(initial: false, then: store
         .map(\AppState.location.availability)
@@ -25,12 +25,12 @@ class PermissionsViewModel: BaseViewModel, PermissionsViewModelProtocol {
 
 private typealias ActionClosures = PermissionsViewModel
 private extension ActionClosures {
-  func allowLocationUsageClosure() -> SignalProducer<(), NoError> {
+  func allowLocationUsageClosure() -> SignalProducer<(), Never> {
     store.consume(event: RequestUpdateLocation())
     return .empty
   }
   
-  func skipClosure() -> SignalProducer<(), NoError> {
+  func skipClosure() -> SignalProducer<(), Never> {
     store.consume(event: DidChangeLocationPermission(access: false))
     return .empty
   }

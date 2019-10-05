@@ -1,6 +1,6 @@
 import Foundation
 import Redux_ReactiveSwift
-import Result
+import struct Result.AnyError
 
 struct AppLocation: Encodable, Equatable {
   

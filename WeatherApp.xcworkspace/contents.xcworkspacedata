@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:.sourcery.yml">
+   </FileRef>
+   <FileRef
       location = "group:WeatherApp.xcodeproj">
    </FileRef>
    <FileRef

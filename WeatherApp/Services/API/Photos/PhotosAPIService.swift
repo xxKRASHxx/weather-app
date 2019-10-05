@@ -1,4 +1,4 @@
-import Result
+import struct Result.AnyError
 import ReactiveSwift
 import Moya
 

@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.8.1)
+  - Alamofire (5.0.0-rc.2)
   - CocoaAsyncSocket (7.6.3)
   - CocoaMQTT (1.1.3):
     - CocoaAsyncSocket (~> 7.6.3)
@@ -7,25 +7,25 @@ PODS:
     - CollectionKit/Core (= 2.3.0)
   - CollectionKit/Core (2.3.0)
   - Hero (1.4.0)
-  - Kingfisher (5.1.0)
-  - Moya (12.0.1):
-    - Moya/Core (= 12.0.1)
-  - Moya/Core (12.0.1):
-    - Alamofire (~> 4.1)
-    - Result (~> 4.0)
-  - Moya/ReactiveSwift (12.0.1):
+  - Kingfisher (5.8.2):
+    - Kingfisher/Core (= 5.8.2)
+  - Kingfisher/Core (5.8.2)
+  - Moya (14.0.0-beta.2):
+    - Moya/Core (= 14.0.0-beta.2)
+  - Moya/Core (14.0.0-beta.2):
+    - Alamofire (= 5.0.0-rc.2)
+  - Moya/ReactiveSwift (14.0.0-beta.2):
     - Moya/Core
-    - ReactiveSwift (~> 4.0)
-  - OAuthSwift (1.2.2)
-  - ReactiveCocoa (8.0.2):
-    - ReactiveSwift (~> 4.0)
-  - ReactiveSwift (4.0.0):
-    - Result (~> 4.0)
+    - ReactiveSwift (~> 6.0)
+  - OAuthSwift (2.0.0)
+  - ReactiveCocoa (10.1.0):
+    - ReactiveSwift (~> 6.1)
+  - ReactiveSwift (6.1.0)
   - Redux-ReactiveSwift (0.3.0):
-    - ReactiveSwift (= 4.0.0)
-  - Result (4.1.0)
+    - ReactiveSwift (~> 6.0)
+  - Result (5.0.0)
   - SnapKit (4.0.1)
-  - Sourcery (0.15.0)
+  - Sourcery (0.17.0)
   - Swinject (2.5.0)
   - SwinjectAutoregistration (2.5.1):
     - Swinject (~> 2.5)
@@ -35,28 +35,28 @@ DEPENDENCIES:
   - CocoaMQTT (~> 1.1)
   - CollectionKit
   - Hero
-  - Kingfisher (~> 5.1)
-  - Moya
-  - Moya/ReactiveSwift
-  - OAuthSwift (~> 1.2.0)
-  - ReactiveCocoa (~> 8.0)
-  - ReactiveSwift
-  - "Redux-ReactiveSwift (from `git@github.com:xxKRASHxx/Redux-ReactiveSwift.git`, branch `feature/issue-3`)"
+  - Kingfisher (~> 5.8)
+  - "Moya (from `git@github.com:Moya/Moya.git`, tag `14.0.0-beta.2`)"
+  - "Moya/ReactiveSwift (from `git@github.com:Moya/Moya.git`, tag `14.0.0-beta.2`)"
+  - OAuthSwift (~> 2.0)
+  - ReactiveCocoa (~> 10.0)
+  - ReactiveSwift (~> 6.0)
+  - "Redux-ReactiveSwift (from `git@github.com:xxKRASHxx/Redux-ReactiveSwift.git`, branch `master`)"
+  - Result
   - SnapKit (~> 4.0.0)
-  - Sourcery (~> 0.15)
+  - Sourcery (~> 0.17)
   - Swinject
   - SwinjectAutoregistration
   - TableKit (~> 2.8)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - CocoaAsyncSocket
     - CocoaMQTT
     - CollectionKit
     - Hero
     - Kingfisher
-    - Moya
     - OAuthSwift
     - ReactiveCocoa
     - ReactiveSwift
@@ -68,34 +68,40 @@ SPEC REPOS:
     - TableKit
 
 EXTERNAL SOURCES:
+  Moya:
+    :git: "git@github.com:Moya/Moya.git"
+    :tag: 14.0.0-beta.2
   Redux-ReactiveSwift:
-    :branch: feature/issue-3
+    :branch: master
     :git: "git@github.com:xxKRASHxx/Redux-ReactiveSwift.git"
 
 CHECKOUT OPTIONS:
+  Moya:
+    :git: "git@github.com:Moya/Moya.git"
+    :tag: 14.0.0-beta.2
   Redux-ReactiveSwift:
-    :commit: 2a1360539a9c85eaeb6c7dbbe52d13347d4ca58e
+    :commit: 7077a0332b98e700d2a1244f2035e3f66cf2404c
     :git: "git@github.com:xxKRASHxx/Redux-ReactiveSwift.git"
 
 SPEC CHECKSUMS:
-  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CocoaMQTT: b506d38ad3bbe1c55a4f8ee8c9fd02c35da1a7d8
   CollectionKit: 6910479bf865bfe49040e73322ce4b8fe8991231
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
-  Kingfisher: fcec238063d17404fca89bf0a850583211c4cbf6
-  Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
-  OAuthSwift: 27b34fe80b76b67cd8f45571e0be2432bc9f6de1
-  ReactiveCocoa: fbd26e9ba60e98417ee47433e59465a98ed9da0f
-  ReactiveSwift: a2bb9ace428a109e9c0209615645d9d286c8c433
-  Redux-ReactiveSwift: 107e69a2790b4e6a1b96ae773ae00ac35c0db5ee
-  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  Kingfisher: 3adc15096595f5aed800bb0d5cb757fc58b2d2dd
+  Moya: 7a8ae931077bbdec468215833fddb3e8d0d948ef
+  OAuthSwift: 6805456763cf1c7ae0c16765257ed430b7aacae7
+  ReactiveCocoa: 2f1d942d79072eded6d8c3bc7c2a641d40855a56
+  ReactiveSwift: b78c7259f8ca46368238c895ae33a6a3bf9f811c
+  Redux-ReactiveSwift: dd57fa39755e9a7e4748793ffbd3d3312d2c22f8
+  Result: ed341d2f236af425b803e690e9bd8fd0a0cb7c5a
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
-  Sourcery: 5895672cae353cdbfa95f3f4aaeb75a664d76f6a
+  Sourcery: 3ed61be7c8a1218fce349266139379dba477efe0
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
   SwinjectAutoregistration: f72bf894cbd2ee4a9153e00fa5208e93fb44d283
   TableKit: 18a0049dea981c1106409bdeebc763ef74d36f02
 
-PODFILE CHECKSUM: 3215a84cdb47c7d03aae782c856c6ec8c42a0fab
+PODFILE CHECKSUM: b2eb0af1b6a1edeeee2d850b3ccb01e2068e13ac
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.8.3
