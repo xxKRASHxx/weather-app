@@ -131,7 +131,9 @@ private extension Weather {
           speed: current.wind.speed),
         condition: Weather.Now.Condition(
           text: current.condition.text,
-          temperature: current.condition.temperature),
+          temperature: .init(
+            value: current.condition.temperature,
+            unit: .celsius)),
         atmosphere: Weather.Now.Atmosphere(
           visibility: current.atmosphere.visibility,
           pressure: current.atmosphere.pressure),

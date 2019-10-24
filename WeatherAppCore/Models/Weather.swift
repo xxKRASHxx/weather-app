@@ -25,7 +25,7 @@ public struct Weather: Codable, Equatable {
     
     public let condition: Condition; public struct Condition: Codable, Equatable {
       public let text: String
-      public let temperature: Double
+      public let temperature: Measurement<UnitTemperature>
     }
     
     public let atmosphere: Atmosphere; public struct Atmosphere: Codable, Equatable {
