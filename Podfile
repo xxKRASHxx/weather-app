@@ -22,7 +22,6 @@ abstract_target 'common' do
   
   pod 'Swinject'
   pod 'SwinjectAutoregistration'
-  pod 'OAuthSwift', '~> 2.0'
   
   pod 'Sourcery', '~> 0.17'
   
@@ -36,9 +35,11 @@ abstract_target 'common' do
   end
   
   target 'WeatherAppSwiftUI' do
+    platform :ios, '13.0'
   end
   
   target 'WeatherAppCore' do
+    pod 'Alamofire'
   end
   
   target 'WeatherAppShared' do

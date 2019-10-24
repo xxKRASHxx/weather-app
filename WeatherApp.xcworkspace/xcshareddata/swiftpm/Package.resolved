@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "OAuthSwift",
+        "repositoryURL": "https://github.com/OAuthSwift/OAuthSwift.git",
+        "state": {
+          "branch": "master",
+          "revision": "330ca09a23305028ad05aeeec46d05cebf485750",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
