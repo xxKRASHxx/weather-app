@@ -1,10 +1,12 @@
 import SwiftUI
 import MapKit
+import KingfisherSwiftUI
 
 struct CitiesListDetails: DataDrivenView {
   
   var props: Props = .initial; struct Props {
-    var id: String
+    let id: String
+    let image: URL?
     let city: String
     let country: String
     let condition: String
@@ -12,6 +14,7 @@ struct CitiesListDetails: DataDrivenView {
     
     static let initial: Props = .init(
       id: UUID().uuidString,
+      image: URL(string: "https://cdn.britannica.com/91/151991-050-B1AC2CEC/Freedom-Square-Kharkiv-Ukraine.jpg"),
       city: "Kharkiv",
       country: "Ukraine",
       condition: "8ºC, Cloudy",
@@ -28,7 +31,11 @@ struct CitiesListDetails: DataDrivenView {
         .frame(height: 300)
         .disabled(true)
       
-      Image("default_background")
+      KFImage(
+        props.image,
+        options: [
+          .transition(.fade(0.2)) ])
+        .placeholder { Image("default_background") }
         .resizable()
         .clipShape(Circle())
         .overlay(

@@ -9,7 +9,6 @@ abstract_target 'common' do
   pod 'ReactiveCocoa', '~> 10.0'
   pod 'ReactiveSwift', '~> 6.0'
   pod 'Result'
-  pod 'Overture', '~> 0.5'
   
   pod 'CocoaMQTT', '~> 1.1'
   pod 'Moya',
@@ -18,10 +17,6 @@ abstract_target 'common' do
   pod 'Moya/ReactiveSwift',
     :git => 'git@github.com:Moya/Moya.git',
     :tag => '14.0.0-beta.2'
-  pod 'Kingfisher', '~> 5.8'
-  
-  pod 'Swinject'
-  pod 'SwinjectAutoregistration'
   
   pod 'Sourcery', '~> 0.17'
   

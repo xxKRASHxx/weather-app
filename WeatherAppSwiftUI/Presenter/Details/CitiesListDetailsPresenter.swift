@@ -19,8 +19,11 @@ struct CitiesListDetailsPresenter: ItemPresenter {
 //        fatalError("CitiesListDetailsPresenter - Weather state doe not contain woeid: \(item)")
       }
       
+      let preview = state.photos.sights[item]
+      
       return .init(
         id: String(describing: item.value),
+        image: preview?.url,
         city: weather.location.city,
         country: weather.location.country,
         condition: "\(formatter.string(from: weather.now.condition.temperature)) \(weather.now.condition.text)",

@@ -1,12 +1,19 @@
 import SwiftUI
 import Redux_ReactiveSwift
 
-struct CitiesList<Row: DataDrivenView, Details: DataDrivenView>: DataDrivenView
+struct CitiesList<Row: DataDrivenView, Details: DataDrivenView, Search: DataDrivenView>: DataDrivenView
   where Row.Props: Identifiable {
   
-  let row: (Row.Props) -> Row
+  @State private var isSearchShown: Bool = false
   
-  var props: Props = .init(landmarks: []); struct Props {
+  let row: (Row.Props) -> Row
+  let search: () -> Search
+  
+  var props: Props = .init(
+    landmarks: []
+  )
+  
+  struct Props {
     let landmarks: [Landmark]; struct Landmark: Identifiable {
       var id: Row.Props.ID { props.id }
       let props: Row.Props
@@ -21,7 +28,12 @@ struct CitiesList<Row: DataDrivenView, Details: DataDrivenView>: DataDrivenView
           destination: landmark.destination(),
           label: { self.row(landmark.props) }
         )
-      }.navigationBarTitle(Text("Landmarks"))
+      }
+      .navigationBarTitle(Text("Landmarks"))
+      .sheet(isPresented: $isSearchShown, content: search)
+      .navigationBarItems(trailing: Button(action: { self.isSearchShown.toggle() }) {
+        Text("Add")
+      })
     }
   }
 }
