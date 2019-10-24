@@ -11,6 +11,6 @@ struct CitiesListRowPresenter: ItemPresenter {
     dispatch: @escaping (AppEvent) -> Void)
     -> CitiesListRow.Props { .init(
       id: String(describing: item.value),
-      title: String(describing: state.weather.locationsMap[item]))
+      title: state.weather.locationsMap[item]?.weather?.location.city ?? "")
   }
 }
