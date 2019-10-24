@@ -1,7 +1,7 @@
 import SwiftUI
 import Redux_ReactiveSwift
 
-struct CitiesListView<Row: View & DataDriven>: DataDrivenView where Row.Props: Identifiable {
+struct CitiesListView<Row: DataDrivenView>: DataDrivenView where Row.Props: Identifiable {
   
   let row: (Row.Props) -> Row
   
@@ -10,7 +10,9 @@ struct CitiesListView<Row: View & DataDriven>: DataDrivenView where Row.Props: I
   }
   
   var body: some View {
-    NavigationView { List(props.landmarks, rowContent: row) }
-      .navigationBarTitle(Text("Landmarks"), displayMode: .large)
+    NavigationView {
+      List(props.landmarks, rowContent: row)
+        .navigationBarTitle(Text("Landmarks"))
+    }
   }
 }

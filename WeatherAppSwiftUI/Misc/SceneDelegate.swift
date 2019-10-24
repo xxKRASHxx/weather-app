@@ -24,8 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         RootPresenter {
           RootView(
             requested: {
-              CitiesListPresenter(itemPresenter:
-                flip(curry(CitiesListRowPresenter.init(item:content:)))(CitiesListRow.init)
+              CitiesListPresenter(
+                rowContenxt: CitiesListRow.init,
+                itemPresenter:
+                  flip(curry(CitiesListRowPresenter.init(item:content:)))(CitiesListRow.init)
               )
             },
             notRequested: { PermissionsPresenter(content: RequestPermissionsView.init) }
