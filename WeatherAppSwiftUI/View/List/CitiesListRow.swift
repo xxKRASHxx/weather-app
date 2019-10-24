@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CitiesListRow: View, DataDriven {
+struct CitiesListRow: DataDrivenView {
   
   var props: Props = .initial; struct Props: Identifiable {
     var id: String
@@ -18,6 +18,17 @@ struct CitiesListRow: View, DataDriven {
 
 struct CitiesListRow_Previews: PreviewProvider {
   static var previews: some View {
-    CitiesListRow()
+    Group {
+      CitiesListRow().previewLayout(.fixed(
+        width: 320, height: 44))
+      
+      List(0..<5) { _ in
+        CitiesListRow()
+      }
+        
+      List(0..<5) { _ in
+        CitiesListRow()
+      }.preferredColorScheme(.dark)
+    }
   }
 }

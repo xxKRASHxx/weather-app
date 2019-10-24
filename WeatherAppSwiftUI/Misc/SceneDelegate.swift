@@ -23,13 +23,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       StoreProvider {
         RootPresenter {
           RootView(
-            requested: {
-              CitiesListPresenter(
-                rowContenxt: CitiesListRow.init,
-                itemPresenter:
-                  flip(curry(CitiesListRowPresenter.init(item:content:)))(CitiesListRow.init)
-              )
-            },
+            requested: { CitiesListPresenter(
+              rowContenxt: CitiesListRow.init,
+              rowPresenter: flip(curry(CitiesListRowPresenter.init(item:content:)))(CitiesListRow.init),
+              detailsPresenter: flip(curry(CitiesListDetailsPresenter.init(item:content:)))(CitiesListDetails.init)) },
             notRequested: { PermissionsPresenter(content: RequestPermissionsView.init) }
           )
         }
