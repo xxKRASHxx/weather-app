@@ -9,6 +9,7 @@ abstract_target 'common' do
   pod 'ReactiveCocoa', '~> 10.0'
   pod 'ReactiveSwift', '~> 6.0'
   pod 'Result'
+  pod 'Overture', '~> 0.5'
   
   pod 'CocoaMQTT', '~> 1.1'
   pod 'Moya',
@@ -32,6 +33,9 @@ abstract_target 'common' do
     pod 'CollectionKit'
     pod 'TableKit', '~> 2.8'
     pod 'SnapKit', '~> 4.0.0'
+  end
+  
+  target 'WeatherAppSwiftUI' do
   end
   
   target 'WeatherAppCore' do

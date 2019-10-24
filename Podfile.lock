@@ -18,6 +18,7 @@ PODS:
     - Moya/Core
     - ReactiveSwift (~> 6.0)
   - OAuthSwift (2.0.0)
+  - Overture (0.5.0)
   - ReactiveCocoa (10.1.0):
     - ReactiveSwift (~> 6.1)
   - ReactiveSwift (6.1.0)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - "Moya (from `git@github.com:Moya/Moya.git`, tag `14.0.0-beta.2`)"
   - "Moya/ReactiveSwift (from `git@github.com:Moya/Moya.git`, tag `14.0.0-beta.2`)"
   - OAuthSwift (~> 2.0)
+  - Overture (~> 0.5)
   - ReactiveCocoa (~> 10.0)
   - ReactiveSwift (~> 6.0)
   - "Redux-ReactiveSwift (from `git@github.com:xxKRASHxx/Redux-ReactiveSwift.git`, branch `master`)"
@@ -58,6 +60,7 @@ SPEC REPOS:
     - Hero
     - Kingfisher
     - OAuthSwift
+    - Overture
     - ReactiveCocoa
     - ReactiveSwift
     - Result
@@ -92,6 +95,7 @@ SPEC CHECKSUMS:
   Kingfisher: 3adc15096595f5aed800bb0d5cb757fc58b2d2dd
   Moya: 7a8ae931077bbdec468215833fddb3e8d0d948ef
   OAuthSwift: 6805456763cf1c7ae0c16765257ed430b7aacae7
+  Overture: 2e6252ead5da6d3347f758047f27a31cb469d59d
   ReactiveCocoa: 2f1d942d79072eded6d8c3bc7c2a641d40855a56
   ReactiveSwift: b78c7259f8ca46368238c895ae33a6a3bf9f811c
   Redux-ReactiveSwift: dd57fa39755e9a7e4748793ffbd3d3312d2c22f8
@@ -102,6 +106,6 @@ SPEC CHECKSUMS:
   SwinjectAutoregistration: f72bf894cbd2ee4a9153e00fa5208e93fb44d283
   TableKit: 18a0049dea981c1106409bdeebc763ef74d36f02
 
-PODFILE CHECKSUM: d425bee20ad3e07877690217dc95eaf6207f1d5e
+PODFILE CHECKSUM: 98b3b3d58100a10d21fecc2ddadf17546a459bf9
 
 COCOAPODS: 1.8.3
