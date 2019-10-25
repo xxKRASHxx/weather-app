@@ -46,25 +46,26 @@ extension AppWeather {
 
     case let event as DidUpdateWeather:
       return state
-        |> AppWeather.locationsMapLens *~ state.locationsMap
-          .appending(
-            event.result.woeID,
-            event.result.analysis(
-              ifSuccess: WeatherRequestState.success,
-              ifFailure: WeatherRequestState.error))
+        |> AppWeather.locationsMapLens *~ state.locationsMap.appending(
+          event.result.woeID,
+          event.result.analysis(
+            ifSuccess: WeatherRequestState.success,
+            ifFailure: WeatherRequestState.error))
 
     case let event as DidUpdateCurrentWeather:
       return state
         |> AppWeather.currentLens *~ event.result.woeID
-        |> AppWeather.locationsLens *~ state.locations.removing(.unknown)
-        |> AppWeather.locationsLens *~ state.locations.inserting(event.result.woeID)
-        |> AppWeather.locationsMapLens *~ state.locationsMap.appending(.unknown, nil)
-        |> AppWeather.locationsMapLens *~ state.locationsMap
-          .appending(
+        |> AppWeather.locationsLens *~ with(state.locations, pipe(
+          { $0.removing(.unknown) }, { $0.inserting(event.result.woeID) }
+        ))
+        |> AppWeather.locationsMapLens *~ with(state.locationsMap, pipe(
+          { $0.appending(.unknown, nil) },
+          { $0.appending(
             event.result.woeID,
             event.result.analysis(
               ifSuccess: WeatherRequestState.success,
-              ifFailure: WeatherRequestState.error))
+              ifFailure: WeatherRequestState.error)) }
+        ))
 
     case let event as SelectLocation:
       return state
