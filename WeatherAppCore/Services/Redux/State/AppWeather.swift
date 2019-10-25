@@ -55,6 +55,7 @@ extension AppWeather {
 
     case let event as DidUpdateCurrentWeather:
       return state
+        |> AppWeather.currentLens *~ event.result.woeID
         |> AppWeather.locationsLens *~ state.locations.removing(.unknown)
         |> AppWeather.locationsLens *~ state.locations.inserting(event.result.woeID)
         |> AppWeather.locationsMapLens *~ state.locationsMap.appending(.unknown, nil)

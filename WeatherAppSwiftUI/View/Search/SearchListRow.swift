@@ -5,14 +5,18 @@ struct SearchListRow: DataDrivenView {
   var props: Props = .initial; struct Props: Identifiable {
     let id: String
     let title: String
+    let select: () -> Void
     
     static let initial: Props = .init(
       id: UUID().uuidString,
-      title: "item")
+      title: "item",
+      select: {} )
   }
   
   var body: some View {
-    Text(props.title)
+    Button(action: props.select) {
+      Text(props.title)
+    }
   }
 }
 

@@ -4,6 +4,7 @@ import Redux_ReactiveSwift
 struct SearchList<Row: DataDrivenView>: DataDrivenView
 where Row.Props: Identifiable {
   
+  @Environment(\.presentationMode) var presentation
   @State private var isSearchActive: Bool = false
   
   let row: (Row.Props) -> Row
@@ -31,6 +32,10 @@ where Row.Props: Identifiable {
       .navigationBarHidden(isSearchActive)
         .animation(.default)
       .navigationBarTitle(Text("Search"))
+      .navigationBarItems(
+        leading: Button(
+          action: { self.presentation.wrappedValue.dismiss() },
+          label: { Text("Cancel") }))
       .resignKeyboardOnDragGesture()
     }
   }
