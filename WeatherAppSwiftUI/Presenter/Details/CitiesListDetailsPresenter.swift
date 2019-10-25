@@ -16,7 +16,6 @@ struct CitiesListDetailsPresenter: ItemPresenter {
       
       guard let weather = state.weather.locationsMap[item]?.weather else {
         return .initial
-//        fatalError("CitiesListDetailsPresenter - Weather state doe not contain woeid: \(item)")
       }
       
       let preview = state.photos.sights[item]

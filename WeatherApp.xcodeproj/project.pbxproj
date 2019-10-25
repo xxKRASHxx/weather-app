@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E1FF29E2363A2BF009E1434 /* Overture in Frameworks */ = {isa = PBXBuildFile; productRef = 0E1FF29D2363A2BF009E1434 /* Overture */; };
+		0E1FF2A02363A5F0009E1434 /* Lens.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 0E1FF29F2363A5F0009E1434 /* Lens.stencil */; };
+		0E1FF2A22363A619009E1434 /* zLens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1FF2A12363A619009E1434 /* zLens.swift */; };
+		0E1FF2A42363A679009E1434 /* Lens.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1FF2A32363A679009E1434 /* Lens.generated.swift */; };
+		0E1FF2A62363ABDB009E1434 /* Collections+Appending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1FF2A52363ABDB009E1434 /* Collections+Appending.swift */; };
 		0E39A3872361E00800B4FA2C /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0E39A3862361E00800B4FA2C /* OAuthSwift */; };
 		0E519398236229FC006BB017 /* SwinjectAutoregistration in Frameworks */ = {isa = PBXBuildFile; productRef = 0E519397236229FC006BB017 /* SwinjectAutoregistration */; };
 		0E5193A023622E2C006BB017 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 0E51939F23622E2C006BB017 /* Swinject */; };
@@ -236,6 +241,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E1FF29F2363A5F0009E1434 /* Lens.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = Lens.stencil; sourceTree = "<group>"; };
+		0E1FF2A12363A619009E1434 /* zLens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zLens.swift; sourceTree = "<group>"; };
+		0E1FF2A32363A679009E1434 /* Lens.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lens.generated.swift; sourceTree = "<group>"; };
+		0E1FF2A52363ABDB009E1434 /* Collections+Appending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collections+Appending.swift"; sourceTree = "<group>"; };
 		0E56FBFC234E6E96009E8EDC /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		0EF30E68236209BD000637A7 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		0EF30E6A23620A4B000637A7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -418,6 +427,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E1FF29E2363A2BF009E1434 /* Overture in Frameworks */,
 				D27A783423493CA200F38D75 /* WeatherAppShared.framework in Frameworks */,
 				F0173693EEF2ABDCAA6E3819 /* Pods_common_WeatherAppCore.framework in Frameworks */,
 				0E39A3872361E00800B4FA2C /* OAuthSwift in Frameworks */,
@@ -867,6 +877,7 @@
 			isa = PBXGroup;
 			children = (
 				D2C8DEF321F765A800D82B65 /* AutoCodableLike.swift */,
+				0E1FF2A12363A619009E1434 /* zLens.swift */,
 				D29CF6602348F14500003B12 /* Output */,
 				D29CF65F2348F0F300003B12 /* Templates */,
 			);
@@ -879,6 +890,7 @@
 				D27A78092349275900F38D75 /* AnyEvent.swifttemplate */,
 				D27A780B2349275900F38D75 /* AutoCodable.swifttemplate */,
 				D27A781223492E4300F38D75 /* AutoInit.stencil */,
+				0E1FF29F2363A5F0009E1434 /* Lens.stencil */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -888,6 +900,7 @@
 			children = (
 				D29CF6612348F18300003B12 /* AnyEvent.generated.swift */,
 				D29CF6622348F18300003B12 /* AutoCodable.generated.swift */,
+				0E1FF2A32363A679009E1434 /* Lens.generated.swift */,
 			);
 			path = Output;
 			sourceTree = "<group>";
@@ -920,6 +933,7 @@
 				D29CF6672348F42200003B12 /* Sequence+KeyPath.swift */,
 				D29CF6692348F4DD00003B12 /* Array+Extensions.swift */,
 				D292FEDC220491DE0029EAA8 /* Reducer.swift */,
+				0E1FF2A52363ABDB009E1434 /* Collections+Appending.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1250,6 +1264,7 @@
 			name = WeatherAppCore;
 			packageProductDependencies = (
 				0E39A3862361E00800B4FA2C /* OAuthSwift */,
+				0E1FF29D2363A2BF009E1434 /* Overture */,
 			);
 			productName = WeatherAppCore;
 			productReference = D29CF6702349100F00003B12 /* WeatherAppCore.framework */;
@@ -1360,6 +1375,7 @@
 				D29CF6B72349152C00003B12 /* Weather.json in Resources */,
 				D29CF6B62349152600003B12 /* Photo.json in Resources */,
 				D29CF6B82349152C00003B12 /* Search.json in Resources */,
+				0E1FF2A02363A5F0009E1434 /* Lens.stencil in Resources */,
 				D27A780C2349275900F38D75 /* AnyEvent.swifttemplate in Resources */,
 				D27A780E2349275900F38D75 /* AutoCodable.swifttemplate in Resources */,
 			);
@@ -1524,6 +1540,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E1FF2A62363ABDB009E1434 /* Collections+Appending.swift in Sources */,
 				D27A782E2349313800F38D75 /* Result+Analysis.swift in Sources */,
 				D27A78282349313800F38D75 /* TypeDispatcher.swift in Sources */,
 				D27A78332349346800F38D75 /* Container+Extensions.swift in Sources */,
@@ -1610,6 +1627,7 @@
 				D29CF6BA2349152C00003B12 /* WeatherAPIServiceProtocol.swift in Sources */,
 				D29CF6BC2349153700003B12 /* WoeID.swift in Sources */,
 				D29CF69F234914AE00003B12 /* WeatherService.swift in Sources */,
+				0E1FF2A22363A619009E1434 /* zLens.swift in Sources */,
 				D29CF6A6234914C300003B12 /* SearchEvents.swift in Sources */,
 				D29CF6A92349150200003B12 /* AppStore.swift in Sources */,
 				D29CF6B52349152100003B12 /* PhotosAPIProtocol.swift in Sources */,
@@ -1618,6 +1636,7 @@
 				D29CF69B2349149C00003B12 /* MQTTService.swift in Sources */,
 				D29CF6A0234914B300003B12 /* LocationService.swift in Sources */,
 				D29CF6AB2349151400003B12 /* AppState.swift in Sources */,
+				0E1FF2A42363A679009E1434 /* Lens.generated.swift in Sources */,
 				D29CF6BE2349153700003B12 /* Coordinates2D.swift in Sources */,
 				D29CF6A8234914C300003B12 /* PhotosEvents.swift in Sources */,
 				D29CF6A3234914C300003B12 /* AppEvent.swift in Sources */,
@@ -2136,6 +2155,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0E1FF29D2363A2BF009E1434 /* Overture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0EFB4617236228C100E89FD4 /* XCRemoteSwiftPackageReference "swift-overture" */;
+			productName = Overture;
+		};
 		0E39A3862361E00800B4FA2C /* OAuthSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0E39A3852361E00800B4FA2C /* XCRemoteSwiftPackageReference "OAuthSwift" */;

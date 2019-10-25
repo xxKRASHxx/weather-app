@@ -64,38 +64,6 @@ extension AppPhotos.Status {
 
 }
 
-extension AppSearch {
-
-    enum CodingKeys: String, CodingKey {
-        case none
-        case searching
-        case error
-        case success
-        case key
-        case value
-        case result
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-
-        switch self {
-        case .none:
-            _ = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .none)
-        case let .searching(key):
-            var associatedValues = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .searching)
-            try associatedValues.encode(key, forKey: .key)
-        case let .error(value):
-            var associatedValues = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .error)
-            try associatedValues.encode(value, forKey: .value)
-        case let .success(result):
-            var associatedValues = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .success)
-            try associatedValues.encode(result, forKey: .result)
-        }
-    }
-
-}
-
 extension AppSync {
 
     enum CodingKeys: String, CodingKey {

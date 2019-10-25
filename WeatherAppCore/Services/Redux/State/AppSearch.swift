@@ -1,29 +1,30 @@
 import Redux_ReactiveSwift
 import struct Result.AnyError
 
-public enum AppSearch: AutoEncodable, Equatable {
-  case none
-  case searching(key: String)
-  case error(value: AnyError)
-  case success(result: [SearchResult])
+public struct AppSearch: AutoLenses, Encodable, Equatable {
+  public let pattern: String?
+  public let result: Result<[SearchResult], AnyError>?
 }
 
 extension AppSearch: Defaultable {
-  public static var defaultValue: AppSearch = .none
+  public static var defaultValue = AppSearch(
+    pattern: nil,
+    result: nil)
 }
 
 extension AppSearch {
   static func reudce(_ state: AppSearch, _ event: AppEvent) -> AppSearch {
     switch event {
     case let action as BeginSearching:
-      return .searching(key: action.text)
+      return state
+        |> AppSearch.patternLens *~ action.text
     case let action as DidEndSearch:
-      return action.result.analysis(
-        ifSuccess: { .success(result: $0) },
-        ifFailure: { .error(value: $0) })
+      return state
+        |> AppSearch.resultLens *~ action.result
     case is SelectLocation, is CancelSearch:
-      return .none
-    default: return state
+      return .defaultValue
+    default:
+      return state
     }
   }
 }

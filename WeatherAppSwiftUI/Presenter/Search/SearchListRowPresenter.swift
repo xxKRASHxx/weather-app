@@ -11,6 +11,7 @@ struct SearchListRowPresenter: ItemPresenter {
     dispatch: @escaping (AppEvent) -> Void)
     -> SearchListRow.Props { .init(
       id: String(describing: item.value),
-      title: state.weather.locationsMap[item]?.weather?.location.city ?? "")
+      title: state.searching.result?.value?
+        .first { $0.id == item }?.qualifiedName ?? "")
   }
 }

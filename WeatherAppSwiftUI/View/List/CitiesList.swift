@@ -7,13 +7,10 @@ struct CitiesList<Row: DataDrivenView, Details: DataDrivenView, Search: DataDriv
   @State private var isSearchShown: Bool = false
   
   let row: (Row.Props) -> Row
-  let search: () -> Search
-  
-  var props: Props = .init(
-    landmarks: []
-  )
+  var props: Props
   
   struct Props {
+    let search: () -> Search
     let landmarks: [Landmark]; struct Landmark: Identifiable {
       var id: Row.Props.ID { props.id }
       let props: Row.Props
@@ -30,7 +27,7 @@ struct CitiesList<Row: DataDrivenView, Details: DataDrivenView, Search: DataDriv
         )
       }
       .navigationBarTitle(Text("Landmarks"))
-      .sheet(isPresented: $isSearchShown, content: search)
+      .sheet(isPresented: $isSearchShown, content: props.search)
       .navigationBarItems(trailing: Button(action: { self.isSearchShown.toggle() }) {
         Text("Add")
       })

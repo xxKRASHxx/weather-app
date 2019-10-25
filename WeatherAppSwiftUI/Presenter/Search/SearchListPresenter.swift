@@ -24,9 +24,15 @@ struct SearchListPresenter<RowPresenter: ItemPresenter>: Presenter where
     state: AppState,
     dispatch: @escaping (AppEvent) -> Void)
     -> SearchList<RowPresenter.V>.Props {
-      .init(list: state.weather.locations
-        .map(rowPresenter)
-        .map { row in .init(props: row.map(state: state, dispatch: dispatch)) }
+      .init(
+        searchText: Binding<String>(
+          get: { with(state, get(\.searching.pattern)) ?? "" },
+          set: { dispatch(BeginSearching.init(text: $0)) }),
+        list: state.searching.result?.value?
+          .map(get(\.id))
+          .map(rowPresenter)
+          .map { row in .init(props: row.map(state: state, dispatch: dispatch)) }
+          ?? []
       )
   }
 }

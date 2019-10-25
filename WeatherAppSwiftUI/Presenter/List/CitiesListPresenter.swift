@@ -24,7 +24,10 @@ struct CitiesListPresenter<
           var row = self.rowContenxt()
           row.props = props
           return row },
-        search: self.searchPresenter().content
+        props: .init(
+          search: { self.searchPresenter().content() },
+          landmarks: []
+        )
       )
     }
   }
@@ -33,7 +36,9 @@ struct CitiesListPresenter<
     state: AppState,
     dispatch: @escaping (AppEvent) -> Void)
     -> CitiesList<RowPresenter.V, DetailsPresenter.V, SearchPresenter.V>.Props {
-      .init(landmarks: state.weather.locations
+      .init(
+        search: { self.searchPresenter().render(state: state, dispatch: dispatch) },
+        landmarks: state.weather.locations
         .map { (rowPresenter($0), detailsPresenter($0)) }
         .map { row, details in .init(
           props: row.map(state: state, dispatch: dispatch),

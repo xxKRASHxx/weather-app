@@ -2,6 +2,7 @@ import Swinject
 import ReactiveSwift
 import struct Result.AnyError
 import WeatherAppShared
+import Overture
 
 class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
   
@@ -27,15 +28,9 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
   
   @discardableResult private func observeSearching() -> Disposable {
     
-    let searchingText: (AppSearch) -> String? = { state in
-      guard case let .searching(text) = state
-        else { return nil }
-      return text
-    }
-    
     return store.producer
       .map(\AppState.searching)
-      .filterMap(searchingText)
+      .filterMap(get(\.pattern))
       .skipRepeats()
       .throttle(0.5, on: QueueScheduler.main)
       .flatMap(.latest, weatherAPI.search)
@@ -158,7 +153,7 @@ private extension Weather {
 private extension SearchResult {
   static func fromDTO(_ response: Response.SearchResult) -> SearchResult {
     return SearchResult(
-      id: response.woeid,
+      id: .init(value: response.woeid),
       location: Coordinates2D(
         latitude: response.lat,
         longitude: response.lon),
