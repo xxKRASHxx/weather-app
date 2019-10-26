@@ -15,22 +15,31 @@ struct CitiesList<Row: DataDrivenView, Details: DataDrivenView, Search: DataDriv
       var id: Row.Props.ID { props.id }
       let props: Row.Props
       let destination: () -> Details
+      let delete: () -> Void
     }
   }
   
   var body: some View {
     NavigationView {
-      List(props.landmarks) { landmark in
-        NavigationLink(
-          destination: landmark.destination(),
-          label: { self.row(landmark.props) }
-        )
+      List {
+        ForEach(props.landmarks) { landmark in
+          NavigationLink(
+            destination: landmark.destination(),
+            label: { self.row(landmark.props) }
+          )
+        }.onDelete(perform: delete)
       }
-      .navigationBarTitle(Text("Landmarks"))
       .sheet(isPresented: $isSearchShown, content: props.search)
-      .navigationBarItems(trailing: Button(action: { self.isSearchShown.toggle() }) {
-        Text("Add")
-      })
+      .navigationBarTitle(Text("Landmarks"))
+      .navigationBarItems(trailing: Button(
+        action: { self.isSearchShown.toggle() },
+        label: { Image(systemName: "plus.circle").font(Font.title) }))
+    }
+  }
+  
+  private func delete(at offsets: IndexSet) {
+    offsets.forEach { index in
+      props.landmarks[index].delete()
     }
   }
 }

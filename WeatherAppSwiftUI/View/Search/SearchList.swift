@@ -35,7 +35,7 @@ where Row.Props: Identifiable {
       .navigationBarItems(
         leading: Button(
           action: { self.presentation.wrappedValue.dismiss() },
-          label: { Text("Cancel") }))
+          label: { Image(systemName: "xmark.circle").font(Font.title) }))
       .resignKeyboardOnDragGesture()
     }
   }

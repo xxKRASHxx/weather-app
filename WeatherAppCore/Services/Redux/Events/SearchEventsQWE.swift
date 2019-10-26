@@ -19,4 +19,8 @@ public struct SelectLocation: AppEvent {
 
 public struct DeselectLocations: AppEvent {
   public let id: WoeID
+  
+  public init(id: WoeID) { // swiftlint:disable:this line_length
+      self.id = id
+  }
 }

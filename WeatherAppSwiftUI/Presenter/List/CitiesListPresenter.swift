@@ -39,10 +39,11 @@ struct CitiesListPresenter<
       .init(
         search: { self.searchPresenter().render(state: state, dispatch: dispatch) },
         landmarks: state.weather.locations
-        .map { (rowPresenter($0), detailsPresenter($0)) }
-        .map { row, details in .init(
-          props: row.map(state: state, dispatch: dispatch),
-          destination: { details.render(state: state, dispatch: dispatch) })
+          .map { (rowPresenter($0), detailsPresenter($0)) }
+          .map { row, details in .init(
+            props: row.map(state: state, dispatch: dispatch),
+            destination: { details.render(state: state, dispatch: dispatch) },
+            delete: { dispatch(DeselectLocations(id: row.item)) } )
         }
       )
   }
