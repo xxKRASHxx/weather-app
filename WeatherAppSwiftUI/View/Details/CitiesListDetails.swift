@@ -24,41 +24,50 @@ struct CitiesListDetails: DataDrivenView {
   }
   
   var body: some View {
-    VStack {
+    ZStack {
       
-      MapView(coordinate: props.coordinate)
-        .edgesIgnoringSafeArea(.top)
-        .frame(height: 300)
-        .disabled(true)
-      
-      KFImage(
-        props.image,
-        options: [
-          .transition(.fade(0.2)) ])
-        .placeholder { Image("default_background") }
-        .resizable()
-        .clipShape(Circle())
-        .overlay(
-          Circle().stroke(Color.white, lineWidth: 4))
-        .shadow(radius: 10)
-        .frame(width: 150, height: 150)
-        .offset(y: -130)
-        .padding(.bottom, -130)
-      
-      VStack(alignment: .leading) {
-        Text(props.condition)
-          .font(.title)
-        HStack(alignment: .top) {
-          Text(props.city)
-            .font(.subheadline)
-          Spacer()
-          Text(props.country)
-            .font(.subheadline)
-        }
+      VStack {
+        MapView(coordinate: props.coordinate)
+          .edgesIgnoringSafeArea([.top, .horizontal])
+          .frame(height: 300)
+          .disabled(true)
+        Spacer()
       }
-      .padding()
       
-      Spacer()
+      ScrollView {
+        
+        Spacer()
+          .frame(height: 300)
+        
+        KFImage(
+          props.image,
+          options: [
+            .transition(.fade(0.2)) ])
+          .placeholder { Image("default_background") }
+          .resizable()
+          .clipShape(Circle())
+          .overlay(Circle().stroke(Color.white, lineWidth: 4))
+          .shadow(radius: 10)
+          .frame(width: 150, height: 150)
+          .offset(y: -130)
+          .padding(.bottom, -130)
+          .zIndex(2)
+        
+        VStack(alignment: .leading) {
+          Text(props.condition)
+            .font(.title)
+          HStack(alignment: .top) {
+            Text(props.city)
+              .font(.subheadline)
+            Spacer()
+            Text(props.country)
+              .font(.subheadline)
+          }
+          Spacer()
+          }
+        .padding()
+        .background(Color.primary.colorInvert())
+      }
     }
   }
 }
