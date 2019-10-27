@@ -113,8 +113,12 @@ private extension Weather {
     func fromDTO(forecast: Response.Weather.Forecast) -> Weather.Forecast {
       return .init(
         date: forecast.date,
-        low: forecast.low,
-        high: forecast.high,
+        low: .init(
+          value: forecast.low,
+          unit: .celsius),
+        high: .init(
+          value: forecast.high,
+          unit: .celsius),
         text: forecast.text)
     }
     

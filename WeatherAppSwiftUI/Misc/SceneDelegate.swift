@@ -18,27 +18,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     WeatherAppCore.initialize()
     
-    
-    
     window = UIWindow(windowScene: windowScene)
+    
     window?.rootViewController = UIHostingController(rootView:
       StoreProvider {
         RootPresenter {
-          RootView(
-            requested: { CitiesListPresenter(
-              rowContenxt: CitiesListRow.init,
-              rowPresenter: flip(curry(CitiesListRowPresenter.init(item:content:)))(CitiesListRow.init),
-              detailsPresenter: flip(curry(CitiesListDetailsPresenter.init(item:content:)))(CitiesListDetails.init),
-              searchPresenter: {
-                SearchListPresenter(
-                  rowContenxt: SearchListRow.init,
-                  rowPresenter: flip(curry(SearchListRowPresenter.init(item:content:)))(SearchListRow.init))
-            }) },
-            notRequested: { PermissionsPresenter(content: RequestPermissionsView.init) }
-          )
+          RootView(requested: self.requestedView, notRequested: self.notRequestedView)
         }
       }
     )
     window?.makeKeyAndVisible()
+  }
+  
+  private func requestedView() -> CitiesListPresenter<
+    CitiesListRowPresenter,
+    CitiesListDetailsPresenter<CitiesListDetailsRowPresenter>,
+    SearchListPresenter<SearchListRowPresenter>> {
+      
+      CitiesListPresenter(
+        rowContenxt: CitiesListRow.init,
+        rowPresenter: flip(curry(CitiesListRowPresenter.init(item:content:)))(CitiesListRow.init),
+        detailsPresenter: { woeid in
+          CitiesListDetailsPresenter(
+            item: woeid,
+            rowContenxt: CitiesListDetailsRow.init,
+            rowPresenter: { index -> CitiesListDetailsRowPresenter in
+              CitiesListDetailsRowPresenter(
+                item: woeid,
+                index: index,
+                content: CitiesListDetailsRow.init) }) },
+        searchPresenter: { () -> SearchListPresenter<SearchListRowPresenter> in
+          SearchListPresenter(
+            rowContenxt: SearchListRow.init,
+            rowPresenter: flip(curry(SearchListRowPresenter.init(item:content:)))(SearchListRow.init))
+      })
+  }
+  
+  private func notRequestedView() -> some View {
+    PermissionsPresenter(content: RequestPermissionsView.init)
   }
 }

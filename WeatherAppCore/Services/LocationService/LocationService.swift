@@ -80,6 +80,7 @@ private extension CLAuthorizationStatus {
     switch self {
     case .notDetermined, .restricted, .denied: return DidChangeLocationPermission(access: false)
     case .authorizedWhenInUse, .authorizedAlways: return DidChangeLocationPermission(access: true)
+    @unknown default: fatalError()
     }
   }
 }

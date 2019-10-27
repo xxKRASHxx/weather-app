@@ -20,6 +20,8 @@
 		0E56FC01234E7902009E8EDC /* WeatherAppCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D29CF6702349100F00003B12 /* WeatherAppCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E56FC05234E7906009E8EDC /* WeatherAppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27A781A2349311000F38D75 /* WeatherAppShared.framework */; };
 		0E56FC06234E7906009E8EDC /* WeatherAppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D27A781A2349311000F38D75 /* WeatherAppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E92A42D23660AF1007D1476 /* CitiesListDetailsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E92A42C23660AF1007D1476 /* CitiesListDetailsRow.swift */; };
+		0E92A42F23661935007D1476 /* CitiesListDetailsRowPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E92A42E23661935007D1476 /* CitiesListDetailsRowPresenter.swift */; };
 		0EF30E69236209BD000637A7 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF30E68236209BD000637A7 /* MapView.swift */; };
 		0EF30E6B23620A4B000637A7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EF30E6A23620A4B000637A7 /* MapKit.framework */; };
 		0EF409A3236230FE001F683B /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF409A2236230FE001F683B /* SearchList.swift */; };
@@ -246,6 +248,8 @@
 		0E1FF2A32363A679009E1434 /* Lens.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lens.generated.swift; sourceTree = "<group>"; };
 		0E1FF2A52363ABDB009E1434 /* Collections+Appending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collections+Appending.swift"; sourceTree = "<group>"; };
 		0E56FBFC234E6E96009E8EDC /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
+		0E92A42C23660AF1007D1476 /* CitiesListDetailsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListDetailsRow.swift; sourceTree = "<group>"; };
+		0E92A42E23661935007D1476 /* CitiesListDetailsRowPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListDetailsRowPresenter.swift; sourceTree = "<group>"; };
 		0EF30E68236209BD000637A7 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		0EF30E6A23620A4B000637A7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		0EF409A2236230FE001F683B /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
@@ -614,6 +618,7 @@
 			isa = PBXGroup;
 			children = (
 				0EFC77002361CAC10042C4CF /* CitiesListDetails.swift */,
+				0E92A42C23660AF1007D1476 /* CitiesListDetailsRow.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -622,6 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				0EFC77032361CB110042C4CF /* CitiesListDetailsPresenter.swift */,
+				0E92A42E23661935007D1476 /* CitiesListDetailsRowPresenter.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -1652,6 +1658,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E92A42D23660AF1007D1476 /* CitiesListDetailsRow.swift in Sources */,
 				0EF409A523623184001F683B /* SearchListRow.swift in Sources */,
 				D2AB376E2349168800A10FBD /* AppDelegate.swift in Sources */,
 				D2AB37702349168800A10FBD /* SceneDelegate.swift in Sources */,
@@ -1660,6 +1667,7 @@
 				0EF90FC02360D6A900A182AE /* RequestPermissionsView.swift in Sources */,
 				0EF90FC72360DF1900A182AE /* PermissionsPresenter.swift in Sources */,
 				0EF409A3236230FE001F683B /* SearchList.swift in Sources */,
+				0E92A42F23661935007D1476 /* CitiesListDetailsRowPresenter.swift in Sources */,
 				0EF90FCE2360EADA00A182AE /* CitiesListRowPresenter.swift in Sources */,
 				0EFC77012361CAC10042C4CF /* CitiesListDetails.swift in Sources */,
 				0EF90FB82360B68600A182AE /* Presenter.swift in Sources */,

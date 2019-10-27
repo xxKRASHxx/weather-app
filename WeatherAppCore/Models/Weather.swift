@@ -11,8 +11,8 @@ public struct Weather: Codable, Equatable {
   
   public let forecasts: [Forecast]; public struct Forecast: Codable, Equatable {
     public let date: Date
-    public let low: Double
-    public let high: Double
+    public let low: Measurement<UnitTemperature>
+    public let high: Measurement<UnitTemperature>
     public let text: String
   }
   
