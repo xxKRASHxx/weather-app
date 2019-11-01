@@ -25,44 +25,48 @@ struct CitiesListDetails<Row: DataDrivenView>: DataDrivenView where Row.Props: I
   
   var body: some View {
     ZStack {
+      
       VStack {
         MapView(coordinate: props.coordinate)
           .edgesIgnoringSafeArea([.top, .horizontal])
-          .frame(height: 150)
+          .frame(height: 300)
           .disabled(true)
         Spacer()
       }
+      
       ScrollView {
-        Spacer().frame(height: 150)
-        VStack {
-          KFImage(
-            props.image,
-            options: [
-              .transition(.fade(0.2)) ])
-            .placeholder { Image("default_background") }
-            .resizable()
-            .clipShape(Circle())
-            .overlay(
-              Circle().stroke(Color.white, lineWidth: 4))
-            .shadow(radius: 10)
-            .frame(width: 200, height: 200)
-            .offset(y: -130)
-            .padding(.bottom, -130)
-
-          VStack(alignment: .leading) {
-            Text(props.condition)
-              .font(.title)
-            HStack(alignment: .top) {
-              Text(props.city)
-                .font(.subheadline)
-              Spacer()
-              Text(props.country)
-                .font(.subheadline)
-            }
+        
+        Spacer()
+          .frame(height: 300)
+        
+        KFImage(
+          props.image,
+          options: [
+            .transition(.fade(0.2)) ])
+          .placeholder { Image("default_background") }
+          .resizable()
+          .clipShape(Circle())
+          .overlay(Circle().stroke(Color.white, lineWidth: 4))
+          .shadow(radius: 10)
+          .frame(width: 150, height: 150)
+          .offset(y: -130)
+          .padding(.bottom, -130)
+          .zIndex(2)
+        
+        VStack(alignment: .leading) {
+          Text(props.condition)
+            .font(.title)
+          HStack(alignment: .top) {
+            Text(props.city)
+              .font(.subheadline)
+            Spacer()
+            Text(props.country)
+              .font(.subheadline)
           }
-          .padding()
-        }
-        ForEach(props.forecast, content: row)
+          Spacer()
+          }
+        .padding()
+        .background(Color.primary.colorInvert())
       }
     }
   }
