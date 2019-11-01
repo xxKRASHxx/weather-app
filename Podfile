@@ -17,11 +17,6 @@ abstract_target 'common' do
   pod 'Moya/ReactiveSwift',
     :git => 'git@github.com:Moya/Moya.git',
     :tag => '14.0.0-beta.2'
-  pod 'Kingfisher', '~> 5.8'
-  
-  pod 'Swinject'
-  pod 'SwinjectAutoregistration'
-  pod 'OAuthSwift', '~> 2.0'
   
   pod 'Sourcery', '~> 0.17'
   
@@ -34,7 +29,12 @@ abstract_target 'common' do
     pod 'SnapKit', '~> 4.0.0'
   end
   
+  target 'WeatherAppSwiftUI' do
+    platform :ios, '13.0'
+  end
+  
   target 'WeatherAppCore' do
+    pod 'Alamofire'
   end
   
   target 'WeatherAppShared' do

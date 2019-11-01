@@ -47,6 +47,56 @@ public enum Response {
       public let low: Double
       public let high: Double
       public let text: String
+      public let code: Condition; public enum Condition: Int, Decodable {
+        case tornado
+        case tropicalStorm
+        case hurricane
+        case severeThunderstorms
+        case thunderstorms
+        case mixedRainSnow
+        case mixedRainSleet
+        case mixedSnowSleet
+        case freezingDrizzle
+        case drizzle
+        case freezingRain
+        case showers
+        case rain
+        case snowFlurries
+        case lightSnowShowers
+        case blowingSnow
+        case snow
+        case hail
+        case sleet
+        case dust
+        case foggy
+        case haze
+        case smoky
+        case blustery
+        case windy
+        case cold
+        case cloudy
+        case mostlyCloudyNight
+        case mostlyCloudyDay
+        case partlyCloudyNnight
+        case partlyCloudyDay
+        case clearNight
+        case sunny
+        case fairNight
+        case fairDay
+        case mixedRainHail
+        case hot
+        case isolatedThunderstorms
+        case scatteredThunderstorms
+        case scatteredShowersDay
+        case heavyRain
+        case scatteredSnowShowersDay
+        case heavySnow
+        case blizzard
+        case notAvailable
+        case scatteredShowersNight
+        case scatteredSnowShowersNight
+        case scatteredThundershowers
+      }
     }
   }
   

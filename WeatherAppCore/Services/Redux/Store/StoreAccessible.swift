@@ -3,7 +3,7 @@ public protocol AppStoreAccessable {
 }
 
 public extension AppStoreAccessable {
-  public var store : AppStore {
+  var store : AppStore {
     return AppStore.shared
   }
 }

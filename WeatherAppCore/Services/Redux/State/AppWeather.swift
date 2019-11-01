@@ -1,8 +1,9 @@
 import WeatherAppShared
 import Redux_ReactiveSwift
 import struct Result.AnyError
+import Overture
 
-public struct AppWeather: Encodable, Equatable {
+public struct AppWeather: AutoLenses, Encodable, Equatable {
   public var current: WoeID?
   public var locations: Set<WoeID>
   public let locationsMap: [WoeID: WeatherRequestState]
@@ -32,105 +33,56 @@ extension AppWeather {
   static func reudce(_ state: AppWeather, _ event: AppEvent) -> AppWeather {
     switch event {
     case let event as BeginUpdateCurrentWeather:
-      return AppWeather(
-        current: state.current,
-        locations: execute {
-          var locations = state.locations
-          locations.insert(event.id)
-          return locations
-        },
-        locationsMap: execute {
-          var locationsMap = state.locationsMap
-          locationsMap[event.id] = .updating
-          return locationsMap
-        }
-      )
+      return state
+        |> AppWeather.locationsLens *~ state.locations.inserting(event.id)
+        |> AppWeather.locationsMapLens *~ state.locationsMap.appending(event.id, .updating)
+      
     case let event as BeginUpdateWeather:
-      return AppWeather(
-        current: state.current,
-        locations: event.ids.reduce(into: state.locations, { (locations, id) in
-          locations.insert(id)
-        }),
-        locationsMap: event.ids.reduce(into: state.locationsMap, { ( map, id) in
-          map[id] = .updating
-        })
-      )
+      return state
+        |> AppWeather.locationsLens *~ event.ids
+          .reduce(into: state.locations, { (locations, id) in locations.insert(id) })
+        |> AppWeather.locationsMapLens *~ event.ids
+          .reduce(into: state.locationsMap, { ( map, id) in map[id] = .updating })
+
     case let event as DidUpdateWeather:
-      return AppWeather(
-        current: state.current,
-        locations: state.locations,
-        locationsMap: execute {
-          var locationsMap = state.locationsMap
-          locationsMap[event.result.woeID] = event.result.analysis(
-            ifSuccess: { .success(current: $0) },
-            ifFailure: { .error(value: $0) })
-          return locationsMap
-        }
-      )
+      return state
+        |> AppWeather.locationsMapLens *~ state.locationsMap.appending(
+          event.result.woeID,
+          event.result.analysis(
+            ifSuccess: WeatherRequestState.success,
+            ifFailure: WeatherRequestState.error))
+
     case let event as DidUpdateCurrentWeather:
-      return AppWeather(
-        current: event.result.woeID,
-        locations: execute {
-          var locations = state.locations
-          locations.remove(.unknown)
-          locations.insert(event.result.woeID)
-          return locations
-        },
-        locationsMap: execute {
-          var locationsMap = state.locationsMap
-          locationsMap[.unknown] = .none
-          locationsMap[event.result.woeID] = event.result.analysis(
-            ifSuccess: { .success(current: $0) },
-            ifFailure: { .error(value: $0) })
-          return locationsMap
-        }
-      )
+      return state
+        |> AppWeather.currentLens *~ event.result.woeID
+        |> AppWeather.locationsLens *~ with(state.locations, pipe(
+          { $0.removing(.unknown) }, { $0.inserting(event.result.woeID) }
+        ))
+        |> AppWeather.locationsMapLens *~ with(state.locationsMap, pipe(
+          { $0.appending(.unknown, nil) },
+          { $0.appending(
+            event.result.woeID,
+            event.result.analysis(
+              ifSuccess: WeatherRequestState.success,
+              ifFailure: WeatherRequestState.error)) }
+        ))
+
     case let event as SelectLocation:
-      return AppWeather(
-        current: state.current,
-        locations: execute {
-          var locations = state.locations
-          locations.insert(event.id)
-          return locations
-        },
-        locationsMap: execute {
-          var locationsMap = state.locationsMap
-          locationsMap[event.id] = .selected
-          return locationsMap
-        }
-      )
+      return state
+        |> AppWeather.locationsLens *~ state.locations.inserting(event.id)
+        |> AppWeather.locationsMapLens *~ state.locationsMap.appending(event.id, .selected)
+
     case let event as DidRetrieveSelectedIDs:
-      return AppWeather(
-        current: state.current,
-        locations: execute {
-          var locations = state.locations
-          event.selected
-            .map(WoeID.init)
-            .forEach { locations.insert($0) }
-          return locations
-        },
-        locationsMap: execute {
-          var locationsMap = state.locationsMap
-          event.selected
-            .map(WoeID.init)
-            .forEach { locationsMap[$0] = .selected }
-          return locationsMap
-        }
-      )
+      let woeIDs = event.selected.map(WoeID.init)
+      return state
+        |> AppWeather.locationsLens *~ woeIDs.reduce(state.locations, { $0.inserting($1) })
+        |> AppWeather.locationsMapLens *~ woeIDs.reduce(into: state.locationsMap, { $0[$1] = .selected })
+
     case let event as DeselectLocations:
-      return AppWeather(
-        current: state.current,
-        locations: execute {
-          var locations = state.locations
-          locations.remove(event.id)
-          return locations
-        },
-        locationsMap: execute {
-          var locationsMap = state.locationsMap
-          locationsMap[event.id] = .none
-          return locationsMap
-        }
-      )
+      return state
+        |> AppWeather.locationsLens *~ state.locations.removing(event.id)
+        |> AppWeather.locationsMapLens *~ state.locationsMap.appending(event.id, nil)
+
     default: return state
     }
   }
@@ -139,8 +91,8 @@ extension AppWeather {
 private extension Result where Value == Weather, Error == WeatherAPIError<WoeID> {
   var woeID: WoeID {
     return analysis(
-      ifSuccess: { $0.location.woeid },
-      ifFailure: { $0.reason }
+      ifSuccess: Overture.get(\.location.woeid),
+      ifFailure: Overture.get(\.reason)
     )
   }
 }

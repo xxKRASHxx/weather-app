@@ -2,6 +2,7 @@ import Swinject
 import ReactiveSwift
 import struct Result.AnyError
 import WeatherAppShared
+import Overture
 
 class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
   
@@ -27,15 +28,9 @@ class WeatherService: WeatherAPIAccessable, AppStoreAccessable {
   
   @discardableResult private func observeSearching() -> Disposable {
     
-    let searchingText: (AppSearch) -> String? = { state in
-      guard case let .searching(text) = state
-        else { return nil }
-      return text
-    }
-    
     return store.producer
       .map(\AppState.searching)
-      .filterMap(searchingText)
+      .filterMap(get(\.pattern))
       .skipRepeats()
       .throttle(0.5, on: QueueScheduler.main)
       .flatMap(.latest, weatherAPI.search)
@@ -118,8 +113,12 @@ private extension Weather {
     func fromDTO(forecast: Response.Weather.Forecast) -> Weather.Forecast {
       return .init(
         date: forecast.date,
-        low: forecast.low,
-        high: forecast.high,
+        low: .init(
+          value: forecast.low,
+          unit: .celsius),
+        high: .init(
+          value: forecast.high,
+          unit: .celsius),
         text: forecast.text)
     }
     
@@ -131,7 +130,9 @@ private extension Weather {
           speed: current.wind.speed),
         condition: Weather.Now.Condition(
           text: current.condition.text,
-          temperature: current.condition.temperature),
+          temperature: .init(
+            value: current.condition.temperature,
+            unit: .celsius)),
         atmosphere: Weather.Now.Atmosphere(
           visibility: current.atmosphere.visibility,
           pressure: current.atmosphere.pressure),
@@ -156,7 +157,7 @@ private extension Weather {
 private extension SearchResult {
   static func fromDTO(_ response: Response.SearchResult) -> SearchResult {
     return SearchResult(
-      id: response.woeid,
+      id: .init(value: response.woeid),
       location: Coordinates2D(
         latitude: response.lat,
         longitude: response.lon),
