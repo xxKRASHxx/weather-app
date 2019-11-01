@@ -18,7 +18,7 @@ struct CitiesList<Row: DataDrivenView, Details: DataDrivenView, Search: DataDriv
       let delete: () -> Void
     }
   }
-  
+
   var body: some View {
     NavigationView {
       List {

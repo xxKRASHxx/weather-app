@@ -37,20 +37,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       
       CitiesListPresenter(
         rowContenxt: CitiesListRow.init,
-        rowPresenter: flip(curry(CitiesListRowPresenter.init(item:content:)))(CitiesListRow.init),
+        rowPresenter: CitiesListRow.init
+         |> flip(curry(CitiesListRowPresenter.init(item:content:))),
         detailsPresenter: { woeid in
           CitiesListDetailsPresenter(
             item: woeid,
             rowContenxt: CitiesListDetailsRow.init,
-            rowPresenter: { index -> CitiesListDetailsRowPresenter in
+            rowPresenter: { index in
               CitiesListDetailsRowPresenter(
                 item: woeid,
                 index: index,
                 content: CitiesListDetailsRow.init) }) },
-        searchPresenter: { () -> SearchListPresenter<SearchListRowPresenter> in
+        searchPresenter: {
           SearchListPresenter(
             rowContenxt: SearchListRow.init,
-            rowPresenter: flip(curry(SearchListRowPresenter.init(item:content:)))(SearchListRow.init))
+            rowPresenter: SearchListRow.init
+              |> flip(curry(SearchListRowPresenter.init(item:content:))))
       })
   }
   
